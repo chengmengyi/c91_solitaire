@@ -33,7 +33,7 @@ class P2HomePage extends P1BaseStatelessPage<P2HomeCon>{
       SizedBox(width: 18.w,),
       CoinsView(),
       const Spacer(),
-      SetView(),
+      SetView(isHome: true,),
       SizedBox(width: 18.w,),
     ],
   );
@@ -97,12 +97,17 @@ class P2HomePage extends P1BaseStatelessPage<P2HomeCon>{
     ),
   );
 
-  _centerLevelWidget()=>Stack(
-    alignment: Alignment.center,
-    children: [
-      P1Image(name: "home5",width: 142.w,height: 142.w,),
-      P1Text(text: "${p1Con.currentLevel}", size: 30.sp, color: "#FFFFFF"),
-    ],
+  _centerLevelWidget()=>InkWell(
+    onTap: (){
+      p1Con.clickTest();
+    },
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        P1Image(name: "home5",width: 142.w,height: 142.w,),
+        P1Text(text: "${p1Con.currentLevel}", size: 30.sp, color: "#FFFFFF"),
+      ],
+    ),
   );
 
   _rightLevelWidget()=>Container(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
@@ -10,6 +11,13 @@ class P2HomeCon extends P1BaseCon{
 
   clickPlay(){
     P1RouterFun.toNextPage(str: P2RoutersName.p2Level10);
+  }
+
+  clickTest(){
+    if(!kDebugMode){
+      return;
+    }
+    P2UserInfoHep.instance.updateUserCoins(1000);
   }
 
   @override

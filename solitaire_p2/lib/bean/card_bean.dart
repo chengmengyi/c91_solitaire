@@ -18,4 +18,9 @@ class CardBean{
     required this.globalKey,
     this.cardType=CardType.fangkuai,
 });
+
+  @override
+  String toString() {
+    return 'CardBean{index: $index, top: $top, cardNum: $cardNum, covered: $covered, show: $show, cardType: $cardType}';
+  }
 }

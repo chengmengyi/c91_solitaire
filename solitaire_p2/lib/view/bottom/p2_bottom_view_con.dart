@@ -1,25 +1,76 @@
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+import 'package:solitaire_p2/bean/card_bean.dart';
 import 'package:solitaire_p2/bean/random_card_bean.dart';
+import 'package:solitaire_p2/dialog/p2_buy_long_juan_card_dialog/p2_buy_long_juan_card_dialog.dart';
 import 'package:solitaire_p2/dialog/p2_buy_wan_neng_card_dialog/p2_buy_wan_neng_card_dialog.dart';
 import 'package:solitaire_p2/hep/p2_card_hep.dart';
 import 'package:solitaire_p2/hep/p2_play.dart';
 
 class P2BottomViewCon extends P1BaseCon{
-  P2Play? p2play;
+  late P2Play p2play;
 
   clickWanNeng(){
-    P1RouterFun.showDialog(w: P2BuyWanNengCardDialog());
+    if(!p2play.canClick){
+      return;
+    }
+    P1RouterFun.showDialog(
+      w: P2BuyWanNengCardDialog(
+        hasWanNengCall: (){
+          p2play.hasWanNengCard();
+          update(["hand_card"]);
+        },
+      ),
+    );
   }
 
   clickLongJuanFeng(){
-    // _checkOverlays();
-
+    if(!p2play.canClick){
+      return;
+    }
+    P1RouterFun.showDialog(
+      w: P2BuyLongJuanDialog(
+        hasLongJuanCall: (){
+          List<CardBean> list=[];
+          for (var value in p2play.cardList) {
+            for (var value1 in value) {
+              if(value1.show&&!value1.covered&&value1.cardNum!="-1"){
+                list.add(value1);
+              }
+            }
+          }
+          P1EventBean(code: P2EventCode.updateWindAnimator,anyValue: list).send();
+        },
+      ),
+    );
   }
 
   changeHandCard(){
-    // currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P2ValueHep.instance.getHandsProbability());
-    // currentHandsNum--;
-    // update(["hand_card_num","hand_card"]);
+    if(!p2play.canClick){
+      return;
+    }
+    p2play.changeHandCard((){
+      update(["hand_card_num","hand_card"]);
+    });
+  }
+
+  @override
+  bool registerP1Event() => true;
+
+  @override
+  onListenP1Event(P1EventBean bean) {
+    switch(bean.code){
+      case P2EventCode.updateHandCard:
+        update(["hand_card_num","hand_card"]);
+        break;
+      case P2EventCode.getFiveCards:
+        p2play.getFiveCards(
+          call: (){
+            update(["hand_card_num","hand_card"]);
+          }
+        );
+        break;
+    }
   }
 }

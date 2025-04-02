@@ -6,8 +6,7 @@ class P2UserInfoHep {
   static P2UserInfoHep get instance => _instance;
 
   updateLevel(){
-    // p2CurrentLevel.saveData(p2CurrentLevel.getData()+1);
-    p2CurrentLevel.saveData(2);
+    p2CurrentLevel.saveData(p2CurrentLevel.getData()+1);
     P1EventBean(code: P2EventCode.updateLevel).send();
   }
 

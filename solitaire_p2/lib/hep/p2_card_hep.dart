@@ -106,6 +106,7 @@ class P2CardHep{
 
   RandomCardBean randomHandCard()=>RandomCardBean(cardNum: _cardNumList.random(), cardType: _getCardType(_cardTypeList.random()));
 
+  //检测是否相邻
   bool isCardsAdjacent(String card1, String card2) {
     int rankIndex1 = _cardNumList.indexWhere((element) => element==card1);
     int rankIndex2 = _cardNumList.indexWhere((element) => element==card2);

@@ -23,6 +23,10 @@ class P1RouterFun{
     Get.toNamed(str,arguments: p);
   }
 
+  static toHome({required String str}){
+    Get.until((route)=>route.settings.name==str);
+  }
+
   // static Map<String, dynamic> getArguments() {
   //   try {
   //     return Get.arguments as Map<String, dynamic>;

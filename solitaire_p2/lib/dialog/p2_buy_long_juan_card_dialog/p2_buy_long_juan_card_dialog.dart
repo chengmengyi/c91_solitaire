@@ -3,14 +3,14 @@ import 'package:solitaire_p1/p1_base/p1_base_stateless_dialog.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
-import 'package:solitaire_p2/dialog/p2_buy_wan_neng_card_dialog/p2_buy_wan_neng_card_con.dart';
+import 'package:solitaire_p2/dialog/p2_buy_long_juan_card_dialog/p2_buy_long_juan_card_con.dart';
 
-class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
-  Function() hasWanNengCall;
-  P2BuyWanNengCardDialog({required this.hasWanNengCall});
+class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P2BuyLongJuanCardCon>{
+  Function() hasLongJuanCall;
+  P2BuyLongJuanDialog({required this.hasLongJuanCall});
 
   @override
-  P2BuyWanNengCardCon initCon() => P2BuyWanNengCardCon();
+  P2BuyLongJuanCardCon initCon() => P2BuyLongJuanCardCon();
 
   @override
   Widget contentWidget() =>Container(
@@ -31,18 +31,18 @@ class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
           ],
         ),
         SizedBox(height: 12.h,),
-        P1Image(name: "buy1",width: double.infinity,height: 62.h,),
+        P1Image(name: "buy5",width: double.infinity,height: 62.h,),
         Stack(
           alignment: Alignment.center,
           children: [
             P1Image(name: "buy2",width: 230.w,height: 230.h,),
-            P1Image(name: "buy3",width: 140.w,height: 140.h,),
+            P1Image(name: "buy6",width: 140.w,height: 140.h,),
           ],
         ),
         SizedBox(height: 12.h,),
         InkWell(
           onTap: (){
-            p1Con.clickCoins(hasWanNengCall);
+            p1Con.clickCoins(hasLongJuanCall);
           },
           child: Stack(
             alignment: Alignment.center,

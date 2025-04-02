@@ -7,6 +7,8 @@ class P1Text extends StatelessWidget{
   String color;
   bool showShadows;
   String? shadowsColor;
+  TextDecoration? decoration;
+  Color? decorationColor;
 
   P1Text({
     required this.text,
@@ -14,6 +16,8 @@ class P1Text extends StatelessWidget{
     required this.color,
     this.showShadows=true,
     this.shadowsColor,
+    this.decoration,
+    this.decorationColor,
 });
   @override
   Widget build(BuildContext context) => Text(
@@ -22,6 +26,8 @@ class P1Text extends StatelessWidget{
       color: color.toColor(),
       fontFamily: "baloo",
       fontSize: size,
+      decoration: decoration,
+      decorationColor: decorationColor,
       shadows: showShadows==true?[
         Shadow(
             color: (shadowsColor??"#000000").toColor(),

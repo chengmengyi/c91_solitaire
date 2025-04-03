@@ -68,7 +68,6 @@ class P2Level10Con extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    P1RouterFun.showDialog(w: P2FailDialog(),);
   }
 
   @override

@@ -35,7 +35,6 @@ class P2Level10Page extends P1BaseStatelessPage<P2Level10Con>{
         ),
       ),
       WindAnimatorView(),
-      // WindBlownAnimation()
     ],
   );
 

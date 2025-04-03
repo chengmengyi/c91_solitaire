@@ -8,7 +8,7 @@ class P2ValueHep{
 
   //获取顶层概率
   double getTopProbability(){
-    var level = p2CurrentLevel.getData()%50;
+    var level = p2CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.7;
@@ -21,12 +21,13 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.3;
     }
+    print("kk=====顶层概率===$p");
     return p;
   }
 
   //获取手牌概率
   double getHandsProbability(){
-    var level = p2CurrentLevel.getData()%50;
+    var level = p2CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.7;
@@ -39,12 +40,13 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.3;
     }
+    print("kk=====手牌概率===$p");
     return p;
   }
 
   //获取底层概率
   double getBottomProbability(){
-    var level = p2CurrentLevel.getData()%50;
+    var level = p2CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.65;
@@ -57,6 +59,7 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.4;
     }
+    print("kk=====底层概率===$p");
     return p;
   }
 }

@@ -86,8 +86,12 @@ class P2Play{
             currentHandsNum=17;
             _topRandomCardList.clear();
             currentHandCard=null;
-            P2UserInfoHep.instance.updateLevel();
-            toNextLevel.call();
+            var routerName = P2UserInfoHep.instance.updateLevel();
+            if(routerName.isEmpty){
+              toNextLevel.call();
+            }else{
+              P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
+            }
           },
         ),
       );
@@ -236,7 +240,6 @@ class P2Play{
     currentHandsNum=17;
     _topRandomCardList.clear();
     currentHandCard=null;
-    P2UserInfoHep.instance.updateLevel();
     call.call();
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p2/hep/hep.dart';
@@ -33,11 +34,7 @@ class P2HomeCon extends P1BaseCon{
     }
     // P2UserInfoHep.instance.updateUserCoins(1000);
 
-    p2CurrentLevel.saveData(p2CurrentLevel.getData()+1);
-    // p2CurrentLevel.saveData(1);
-
-    var i = (p2CurrentLevel.getData()-1)%20;
-    print("kk====${p2CurrentLevel.getData()}==$i====");
+    P1AD.instance.initAdInfo();
   }
 
   @override

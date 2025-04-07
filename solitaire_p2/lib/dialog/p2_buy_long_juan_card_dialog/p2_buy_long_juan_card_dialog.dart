@@ -61,6 +61,9 @@ class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P2BuyLongJuanCardCon>{
         ),
         SizedBox(height: 12.h,),
         InkWell(
+          onTap: (){
+            p1Con.clickVideo(hasLongJuanCall);
+          },
           child: SizedBox(
             width: 180.w,
             height: 60.h,

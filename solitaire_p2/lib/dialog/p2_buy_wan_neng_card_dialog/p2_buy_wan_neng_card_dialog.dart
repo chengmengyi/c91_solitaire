@@ -61,6 +61,9 @@ class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
         ),
         SizedBox(height: 12.h,),
         InkWell(
+          onTap: (){
+            p1Con.clickVideo(hasWanNengCall);
+          },
           child: SizedBox(
             width: 180.w,
             height: 60.h,

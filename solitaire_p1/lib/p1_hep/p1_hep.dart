@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:get/get.dart';
@@ -27,4 +29,23 @@ extension String2Inr on String{
 
 extension RandomList on List{
   random()=> this[Random().nextInt(length)];
+}
+
+extension StringBase64 on String{
+  String base64()=>const Utf8Decoder().convert(base64Decode(this));
+}
+
+showToast(String text){
+  if(text.isEmpty){
+    return;
+  }
+  Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black45,
+      textColor: Colors.white,
+      fontSize: 16
+  );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:solitaire/launch/launch_page.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
 
@@ -28,6 +29,7 @@ init()async{
 
 initP1P2()async{
   await GetStorage.init();
+  P1AD.instance.initAdInfo();
 }
 
 class MyApp extends StatelessWidget {

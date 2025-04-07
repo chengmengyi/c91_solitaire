@@ -31,6 +31,21 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+   pod 'AppLovinMediationBidMachineAdapter'
+      pod 'AppLovinMediationBigoAdsAdapter'
+      pod 'AppLovinMediationChartboostAdapter'
+      pod 'AppLovinMediationFyberAdapter', '8.3.2.1'
+      pod 'AppLovinMediationGoogleAdManagerAdapter', '11.9.0.1'
+       pod 'AppLovinMediationGoogleAdapter', '11.9.0.1'
+      pod 'AppLovinMediationInMobiAdapter'
+      pod 'AppLovinMediationIronSourceAdapter'
+      pod 'AppLovinMediationVungleAdapter'
+      pod 'AppLovinMediationFacebookAdapter'
+       pod 'AppLovinMediationMintegralAdapter', '7.7.2.0.1'
+      pod 'AppLovinMediationMolocoAdapter'
+      pod 'AppLovinMediationByteDanceAdapter'
+      pod 'AppLovinMediationUnityAdsAdapter'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths

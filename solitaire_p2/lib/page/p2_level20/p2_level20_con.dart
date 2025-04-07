@@ -81,7 +81,7 @@ class P2Level20Con extends P1BaseCon{
   @override
   onListenP1Event(P1EventBean bean) {
     switch(bean.code){
-      case P2EventCode.updateWindAnimator:
+      case P2EventCode.longJuanFengLottieEnd:
         p2play.hasLongJuanCard(
             call: (){
               update(["list"]);

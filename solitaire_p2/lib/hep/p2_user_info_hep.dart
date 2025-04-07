@@ -39,5 +39,8 @@ class P2UserInfoHep {
   updateUserCoins(int addNum){
     p2Coins.saveData(p2Coins.getData()+addNum);
     P1EventBean(code: P2EventCode.updateCoins).send();
+    if(addNum>0){
+      P1EventBean(code: P2EventCode.showCoinsLottie).send();
+    }
   }
 }

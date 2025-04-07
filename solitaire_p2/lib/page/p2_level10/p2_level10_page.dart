@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_stateless_page.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
+import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p2/bean/card_bean.dart';
 import 'package:solitaire_p2/hep/p2_storage.dart';
 import 'package:solitaire_p2/page/p2_level10/p2_level_10_con.dart';
 import 'package:solitaire_p2/view/bottom/p2_bottom_view.dart';
 import 'package:solitaire_p2/view/card_item_view.dart';
+import 'package:solitaire_p2/view/coins_lottie_view.dart';
 import 'package:solitaire_p2/view/coins_view.dart';
+import 'package:solitaire_p2/view/longjuanfeng_lottie_view.dart';
 import 'package:solitaire_p2/view/set_view.dart';
 import 'package:solitaire_p2/view/wind_animator_view.dart';
 
@@ -34,6 +37,8 @@ class P2Level10Page extends P1BaseStatelessPage<P2Level10Con>{
           ],
         ),
       ),
+      LongJuanFengLottieView(),
+      CoinsLottieView(),
       WindAnimatorView(),
     ],
   );

@@ -53,14 +53,19 @@ class _CoinsViewState extends State<CoinsView>{
           children: [
             SizedBox(width: 2.w,),
             P1Image(name: "coins2",width: 30.w,height: 30.h,),
-            ShakeAnimationWidget(
-              shakeAnimationController: shakeAnimationController,
-              shakeAnimationType: ShakeAnimationType.LeftRightShake,
-              isForward: false,
-              shakeCount: 1,
-              shakeRange: 0.2,
-              child: P1Text(text: "${p2Coins.getData()}", size: 15.sp, color: shaking?"#C13336":"#FFFFFF"),
+            Expanded(
+              child: Center(
+                child: ShakeAnimationWidget(
+                  shakeAnimationController: shakeAnimationController,
+                  shakeAnimationType: ShakeAnimationType.LeftRightShake,
+                  isForward: false,
+                  shakeCount: 1,
+                  shakeRange: 0.2,
+                  child: P1Text(text: "${p2Coins.getData()}", size: 15.sp, color: shaking?"#C13336":"#FFFFFF",),
+                ),
+              ),
             ),
+            SizedBox(width: 6.w,),
           ],
         )
       ],

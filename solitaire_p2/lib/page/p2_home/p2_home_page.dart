@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_stateless_page.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
+import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p2/page/p2_home/p2_home_con.dart';
 import 'package:solitaire_p2/view/coins_view.dart';
@@ -19,7 +20,9 @@ class P2HomePage extends P1BaseStatelessPage<P2HomeCon>{
     child: Column(
       children: [
         _topWidget(),
-        Spacer(),
+        SizedBox(height: 100.h,),
+        P1LottieView(name: "home", width: 250.w,height: 250.h,),
+        SizedBox(height: 20.h,),
         _levelWidget(),
         SizedBox(height: 20.h,),
         _playWidget(),

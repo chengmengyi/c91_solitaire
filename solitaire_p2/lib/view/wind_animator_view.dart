@@ -27,12 +27,11 @@ class _WindAnimatorViewState extends State<WindAnimatorView>  with SingleTickerP
   void initState() {
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
-        case P2EventCode.updateWindAnimator:
+        case P2EventCode.longJuanFengLottieEnd:
           cardList = bean.anyValue as List<CardBean>;
           setState(() {
             showCard=true;
           });
-          P2UserInfoHep.instance.updateUserCoins(100*cardList.length);
           _controller..reset()..forward();
           break;
       }
@@ -104,6 +103,7 @@ class _WindAnimatorViewState extends State<WindAnimatorView>  with SingleTickerP
         setState(() {
           showCard=false;
         });
+        P2UserInfoHep.instance.updateUserCoins(100*cardList.length);
         P1EventBean(code: P2EventCode.completedWindAnimator).send();
       }
     };

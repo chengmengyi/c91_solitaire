@@ -40,7 +40,7 @@ class P2BottomViewCon extends P1BaseCon{
               }
             }
           }
-          P1EventBean(code: P2EventCode.updateWindAnimator,anyValue: list).send();
+          P1EventBean(code: P2EventCode.showLongJuanFengLottie,anyValue: list).send();
         },
       ),
     );

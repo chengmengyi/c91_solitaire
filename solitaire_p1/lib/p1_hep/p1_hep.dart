@@ -8,6 +8,7 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:get/get.dart';
 export 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 export 'package:shake_animation_widget/shake_animation_widget.dart';
+export 'package:webview_flutter/webview_flutter.dart';
 
 
 extension String2Color on String{

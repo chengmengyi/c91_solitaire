@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p2/hep/hep.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
@@ -10,6 +11,12 @@ import 'package:solitaire_p2/hep/p2_user_info_hep.dart';
 
 class P2HomeCon extends P1BaseCon{
   var currentLevel=p2CurrentLevel.getData();
+
+  @override
+  void onInit() {
+    super.onInit();
+    P1Mp3Hep.instance.playBgMp3();
+  }
 
   clickPlay(){
     var routerName = _getRouterNameByLevel();
@@ -32,9 +39,8 @@ class P2HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    // P2UserInfoHep.instance.updateUserCoins(1000);
-
-    P1AD.instance.initAdInfo();
+    P2UserInfoHep.instance.updateUserCoins(1000);
+    // P1Mp3Hep.instance.test();
   }
 
   @override

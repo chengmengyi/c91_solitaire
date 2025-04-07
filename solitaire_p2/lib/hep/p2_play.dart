@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p2/bean/card_bean.dart';
 import 'package:solitaire_p2/bean/random_card_bean.dart';
@@ -36,9 +37,7 @@ class P2Play{
     currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P2ValueHep.instance.getHandsProbability());
     currentHandsNum--;
     call.call();
-    if(_checkFail()){
-      P1RouterFun.showDialog(w: P2FailDialog(),);
-    }
+    _checkShowFailDialog();
   }
 
   clickCard({
@@ -67,16 +66,22 @@ class P2Play{
     }
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
+    P1Mp3Hep.instance.playXiaoChu();
     _clickCardResult(100,refresh,toNextLevel);
   }
 
-  _clickCardResult(int addNum,Function(List<CardBean>) refresh, Function() toNextLevel){
+  _clickCardResult(int addNum,Function(List<CardBean>) refresh, Function() toNextLevel)async{
     P1EventBean(code: P2EventCode.updateHandCard).send();
     refresh.call([]);
     P2UserInfoHep.instance.updateUserCoins(addNum);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
     }else{
+      P1Mp3Hep.instance.playShengLi();
+      if(currentHandsNum>0){
+        P2UserInfoHep.instance.updateUserCoins(currentHandsNum*100);
+        await Future.delayed(const Duration(milliseconds: 1000));
+      }
       P1RouterFun.showDialog(
         w: P2WinnerDialog(
           close: (){
@@ -210,7 +215,12 @@ class P2Play{
     }
     canClick=true;
     call.call(noCoverList);
+    _checkShowFailDialog();
+  }
+
+  _checkShowFailDialog(){
     if(_checkFail()){
+      P1Mp3Hep.instance.playShiBai();
       P1RouterFun.showDialog(w: P2FailDialog(),);
     }
   }

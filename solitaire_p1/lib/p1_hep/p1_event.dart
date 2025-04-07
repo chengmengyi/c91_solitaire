@@ -14,7 +14,9 @@ class P2EventCode{
   static const int getFiveCards=8;
   static const int flipCards=9;
   static const int resetCardFrontStatus=10;
-
+  static const int showCoinsLottie=11;
+  static const int showLongJuanFengLottie=12;
+  static const int longJuanFengLottieEnd=13;
 }
 
 class P1EventBean{

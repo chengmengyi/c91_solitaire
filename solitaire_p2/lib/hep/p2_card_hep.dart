@@ -39,7 +39,7 @@ class P2CardHep{
         String adjacentRank = adjacentRanks[adjacentRankIndex];
         int suitIndex = random.nextInt(_cardTypeList.length);
         String suit = _cardTypeList[suitIndex];
-        print("kk====getTopRandomCards====第一张===$firstRank$firstSuit===满足概率===$adjacentRank$suit");
+        print("kk====getTopRandomCards====第一张===$firstRank$firstSuit===概率：$adjacentProbability==满足概率===$adjacentRank$suit");
         cards.add("$adjacentRank$suit");
       } else {
         // 生成不相邻的随机牌
@@ -47,7 +47,7 @@ class P2CardHep{
         String randomRank = _cardNumList[randomRankIndex];
         int randomSuitIndex = random.nextInt(_cardTypeList.length);
         String randomSuit = _cardTypeList[randomSuitIndex];
-        print("kk====getTopRandomCards====第一张===$firstRank$firstSuit===不满足概率===$randomRank$randomSuit");
+        print("kk====getTopRandomCards====第一张===$firstRank$firstSuit===概率：$adjacentProbability==不满足概率===$randomRank$randomSuit");
         cards.add('$randomRank$randomSuit');
       }
     }
@@ -88,18 +88,18 @@ class P2CardHep{
       }
       if (adjacentRanks.isNotEmpty) {
         var cardNum = adjacentRanks.random();
-        print("kk====getRandomCardByListAndProbability====第一张===$baseCard===满足概率===${cardNum}");
+        print("kk====getRandomCardByListAndProbability====第一张===$baseCard===概率：$adjacentProbability==满足概率===${cardNum}");
         return RandomCardBean(cardNum: cardNum, cardType: randomCardType);
       } else {
         // 如果没有相邻牌，返回基础牌
-        print("kk====getRandomCardByListAndProbability====第一张===$baseCard===满足概率==没有相邻的=$baseCard");
+        print("kk====getRandomCardByListAndProbability====第一张===$baseCard===概率：$adjacentProbability==满足概率==没有相邻的=$baseCard");
         return RandomCardBean(cardNum: baseCard, cardType: randomCardType);
       }
     } else {
       // 生成不相邻的随机牌
       var removeAdjacentRanks = _removeAdjacentRanks(ranks);
       var cardNum = removeAdjacentRanks.random();
-      print("kk====getRandomCardByListAndProbability=====不满足概率===${removeAdjacentRanks}===随机===$cardNum");
+      print("kk====getRandomCardByListAndProbability====概率：$adjacentProbability===不满足概率===${removeAdjacentRanks}===随机===$cardNum");
       return RandomCardBean(cardNum: cardNum, cardType: randomCardType);
     }
   }

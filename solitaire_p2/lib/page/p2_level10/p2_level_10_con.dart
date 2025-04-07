@@ -34,8 +34,9 @@ class P2Level10Con extends P1BaseCon{
   clickCard(CardBean bean){
     p2play.clickCard(
       bean: bean,
-      refresh: (){
+      refresh: (list){
         update(["list"]);
+        _sendFlipCardMsg(list);
       },
       toNextLevel: (){
         update(["level"]);
@@ -43,11 +44,10 @@ class P2Level10Con extends P1BaseCon{
       }
     );
   }
-  _initCardList()async{
+  _initCardList(){
     p2play.cardList.clear();
     var currentIndex=0;
     while(p2play.cardList.length<6){
-      await Future.delayed(const Duration(milliseconds: 200));
       var list=[CardBean(index: currentIndex,top: p2play.cardList.length>=4,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey())];
       currentIndex++;
       if(p2play.cardList.length<5){
@@ -57,11 +57,24 @@ class P2Level10Con extends P1BaseCon{
       p2play.cardList.add(list);
       update(["list"]);
     }
+    _checkOverlays();
+  }
+  _checkOverlays(){
     p2play.checkOverlays(
-      call: (){
-        update(["list"]);
-      }
+        call: (list){
+          update(["list"]);
+          _sendFlipCardMsg(list);
+        }
     );
+  }
+
+  _sendFlipCardMsg(List<CardBean> list){
+    if(list.isEmpty){
+      return;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      P1EventBean(code: P2EventCode.flipCards,anyValue: list).send();
+    });
   }
 
   clickTest(){
@@ -84,11 +97,7 @@ class P2Level10Con extends P1BaseCon{
         );
         break;
       case P2EventCode.completedWindAnimator:
-        p2play.checkOverlays(
-            call: (){
-              update(["list"]);
-            }
-        );
+        _checkOverlays();
         break;
       case P2EventCode.replayGame:
         p2play.resetGame(

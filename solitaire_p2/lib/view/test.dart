@@ -1,21 +1,27 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class CardFlipAnimation extends StatefulWidget {
-  const CardFlipAnimation({super.key});
+
+class PokerAnimation extends StatefulWidget {
+  const PokerAnimation({super.key});
   @override
-  State<CardFlipAnimation> createState() => _CardFlipAnimationState();
+  State<PokerAnimation> createState() => _PokerAnimationState();
 }
-class _CardFlipAnimationState extends State<CardFlipAnimation>
+class _PokerAnimationState extends State<PokerAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  bool _isFront = false;
+  List<String> pokerCards = [
+    'A♦', 'K♣', 'A♠', 'Q♥' // 可按需添加更多扑克牌
+  ];
+  List<Offset> cardPositions = [];
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(seconds: 5),
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
@@ -23,14 +29,19 @@ class _CardFlipAnimationState extends State<CardFlipAnimation>
         curve: Curves.easeInOut,
       ),
     );
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        setState(() {
-          _isFront = !_isFront;
-        });
-        _controller.reverse();
-      }
+    _controller.addListener(() {
+      setState(() {});
     });
+    _controller.forward();
+    _initCardPositions();
+  }
+  void _initCardPositions() {
+    final random = Random();
+    for (int i = 0; i < pokerCards.length; i++) {
+      double x = random.nextDouble() * MediaQuery.of(context).size.width;
+      double y = -MediaQuery.of(context).size.height;
+      cardPositions.add(Offset(x, y));
+    }
   }
   @override
   void dispose() {
@@ -39,68 +50,40 @@ class _CardFlipAnimationState extends State<CardFlipAnimation>
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (_controller.isAnimating) return;
-        _controller.forward();
-      },
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          final angle = _animation.value * 3.1415926;
-          final transform = Matrix4.identity()
-            ..setEntry(3, 2, 0.001)
-            ..rotateY(angle);
-          return Transform(
-            transform: transform,
-            alignment: Alignment.center,
-            child: Opacity(
-              opacity: angle <= 3.1415926 / 2
-                  ? 1
-                  : 0,
-              child: _isFront
-                  ? Container(
-                width: 150,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
-                  child: Text(
-                    '扑克牌正面',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              )
-                  : Transform(
-                transform: Matrix4.identity()..rotateY(3.1415926),
-                alignment: Alignment.center,
-                child: Container(
-                  width: 150,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      '扑克牌反面',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+    return Stack(
+      children: pokerCards.asMap().entries.map((entry) {
+        int index = entry.key;
+        String card = entry.value;
+        double t = _animation.value * (index + 1) / pokerCards.length;
+        Offset start = cardPositions[index];
+        Offset end = Offset(
+          start.dx,
+          MediaQuery.of(context).size.height / 2,
+        );
+        Offset current = Offset.lerp(start, end, t)?? start;
+        return Positioned(
+          left: current.dx,
+          top: current.dy,
+          child: Container(
+            width: 100,
+            height: 150,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Text(
+                card,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

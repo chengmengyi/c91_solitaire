@@ -11,10 +11,20 @@ class P2HomeCon extends P1BaseCon{
   var currentLevel=p2CurrentLevel.getData();
 
   clickPlay(){
-    var routerName = getRouterNameByLevel(p2CurrentLevel.getData());
+    var routerName = _getRouterNameByLevel();
     if(routerName.isNotEmpty){
       P1RouterFun.toNextPage(str: routerName);
     }
+  }
+
+  String _getRouterNameByLevel(){
+    var i = (p2CurrentLevel.getData()-1)%20;
+    if(i<=10){
+      return P2RoutersName.p2Level10;
+    }else if(i<=20){
+      return P2RoutersName.p2Level20;
+    }
+    return "";
   }
 
   clickTest(){
@@ -22,7 +32,12 @@ class P2HomeCon extends P1BaseCon{
       return;
     }
     // P2UserInfoHep.instance.updateUserCoins(1000);
-    p2CurrentLevel.saveData(10);
+
+    p2CurrentLevel.saveData(p2CurrentLevel.getData()+1);
+    // p2CurrentLevel.saveData(1);
+
+    var i = (p2CurrentLevel.getData()-1)%20;
+    print("kk====${p2CurrentLevel.getData()}==$i====");
   }
 
   @override

@@ -21,7 +21,6 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.3;
     }
-    print("kk=====顶层概率===$p");
     return p;
   }
 
@@ -40,7 +39,6 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.3;
     }
-    print("kk=====手牌概率===$p");
     return p;
   }
 
@@ -59,7 +57,6 @@ class P2ValueHep{
     }else if(level<=50){
       p=0.4;
     }
-    print("kk=====底层概率===$p");
     return p;
   }
 }

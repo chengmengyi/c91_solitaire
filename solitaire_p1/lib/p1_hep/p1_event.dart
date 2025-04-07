@@ -12,6 +12,8 @@ class P2EventCode{
   static const int completedWindAnimator=6;
   static const int replayGame=7;
   static const int getFiveCards=8;
+  static const int flipCards=9;
+  static const int resetCardFrontStatus=10;
 
 }
 

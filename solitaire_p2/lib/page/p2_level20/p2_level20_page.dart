@@ -8,6 +8,7 @@ import 'package:solitaire_p2/hep/hep.dart';
 import 'package:solitaire_p2/hep/p2_storage.dart';
 import 'package:solitaire_p2/page/p2_level20/p2_level20_con.dart';
 import 'package:solitaire_p2/view/bottom/p2_bottom_view.dart';
+import 'package:solitaire_p2/view/card_item_view.dart';
 import 'package:solitaire_p2/view/coins_view.dart';
 import 'package:solitaire_p2/view/set_view.dart';
 import 'package:solitaire_p2/view/test.dart';
@@ -36,7 +37,6 @@ class P2Level20Page extends P1BaseStatelessPage<P2Level20Con>{
         ),
       ),
       WindAnimatorView(),
-      CardFlipAnimation(),
     ],
   );
 
@@ -121,17 +121,23 @@ class P2Level20Page extends P1BaseStatelessPage<P2Level20Con>{
   );
 
 
-  _cardItemWidget(CardBean bean)=>bean.show?
-  SizedBox(
-    key: bean.show?bean.globalKey:null,
-    child: InkWell(
-      onTap: (){
-        p1Con.clickCard(bean);
-      },
-      child: P1Image(name: getCardImageIcon(bean),width: 50.w,height: 78.h,),
-    ),
-  ):
-  SizedBox(width: 50.w,height: 78.h,);
+  _cardItemWidget(CardBean bean)=> CardItemView(
+    cardBean: bean,
+    clickCard: (){
+      p1Con.clickCard(bean);
+    },
+  );
+  //     bean.show?
+  // SizedBox(
+  //   key: bean.show?bean.globalKey:null,
+  //   child: InkWell(
+  //     onTap: (){
+  //       p1Con.clickCard(bean);
+  //     },
+  //     child: P1Image(name: getCardImageIcon(bean),width: 50.w,height: 78.h,),
+  //   ),
+  // ):
+  // SizedBox(width: 50.w,height: 78.h,);
 
   _topWidget()=>Row(
     children: [

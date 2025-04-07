@@ -15,11 +15,25 @@ class P2UserInfoHep {
     p2CurrentLevel.saveData(nextLevel);
     var isNextLevel=currentStage != nextStage;
     if(isNextLevel){
-      return getRouterNameByLevel(nextLevel);
+      return _getRouterNameByLevel(nextLevel);
     }else{
       P1EventBean(code: P2EventCode.updateLevel).send();
       return "";
     }
+
+    // p2CurrentLevel.saveData(20);
+    // P1EventBean(code: P2EventCode.updateLevel).send();
+    // return "";
+  }
+
+  String _getRouterNameByLevel(int nextLevel){
+    var i = nextLevel%20;
+    if(i<=10){
+      return P2RoutersName.p2Level10;
+    }else if(i<=20){
+      return P2RoutersName.p2Level20;
+    }
+    return "";
   }
 
   updateUserCoins(int addNum){

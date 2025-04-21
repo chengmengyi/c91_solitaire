@@ -1,5 +1,6 @@
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p2/bean/card_bean.dart';
 import 'package:solitaire_p2/bean/random_card_bean.dart';
@@ -7,6 +8,7 @@ import 'package:solitaire_p2/dialog/p2_buy_long_juan_card_dialog/p2_buy_long_jua
 import 'package:solitaire_p2/dialog/p2_buy_wan_neng_card_dialog/p2_buy_wan_neng_card_dialog.dart';
 import 'package:solitaire_p2/hep/p2_card_hep.dart';
 import 'package:solitaire_p2/hep/p2_play.dart';
+import 'package:solitaire_p2/hep/p2_user_info_hep.dart';
 
 class P2BottomViewCon extends P1BaseCon{
   late P2Play p2play;
@@ -71,6 +73,23 @@ class P2BottomViewCon extends P1BaseCon{
           }
         );
         break;
+      case P2EventCode.removeHandCard:
+        _removeHandCard();
+        break;
     }
+  }
+
+  _removeHandCard()async{
+    if(p2play.currentHandsNum<=0){
+      return;
+    }
+    while(p2play.currentHandsNum>0){
+      p2play.removeHandCard();
+      update(["hand_card_num"]);
+      P1Mp3Hep.instance.playXiaoChu();
+      P2UserInfoHep.instance.updateUserCoins(100);
+      await Future.delayed(const Duration(milliseconds: 1000));
+    }
+    p2play.showWinnerDialog();
   }
 }

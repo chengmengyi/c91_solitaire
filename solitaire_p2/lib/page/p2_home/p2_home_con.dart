@@ -39,7 +39,7 @@ class P2HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    P2UserInfoHep.instance.updateUserCoins(1000);
+    P2UserInfoHep.instance.updateUserCoins(2000);
     // P1Mp3Hep.instance.test();
   }
 

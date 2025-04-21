@@ -19,6 +19,7 @@ class P2Play{
   RandomCardBean? currentHandCard;
 
   hasWanNengCard(){
+    P1Mp3Hep.instance.playWanNeng();
     currentHandCard?.hasWanNeng=true;
   }
 
@@ -40,10 +41,13 @@ class P2Play{
     _checkShowFailDialog();
   }
 
+  removeHandCard(){
+    currentHandsNum--;
+  }
+
   clickCard({
     required CardBean bean,
     required Function(List<CardBean>) refresh,
-    required Function() toNextLevel,
   }){
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
@@ -67,41 +71,72 @@ class P2Play{
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     P1Mp3Hep.instance.playXiaoChu();
-    _clickCardResult(100,refresh,toNextLevel);
+    _clickCardResult(100,refresh);
   }
 
-  _clickCardResult(int addNum,Function(List<CardBean>) refresh, Function() toNextLevel)async{
+  _clickCardResult(int addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P2EventCode.updateHandCard).send();
     refresh.call([]);
     P2UserInfoHep.instance.updateUserCoins(addNum);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
     }else{
-      P1Mp3Hep.instance.playShengLi();
       if(currentHandsNum>0){
-        P2UserInfoHep.instance.updateUserCoins(currentHandsNum*100);
-        await Future.delayed(const Duration(milliseconds: 1000));
+        P1EventBean(code: P2EventCode.removeHandCard).send();
+      }else{
+        showWinnerDialog();
       }
-      P1RouterFun.showDialog(
-        w: P2WinnerDialog(
-          close: (){
-            P1RouterFun.closePage();
-          },
-          next: (){
-            currentHandsNum=17;
-            _topRandomCardList.clear();
-            currentHandCard=null;
-            var routerName = P2UserInfoHep.instance.updateLevel();
-            if(routerName.isEmpty){
-              P1EventBean(code: P2EventCode.resetCardFrontStatus).send();
-              toNextLevel.call();
-            }else{
-              P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
-            }
-          },
-        ),
-      );
+
+      // P1Mp3Hep.instance.playShengLi();
+      // if(currentHandsNum>0){
+      //   P2UserInfoHep.instance.updateUserCoins(currentHandsNum*100);
+      //   await Future.delayed(const Duration(milliseconds: 1000));
+      // }
+      // P1RouterFun.showDialog(
+      //   w: P2WinnerDialog(
+      //     close: (){
+      //       P1RouterFun.closePage();
+      //     },
+      //     next: (){
+      //       P2UserInfoHep.instance.updateUserCoins(2000);
+      //       currentHandsNum=17;
+      //       _topRandomCardList.clear();
+      //       currentHandCard=null;
+      //       var routerName = P2UserInfoHep.instance.updateLevel();
+      //       if(routerName.isEmpty){
+      //         P1EventBean(code: P2EventCode.resetCardFrontStatus).send();
+      //         toNextLevel.call();
+      //       }else{
+      //         P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
+      //       }
+      //     },
+      //   ),
+      // );
     }
+  }
+
+  showWinnerDialog(){
+    P1Mp3Hep.instance.playShengLi();
+    P1RouterFun.showDialog(
+      w: P2WinnerDialog(
+        close: (){
+          P1RouterFun.closePage();
+        },
+        next: (){
+          P2UserInfoHep.instance.updateUserCoins(2000);
+          currentHandsNum=17;
+          _topRandomCardList.clear();
+          currentHandCard=null;
+          var routerName = P2UserInfoHep.instance.updateLevel();
+          if(routerName.isEmpty){
+            P1EventBean(code: P2EventCode.resetCardFrontStatus).send();
+            P1EventBean(code: P2EventCode.resetCardList).send();
+          }else{
+            P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
+          }
+        },
+      ),
+    );
   }
 
   checkOverlays({required Function(List<CardBean>) call,}){

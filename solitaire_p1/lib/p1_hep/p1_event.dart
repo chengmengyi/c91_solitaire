@@ -6,7 +6,7 @@ class P2EventCode{
   //p2
   static const int updateLevel=1;
   static const int updateCoins=2;
-  static const int buyWanNengCardNoMoney=3;
+  static const int resetCardList=3;
   static const int updateHandCard=4;
   static const int updateWindAnimator=5;
   static const int completedWindAnimator=6;
@@ -17,6 +17,7 @@ class P2EventCode{
   static const int showCoinsLottie=11;
   static const int showLongJuanFengLottie=12;
   static const int longJuanFengLottieEnd=13;
+  static const int removeHandCard=14;
 }
 
 class P1EventBean{

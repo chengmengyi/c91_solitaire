@@ -26,10 +26,6 @@ class P2Level20Con extends P1BaseCon{
           update(["list"]);
           _sendFlipCardMsg(list);
         },
-        toNextLevel: (){
-          update(["level"]);
-          _initCardList();
-        }
     );
   }
 
@@ -97,6 +93,10 @@ class P2Level20Con extends P1BaseCon{
             _initCardList();
           },
         );
+        break;
+      case P2EventCode.resetCardList:
+        update(["level"]);
+        _initCardList();
         break;
     }
   }

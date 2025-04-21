@@ -4,6 +4,7 @@ import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p2/dialog/p2_buy_wan_neng_card_dialog/p2_buy_wan_neng_card_con.dart';
+import 'package:solitaire_p2/hep/p2_storage.dart';
 
 class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
   Function() hasWanNengCall;
@@ -44,6 +45,8 @@ class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
           onTap: (){
             p1Con.clickCoins(hasWanNengCall);
           },
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -53,7 +56,14 @@ class P2BuyWanNengCardDialog extends P1BaseStatelessDialog<P2BuyWanNengCardCon>{
                 children: [
                   P1Image(name: "coins2",width: 30.w,height: 30.h,),
                   SizedBox(width: 6.w,),
-                  P1Text(text: "2000", size: 26.sp, color: "#FFFFFF",shadowsColor: "#650000",),
+                  ShakeAnimationWidget(
+                    shakeAnimationController: p1Con.shakeAnimationController,
+                    shakeAnimationType: ShakeAnimationType.LeftRightShake,
+                    isForward: false,
+                    shakeCount: 1,
+                    shakeRange: 0.2,
+                    child: P1Text(text: "2000", size: 26.sp, color: p2Coins.getData()>=2000?"#FFFFFF":"#C13336",shadowsColor: "#000000",),
+                  ),
                 ],
               )
             ],

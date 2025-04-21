@@ -47,6 +47,16 @@ class P1Mp3Hep{
     }
   }
 
+  playOrPauseBg(){
+    if(p2MusicOpen.getData()){
+      if(_bgAudioPlayer.state==PlayerState.playing){
+        _bgAudioPlayer.pause();
+      }else if(_bgAudioPlayer.state==PlayerState.paused){
+        _bgAudioPlayer.resume();
+      }
+    }
+  }
+
   setPlaySound(){
     p2SoundOpen.saveData(!p2SoundOpen.getData());
   }
@@ -72,6 +82,12 @@ class P1Mp3Hep{
   playFeng(){
     if(p2SoundOpen.getData()){
       _voiceAudioPlayer.play(AssetSource("feng.MP3"));
+    }
+  }
+
+  playWanNeng(){
+    if(p2SoundOpen.getData()){
+      _voiceAudioPlayer.play(AssetSource("wanneng.MP3"));
     }
   }
 

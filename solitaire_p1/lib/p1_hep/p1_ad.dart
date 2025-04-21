@@ -7,6 +7,7 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 
 class P1AD{
   static final P1AD _instance = P1AD();
@@ -55,9 +56,14 @@ class P1AD{
     FlutterIosAdHep.instance.showAd(
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
-        showSuccess: (ad,info){},
-        showFail: (ad){},
+        showSuccess: (ad,info){
+          P1Mp3Hep.instance.playOrPauseBg();
+        },
+        showFail: (ad){
+          P1Mp3Hep.instance.playOrPauseBg();
+        },
         closeAd: (){
+          P1Mp3Hep.instance.playOrPauseBg();
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){},

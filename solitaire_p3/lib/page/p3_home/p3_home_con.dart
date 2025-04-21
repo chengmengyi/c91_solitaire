@@ -1,0 +1,58 @@
+import 'package:flutter/foundation.dart';
+import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
+import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+import 'package:solitaire_p3/hep/hep.dart';
+import 'package:solitaire_p3/hep/p3_routers_name.dart';
+import 'package:solitaire_p3/hep/p3_storage.dart';
+import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
+
+class P3HomeCon extends P1BaseCon{
+  var currentLevel=p2CurrentLevel.getData();
+
+  @override
+  void onInit() {
+    super.onInit();
+    P1Mp3Hep.instance.playBgMp3();
+  }
+
+  clickPlay(){
+    var routerName = _getRouterNameByLevel();
+    if(routerName.isNotEmpty){
+      P1RouterFun.toNextPage(str: routerName);
+    }
+  }
+
+  String _getRouterNameByLevel(){
+    var i = (p2CurrentLevel.getData()-1)%20;
+    if(i<=10){
+      return P3RoutersName.p3Level10;
+    }else if(i<=20){
+      return P3RoutersName.p3Level20;
+    }
+    return "";
+  }
+
+  clickTest(){
+    if(!kDebugMode){
+      return;
+    }
+    P2UserInfoHep.instance.updateUserCoins(2000);
+    // P1Mp3Hep.instance.test();
+  }
+
+  @override
+  bool registerP1Event() => true;
+
+  @override
+  onListenP1Event(P1EventBean bean) {
+    switch(bean.code){
+      case P2EventCode.updateLevel:
+        currentLevel=p2CurrentLevel.getData();
+        update(["level"]);
+        break;
+    }
+  }
+}

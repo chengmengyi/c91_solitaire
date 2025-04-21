@@ -39,6 +39,8 @@ dependencies:
     path: solitaire_p1
   solitaire_p2:
     path: solitaire_p2
+  solitaire_p3:
+    path: solitaire_p3
 
 dev_dependencies:
   flutter_test:

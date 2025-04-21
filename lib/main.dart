@@ -5,6 +5,7 @@ import 'package:solitaire/launch/launch_page.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
+import 'package:solitaire_p3/hep/p3_routers_name.dart';
 
 void main() async{
   await init();
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
   initialRoute()=>"/p1/launch";
 
   getPages(){
-    var list = P2RoutersList.p2RoutersList;
+    var list = P2RoutersList.p2RoutersList+P3RoutersList.p3RoutersList;
     list.add(
       GetPage(
           name: initialRoute(),

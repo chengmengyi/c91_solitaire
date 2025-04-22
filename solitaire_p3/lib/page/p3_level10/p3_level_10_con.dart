@@ -58,7 +58,7 @@ class P3Level10Con extends P1BaseCon{
       return;
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      P1EventBean(code: P2EventCode.flipCards,anyValue: list).send();
+      P1EventBean(code: P3EventCode.flipCards,anyValue: list).send();
     });
   }
 
@@ -74,24 +74,24 @@ class P3Level10Con extends P1BaseCon{
   @override
   onListenP1Event(P1EventBean bean) {
     switch(bean.code){
-      case P2EventCode.longJuanFengLottieEnd:
+      case P3EventCode.longJuanFengLottieEnd:
         p2play.hasLongJuanCard(
             call: (){
               update(["list"]);
             }
         );
         break;
-      case P2EventCode.completedWindAnimator:
+      case P3EventCode.completedWindAnimator:
         _checkOverlays();
         break;
-      case P2EventCode.replayGame:
+      case P3EventCode.replayGame:
         p2play.resetGame(
           call: (){
             _initCardList();
           },
         );
         break;
-      case P2EventCode.resetCardList:
+      case P3EventCode.resetCardList:
         update(["level"]);
         _initCardList();
         break;

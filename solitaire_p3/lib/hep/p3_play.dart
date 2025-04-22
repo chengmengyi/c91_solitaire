@@ -35,7 +35,7 @@ class P2Play{
   }
 
   changeHandCard(Function() call){
-    currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P2ValueHep.instance.getHandsProbability());
+    currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P3ValueHep.instance.getHandsProbability());
     currentHandsNum--;
     call.call();
     _checkShowFailDialog();
@@ -68,6 +68,7 @@ class P2Play{
         value[indexWhere].show=false;
       }
     }
+    P3UserInfoHep.instance.updateTopPro(1);
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     P1Mp3Hep.instance.playXiaoChu();
@@ -75,14 +76,14 @@ class P2Play{
   }
 
   _clickCardResult(int addNum,Function(List<CardBean>) refresh)async{
-    P1EventBean(code: P2EventCode.updateHandCard).send();
+    P1EventBean(code: P3EventCode.updateHandCard).send();
     refresh.call([]);
-    P2UserInfoHep.instance.updateUserCoins(addNum);
+    P3UserInfoHep.instance.updateUserCoins(addNum.toDouble());
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
     }else{
       if(currentHandsNum>0){
-        P1EventBean(code: P2EventCode.removeHandCard).send();
+        P1EventBean(code: P3EventCode.removeHandCard).send();
       }else{
         showWinnerDialog();
       }
@@ -104,7 +105,7 @@ class P2Play{
       //       currentHandCard=null;
       //       var routerName = P2UserInfoHep.instance.updateLevel();
       //       if(routerName.isEmpty){
-      //         P1EventBean(code: P2EventCode.resetCardFrontStatus).send();
+      //         P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
       //         toNextLevel.call();
       //       }else{
       //         P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
@@ -123,14 +124,14 @@ class P2Play{
           P1RouterFun.closePage();
         },
         next: (){
-          P2UserInfoHep.instance.updateUserCoins(2000);
+          P3UserInfoHep.instance.updateUserCoins(2000);
           currentHandsNum=17;
           _topRandomCardList.clear();
           currentHandCard=null;
-          var routerName = P2UserInfoHep.instance.updateLevel();
+          var routerName = P3UserInfoHep.instance.updateLevel();
           if(routerName.isEmpty){
-            P1EventBean(code: P2EventCode.resetCardFrontStatus).send();
-            P1EventBean(code: P2EventCode.resetCardList).send();
+            P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
+            P1EventBean(code: P3EventCode.resetCardList).send();
           }else{
             P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
           }
@@ -211,7 +212,7 @@ class P2Play{
     }
     if(noCoverList.isNotEmpty){
       if(_topRandomCardList.isEmpty){
-        var topRandomCards = P2CardHep.instance.getTopRandomCards(noCoverList.length, P2ValueHep.instance.getTopProbability());
+        var topRandomCards = P2CardHep.instance.getTopRandomCards(noCoverList.length, P3ValueHep.instance.getTopProbability());
         _topRandomCardList.addAll(topRandomCards);
         var currentIndex=0;
         for (var value in cardList) {
@@ -227,7 +228,7 @@ class P2Play{
       }else{
         for (var value1 in noCoverList) {
           if(value1.cardNum=="-1"){
-            var randomCardByListAndProbability = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P2ValueHep.instance.getBottomProbability());
+            var randomCardByListAndProbability = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P3ValueHep.instance.getBottomProbability());
             for (var value in cardList) {
               for (var bean in value) {
                 if(bean.index==value1.index){
@@ -241,11 +242,11 @@ class P2Play{
       }
       if(null==currentHandCard){
         if(_topRandomCardList.isNotEmpty){
-          currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P2ValueHep.instance.getHandsProbability());
+          currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P3ValueHep.instance.getHandsProbability());
         }else{
           currentHandCard = P2CardHep.instance.randomHandCard();
         }
-        P1EventBean(code: P2EventCode.updateHandCard).send();
+        P1EventBean(code: P3EventCode.updateHandCard).send();
       }
     }
     canClick=true;
@@ -291,7 +292,7 @@ class P2Play{
 
   getFiveCards({required Function call,}){
     currentHandsNum=4;
-    currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P2ValueHep.instance.getHandsProbability());
+    currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getTopCardNumList(), P3ValueHep.instance.getHandsProbability());
     call.call();
   }
 

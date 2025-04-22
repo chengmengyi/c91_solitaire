@@ -62,7 +62,7 @@ class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P3BuyLongJuanCardCon>{
                     isForward: false,
                     shakeCount: 1,
                     shakeRange: 0.2,
-                    child: P1Text(text: "2000", size: 26.sp, color: p2Coins.getData()>=2000?"#FFFFFF":"#C13336",shadowsColor: "#000000",),
+                    child: P1Text(text: "2000", size: 26.sp, color: p3Coins.getData()>=2000?"#FFFFFF":"#C13336",shadowsColor: "#000000",),
                   ),
                 ],
               )

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:solitaire_p3/page/p3_cash/p3_account/p3_account_page.dart';
+import 'package:solitaire_p3/page/p3_cash/p3_cash/p3_cash_page.dart';
 import 'package:solitaire_p3/page/p3_home/p3_home_page.dart';
 import 'package:solitaire_p3/page/p3_level10/p3_level10_page.dart';
 import 'package:solitaire_p3/page/p3_level20/p3_level20_page.dart';
@@ -9,6 +11,8 @@ class P3RoutersName{
   static const String p3Level10="/p3/level10";
   static const String p3Level20="/p3/level20";
   static const String p3web="/p3/web";
+  static const String p3cash="/p3/p3cash";
+  static const String p3account="/p3/p3account";
 }
 
 class P3RoutersList{
@@ -31,6 +35,16 @@ class P3RoutersList{
     GetPage(
         name: P3RoutersName.p3web,
         page: ()=> P3WebPage(),
+        transition: Transition.fadeIn
+    ),
+    GetPage(
+        name: P3RoutersName.p3cash,
+        page: ()=> P3CashPage(),
+        transition: Transition.fadeIn
+    ),
+    GetPage(
+        name: P3RoutersName.p3account,
+        page: ()=> P3AccountPage(),
         transition: Transition.fadeIn
     ),
   ];

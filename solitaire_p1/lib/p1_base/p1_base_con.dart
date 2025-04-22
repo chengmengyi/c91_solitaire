@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 
 class P1BaseCon extends GetxController{
+  late BuildContext context;
   late StreamSubscription<P1EventBean>? _streamSubscription;
 
   @override

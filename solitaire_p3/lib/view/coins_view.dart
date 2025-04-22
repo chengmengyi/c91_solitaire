@@ -19,7 +19,7 @@ class _CoinsViewState extends State<CoinsView>{
   void initState() {
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
-        case P2EventCode.updateCoins:
+        case P3EventCode.updateCoins:
           setState(() {});
           break;
       }
@@ -29,24 +29,19 @@ class _CoinsViewState extends State<CoinsView>{
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    width: 118.w,
-    height: 32.h,
+    width: 145.w,
+    height: 46.h,
     child: Stack(
       alignment: Alignment.centerLeft,
       children: [
-        P1Image(name: "coins1",width: 118.w,height: 32.h,),
-        Row(
-          children: [
-            SizedBox(width: 2.w,),
-            P1Image(name: "coins2",width: 30.w,height: 30.h,),
-            Expanded(
-              child: Center(
-                child: P1Text(text: "${p2Coins.getData()}", size: 15.sp, color: "#FFFFFF",),
-              ),
-            ),
-            SizedBox(width: 6.w,),
-          ],
-        )
+        P1Image(name: "coins1",width: 145.w,height: 46.h,),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Container(
+            margin: EdgeInsets.only(left: 50.w,bottom: 8.h),
+            child: P1Text(text: "\$${p3Coins.getData()}", size: 15.sp, color: "#32F449",),
+          ),
+        ),
       ],
     ),
   );

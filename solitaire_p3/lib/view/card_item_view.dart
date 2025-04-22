@@ -30,7 +30,7 @@ class _CardItemViewState extends State<CardItemView> with SingleTickerProviderSt
     super.initState();
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
-        case P2EventCode.flipCards:
+        case P3EventCode.flipCards:
           var list = bean.anyValue as List<CardBean>;
           var indexWhere = list.indexWhere((element) => element.index==widget.cardBean.index);
           if(indexWhere>=0&&!_isFront){
@@ -38,7 +38,7 @@ class _CardItemViewState extends State<CardItemView> with SingleTickerProviderSt
             _controller.forward();
           }
           break;
-        case P2EventCode.resetCardFrontStatus:
+        case P3EventCode.resetCardFrontStatus:
           _isFront=false;
           _controller.reset();
           break;

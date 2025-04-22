@@ -10,6 +10,7 @@ import 'package:solitaire_p3/hep/p3_routers_name.dart';
 void main() async{
   await init();
   await initP1P2();
+  await initP3();
   runApp(const MyApp());
 }
 
@@ -31,6 +32,10 @@ init()async{
 initP1P2()async{
   await GetStorage.init();
   P1AD.instance.initAdInfo();
+}
+
+initP3()async{
+
 }
 
 class MyApp extends StatelessWidget {

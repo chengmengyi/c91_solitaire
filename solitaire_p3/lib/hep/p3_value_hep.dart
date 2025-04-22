@@ -1,12 +1,18 @@
 import 'package:solitaire_p3/hep/p3_storage.dart';
 
-class P2ValueHep{
-  static final P2ValueHep _instance = P2ValueHep();
-  static P2ValueHep get instance => _instance;
+class P3ValueHep{
+  static final P3ValueHep _instance = P3ValueHep();
+  static P3ValueHep get instance => _instance;
+
+  double getLuckyCardAddNum()=> 20.03;
+
+  double getWheelAddNum()=> 30.03;
+
+  List<int> getCashAmountList()=>[200,400];
 
   //获取顶层概率
   double getTopProbability(){
-    var level = p2CurrentLevel.getData()%20;
+    var level = p3CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.7;
@@ -24,7 +30,7 @@ class P2ValueHep{
 
   //获取手牌概率
   double getHandsProbability(){
-    var level = p2CurrentLevel.getData()%20;
+    var level = p3CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.7;
@@ -42,7 +48,7 @@ class P2ValueHep{
 
   //获取底层概率
   double getBottomProbability(){
-    var level = p2CurrentLevel.getData()%20;
+    var level = p3CurrentLevel.getData()%20;
     double p=0.0;
     if(level<=10){
       p=0.65;

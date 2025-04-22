@@ -10,6 +10,7 @@ abstract class P1BaseStatelessWidget<K extends P1BaseCon> extends StatelessWidge
   Widget build(BuildContext context) {
     if(_isInit){
       p1Con=Get.put(initCon());
+      p1Con.context=context;
       initView();
     }
     _isInit=false;

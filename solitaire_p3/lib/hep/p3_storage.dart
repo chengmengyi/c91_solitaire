@@ -1,12 +1,19 @@
 
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 
-StorageData<int> p2CurrentLevel=StorageData<int>(key: P2StorageName.p2CurrentLevel, defaultValue: 1);
-StorageData<int> p2Coins=StorageData<int>(key: P2StorageName.p2Coins, defaultValue: 0);
+StorageData<int> p3CurrentLevel=StorageData<int>(key: P3StorageName.p3CurrentLevel, defaultValue: 1);
+StorageData<int> p3TopPro=StorageData<int>(key: P3StorageName.p3TopPro, defaultValue: 0);
 
-class P2StorageName{
-  static const String p2CurrentLevel="p2CurrentLevel";
-  static const String p2Coins="p2Coins";
-  static const String p2MusicOpen="p2MusicOpen";
-  static const String p2SoundOpen="p2SoundOpen";
+
+StorageData<double> p3Coins=StorageData<double>(key: P3StorageName.p3Coins, defaultValue: 0.0);
+
+StorageData<bool> p3LastIsLuckyCard=StorageData<bool>(key: P3StorageName.p3LastIsLuckyCard, defaultValue: false);
+
+class P3StorageName{
+  static const String p3CurrentLevel="p3CurrentLevel";
+  static const String p3Coins="p3Coins";
+  static const String p3MusicOpen="p3MusicOpen";
+  static const String p3SoundOpen="p3SoundOpen";
+  static const String p3TopPro="p3TopPro";
+  static const String p3LastIsLuckyCard="p3LastIsLuckyCard";
 }

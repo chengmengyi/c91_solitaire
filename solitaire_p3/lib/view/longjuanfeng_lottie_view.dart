@@ -21,7 +21,7 @@ class _LongJuanFengLottieViewState extends State<LongJuanFengLottieView> with Ti
   void initState() {
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
-        case P2EventCode.showLongJuanFengLottie:
+        case P3EventCode.showLongJuanFengLottie:
           list.clear();
           if(bean.anyValue is List<CardBean>){
             list.addAll(bean.anyValue as List<CardBean>);
@@ -39,7 +39,7 @@ class _LongJuanFengLottieViewState extends State<LongJuanFengLottieView> with Ti
         setState(() {
           showLottie=false;
         });
-        P1EventBean(code: P2EventCode.longJuanFengLottieEnd,anyValue: list).send();
+        P1EventBean(code: P3EventCode.longJuanFengLottieEnd,anyValue: list).send();
       }
     });
     super.initState();

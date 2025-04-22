@@ -13,6 +13,7 @@ import 'package:solitaire_p3/view/coins_lottie_view.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
 import 'package:solitaire_p3/view/longjuanfeng_lottie_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
+import 'package:solitaire_p3/view/top_pro_view/top_pro_view.dart';
 import 'package:solitaire_p3/view/wind_animator_view.dart';
 
 class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
@@ -29,7 +30,9 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
         child: Column(
           children: [
             _topWidget(),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
+            TopProView(),
+            SizedBox(height: 6.h,),
             _levelWidget(),
             _playWidget(),
             P2BottomView(p2play: p1Con.p2play),
@@ -71,7 +74,7 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
               SizedBox(width: 10.w,),
               GetBuilder<P3Level10Con>(
                 id: "level",
-                builder: (_)=>P1Text(text: "${p2CurrentLevel.getData()}", size: 20.sp, color: "#6CFFF8",),
+                builder: (_)=>P1Text(text: "${p3CurrentLevel.getData()}", size: 20.sp, color: "#6CFFF8",),
               ),
             ],
           ),

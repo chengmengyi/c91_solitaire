@@ -42,7 +42,7 @@ class P2BottomViewCon extends P1BaseCon{
               }
             }
           }
-          P1EventBean(code: P2EventCode.showLongJuanFengLottie,anyValue: list).send();
+          P1EventBean(code: P3EventCode.showLongJuanFengLottie,anyValue: list).send();
         },
       ),
     );
@@ -63,17 +63,17 @@ class P2BottomViewCon extends P1BaseCon{
   @override
   onListenP1Event(P1EventBean bean) {
     switch(bean.code){
-      case P2EventCode.updateHandCard:
+      case P3EventCode.updateHandCard:
         update(["hand_card_num","hand_card"]);
         break;
-      case P2EventCode.getFiveCards:
+      case P3EventCode.getFiveCards:
         p2play.getFiveCards(
           call: (){
             update(["hand_card_num","hand_card"]);
           }
         );
         break;
-      case P2EventCode.removeHandCard:
+      case P3EventCode.removeHandCard:
         _removeHandCard();
         break;
     }
@@ -87,7 +87,7 @@ class P2BottomViewCon extends P1BaseCon{
       p2play.removeHandCard();
       update(["hand_card_num"]);
       P1Mp3Hep.instance.playXiaoChu();
-      P2UserInfoHep.instance.updateUserCoins(100);
+      P3UserInfoHep.instance.updateUserCoins(100);
       await Future.delayed(const Duration(milliseconds: 1000));
     }
     p2play.showWinnerDialog();

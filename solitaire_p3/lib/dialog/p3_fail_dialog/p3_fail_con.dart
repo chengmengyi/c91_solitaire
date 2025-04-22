@@ -7,12 +7,12 @@ import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 
 class P3FailCon extends P1BaseCon{
-  bool hasMoney=p2Coins.getData()>=2000;
+  bool hasMoney=p3Coins.getData()>=2000;
 
   clickLeft(){
     if(hasMoney){
       P1RouterFun.closePage();
-      P1EventBean(code: P2EventCode.replayGame).send();
+      P1EventBean(code: P3EventCode.replayGame).send();
     }else{
       clickHome();
     }
@@ -21,10 +21,10 @@ class P3FailCon extends P1BaseCon{
   clickRight(){
     P1RouterFun.closePage();
     if(hasMoney){
-      P2UserInfoHep.instance.updateUserCoins(-2000);
-      P1EventBean(code: P2EventCode.getFiveCards).send();
+      P3UserInfoHep.instance.updateUserCoins(-2000);
+      P1EventBean(code: P3EventCode.getFiveCards).send();
     }else{
-      P1EventBean(code: P2EventCode.replayGame).send();
+      P1EventBean(code: P3EventCode.replayGame).send();
     }
   }
 

@@ -27,11 +27,11 @@ class P1RouterFun{
     Get.until((route)=>route.settings.name==str);
   }
 
-  // static Map<String, dynamic> getArguments() {
-  //   try {
-  //     return Get.arguments as Map<String, dynamic>;
-  //   } catch (e) {
-  //     return {};
-  //   }
-  // }
+  static Map<String, dynamic> getArguments() {
+    try {
+      return Get.arguments as Map<String, dynamic>;
+    } catch (e) {
+      return {};
+    }
+  }
 }

@@ -18,7 +18,7 @@ class _CoinsLottieViewState extends State<CoinsLottieView> with TickerProviderSt
   void initState() {
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
-        case P2EventCode.showCoinsLottie:
+        case P3EventCode.showCoinsLottie:
           coinLottieController..reset()..forward();
           setState(() {
             showCoinsLottie=true;

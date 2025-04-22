@@ -17,11 +17,11 @@ class P3BuyWanNengCardCon extends P1BaseCon{
 
 
   clickCoins(Function() hasWanNengCall){
-    if(p2Coins.getData()<2000){
+    if(p3Coins.getData()<2000){
       shakeAnimationController.start();
       return;
     }else{
-      P2UserInfoHep.instance.updateUserCoins(-2000);
+      P3UserInfoHep.instance.updateUserCoins(-2000);
       hasWanNengCall.call();
       P1RouterFun.closePage();
     }

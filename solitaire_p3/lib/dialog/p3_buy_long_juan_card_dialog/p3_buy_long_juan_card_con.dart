@@ -16,13 +16,13 @@ class P3BuyLongJuanCardCon extends P1BaseCon{
   }
 
   clickCoins(Function() hasLongJuanCall){
-    if(p2Coins.getData()<2000){
+    if(p3Coins.getData()<2000){
       shakeAnimationController.start();
       // P1RouterFun.closePage();
       // P1EventBean(code: P2EventCode.buyWanNengCardNoMoney).send();
       return;
     }else{
-      P2UserInfoHep.instance.updateUserCoins(-2000);
+      P3UserInfoHep.instance.updateUserCoins(-2000);
       hasLongJuanCall.call();
       P1RouterFun.closePage();
     }

@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
-import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
-import 'package:solitaire_p3/hep/hep.dart';
+import 'package:solitaire_p3/dialog/p3_wheel_dialog/p3_wheel_dialog.dart';
+import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 
 class P3HomeCon extends P1BaseCon{
-  var currentLevel=p2CurrentLevel.getData();
+  var currentLevel=p3CurrentLevel.getData();
 
   @override
   void onInit() {
@@ -25,8 +25,12 @@ class P3HomeCon extends P1BaseCon{
     }
   }
 
+  clickCash(){
+    P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
+  }
+
   String _getRouterNameByLevel(){
-    var i = (p2CurrentLevel.getData()-1)%20;
+    var i = (p3CurrentLevel.getData()-1)%20;
     if(i<=10){
       return P3RoutersName.p3Level10;
     }else if(i<=20){
@@ -39,8 +43,22 @@ class P3HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    P2UserInfoHep.instance.updateUserCoins(2000);
+    // P2UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
+    // P3UserInfoHep.instance.updateTopPro(2);
+
+    CashTaskHep.instance.test();
+  }
+
+  double getProgress(){
+    var d = p3Coins.getData()/200;
+    if(d<=0){
+      return 0;
+    }else if(d>=1.0){
+      return 1.0;
+    }else{
+      return d;
+    }
   }
 
   @override
@@ -49,9 +67,12 @@ class P3HomeCon extends P1BaseCon{
   @override
   onListenP1Event(P1EventBean bean) {
     switch(bean.code){
-      case P2EventCode.updateLevel:
-        currentLevel=p2CurrentLevel.getData();
+      case P3EventCode.updateLevel:
+        currentLevel=p3CurrentLevel.getData();
         update(["level"]);
+        break;
+      case P3EventCode.updateCoins:
+        update(["progress"]);
         break;
     }
   }

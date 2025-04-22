@@ -161,7 +161,7 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
             SizedBox(width: 10.w,),
             GetBuilder<P3Level20Con>(
               id: "level",
-              builder: (_)=>P1Text(text: "${p2CurrentLevel.getData()}", size: 20.sp, color: "#6CFFF8",),
+              builder: (_)=>P1Text(text: "${p3CurrentLevel.getData()}", size: 20.sp, color: "#6CFFF8",),
             ),
           ],
         ),

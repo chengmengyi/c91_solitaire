@@ -6,13 +6,15 @@ import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/random_card_bean.dart';
 import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_dialog.dart';
+import 'package:solitaire_p3/hep/cash/cash_enums.dart';
+import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/p3_card_hep.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 import '../dialog/p3_fail_dialog/p3_fail_dialog.dart';
 
-class P2Play{
+class P3Play{
   var currentHandsNum=17,canClick=false;
   List<List<CardBean>> cardList=[];
   final List<RandomCardBean> _topRandomCardList=[];
@@ -56,6 +58,7 @@ class P2Play{
     var cardsAdjacent = false;
     if(currentHandCard?.hasWanNeng==true){
       cardsAdjacent=true;
+      CashTaskHep.instance.updateCashTask(CashTask.use5Wanneng);
     }else{
       cardsAdjacent = P2CardHep.instance.isCardsAdjacent(bean.cardNum, currentHandCard?.cardNum??"");
     }
@@ -69,6 +72,7 @@ class P2Play{
       }
     }
     P3UserInfoHep.instance.updateTopPro(1);
+    CashTaskHep.instance.updateCashTask(CashTask.pass2Card);
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     P1Mp3Hep.instance.playXiaoChu();
@@ -129,6 +133,7 @@ class P2Play{
           _topRandomCardList.clear();
           currentHandCard=null;
           var routerName = P3UserInfoHep.instance.updateLevel();
+          CashTaskHep.instance.updateCashTask(CashTask.pass5Level);
           if(routerName.isEmpty){
             P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
             P1EventBean(code: P3EventCode.resetCardList).send();
@@ -354,5 +359,9 @@ class P2Play{
       }
     }
     return false;
+  }
+
+  checkShowGuideStep3()async{
+    await Future.delayed(const Duration(milliseconds: 600));
   }
 }

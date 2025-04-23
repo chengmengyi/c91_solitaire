@@ -6,21 +6,23 @@ import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/random_card_bean.dart';
 import 'package:solitaire_p3/dialog/p3_buy_long_juan_card_dialog/p3_buy_long_juan_card_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_buy_wan_neng_card_dialog/p3_buy_wan_neng_card_dialog.dart';
+import 'package:solitaire_p3/hep/cash/cash_enums.dart';
+import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/p3_card_hep.dart';
 import 'package:solitaire_p3/hep/p3_play.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 
 class P2BottomViewCon extends P1BaseCon{
-  late P2Play p2play;
+  late P3Play p3play;
 
   clickWanNeng(){
-    if(!p2play.canClick){
+    if(!p3play.canClick){
       return;
     }
     P1RouterFun.showDialog(
       w: P3BuyWanNengCardDialog(
         hasWanNengCall: (){
-          p2play.hasWanNengCard();
+          p3play.hasWanNengCard();
           update(["hand_card"]);
         },
       ),
@@ -28,14 +30,15 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   clickLongJuanFeng(){
-    if(!p2play.canClick){
+    if(!p3play.canClick){
       return;
     }
     P1RouterFun.showDialog(
       w: P2BuyLongJuanDialog(
         hasLongJuanCall: (){
+          CashTaskHep.instance.updateCashTask(CashTask.get5Longjuanfeng);
           List<CardBean> list=[];
-          for (var value in p2play.cardList) {
+          for (var value in p3play.cardList) {
             for (var value1 in value) {
               if(value1.show&&!value1.covered&&value1.cardNum!="-1"){
                 list.add(value1);
@@ -49,10 +52,10 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   changeHandCard(){
-    if(!p2play.canClick){
+    if(!p3play.canClick){
       return;
     }
-    p2play.changeHandCard((){
+    p3play.changeHandCard((){
       update(["hand_card_num","hand_card"]);
     });
   }
@@ -67,7 +70,7 @@ class P2BottomViewCon extends P1BaseCon{
         update(["hand_card_num","hand_card"]);
         break;
       case P3EventCode.getFiveCards:
-        p2play.getFiveCards(
+        p3play.getFiveCards(
           call: (){
             update(["hand_card_num","hand_card"]);
           }
@@ -80,16 +83,16 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   _removeHandCard()async{
-    if(p2play.currentHandsNum<=0){
+    if(p3play.currentHandsNum<=0){
       return;
     }
-    while(p2play.currentHandsNum>0){
-      p2play.removeHandCard();
+    while(p3play.currentHandsNum>0){
+      p3play.removeHandCard();
       update(["hand_card_num"]);
       P1Mp3Hep.instance.playXiaoChu();
       P3UserInfoHep.instance.updateUserCoins(100);
       await Future.delayed(const Duration(milliseconds: 1000));
     }
-    p2play.showWinnerDialog();
+    p3play.showWinnerDialog();
   }
 }

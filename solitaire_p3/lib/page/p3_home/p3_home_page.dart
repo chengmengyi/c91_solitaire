@@ -129,7 +129,10 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
           onTap: (){
             p1Con.clickPlay();
           },
-          child: P1Image(name: "home7",width: double.infinity,height: 70.h,),
+          child: SizedBox(
+            key: p1Con.playGlobalKey,
+            child: P1Image(name: "home7",width: double.infinity,height: 70.h,),
+          ),
         ),
       ),
       InkWell(

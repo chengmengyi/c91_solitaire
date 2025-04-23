@@ -35,7 +35,7 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
             SizedBox(height: 6.h,),
             _levelWidget(),
             _playWidget(),
-            P2BottomView(p2play: p1Con.p2play),
+            P3BottomView(p3play: p1Con.p3play),
             SizedBox(height: 20.h,),
           ],
         ),
@@ -87,7 +87,7 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
     child: Center(
       child: GetBuilder<P3Level10Con>(
         id: "list",
-        builder: (_)=>p1Con.p2play.cardList.isEmpty?
+        builder: (_)=>p1Con.p3play.cardList.isEmpty?
         Container():
         SizedBox(
           width: 196.w,
@@ -97,8 +97,8 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
             children: [
               Stack(
                 alignment: Alignment.topCenter,
-                children: List.generate(p1Con.p2play.cardList.length<5?p1Con.p2play.cardList.length:5, (index){
-                  var list = p1Con.p2play.cardList[index];
+                children: List.generate(p1Con.p3play.cardList.length<5?p1Con.p3play.cardList.length:5, (index){
+                  var list = p1Con.p3play.cardList[index];
                   var oushu = index%2==0;
                   return Positioned(
                     top: index*46.h,
@@ -117,8 +117,8 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
                   );
                 }),
               ),
-              p1Con.p2play.cardList.length==6&&p1Con.p2play.cardList.last.first.show?
-              _cardItemWidget(p1Con.p2play.cardList.last.first):
+              p1Con.p3play.cardList.length==6&&p1Con.p3play.cardList.last.first.show?
+              _cardItemWidget(p1Con.p3play.cardList.last.first):
               Container(),
             ],
           ),

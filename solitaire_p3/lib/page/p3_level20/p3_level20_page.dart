@@ -29,7 +29,7 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
             SizedBox(height: 20.h,),
             _levelWidget(),
             _playWidget(),
-            P2BottomView(p2play: p1Con.p2play),
+            P3BottomView(p3play: p1Con.p3play),
             SizedBox(height: 20.h,),
           ],
         ),
@@ -43,7 +43,7 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
       child: GetBuilder<P3Level20Con>(
         id: "list",
         builder: (_){
-          if(p1Con.p2play.cardList.isEmpty){
+          if(p1Con.p3play.cardList.isEmpty){
             return Container();
           }
           return SizedBox(
@@ -51,8 +51,8 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
             height: 258.h,
             child: Stack(
               children: [
-                _playBottomCardWidget(p1Con.p2play.cardList.first),
-                _playTopCardWidget(p1Con.p2play.cardList.last),
+                _playBottomCardWidget(p1Con.p3play.cardList.first),
+                _playTopCardWidget(p1Con.p3play.cardList.last),
               ],
             ),
           );

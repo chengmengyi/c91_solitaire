@@ -8,6 +8,7 @@ StorageData<int> p3TopPro=StorageData<int>(key: P3StorageName.p3TopPro, defaultV
 StorageData<double> p3Coins=StorageData<double>(key: P3StorageName.p3Coins, defaultValue: 0.0);
 
 StorageData<bool> p3LastIsLuckyCard=StorageData<bool>(key: P3StorageName.p3LastIsLuckyCard, defaultValue: false);
+StorageData<bool> p3NewUserGuideCompleted=StorageData<bool>(key: P3StorageName.p3NewUserGuideCompleted, defaultValue: false);
 
 class P3StorageName{
   static const String p3CurrentLevel="p3CurrentLevel";
@@ -16,4 +17,5 @@ class P3StorageName{
   static const String p3SoundOpen="p3SoundOpen";
   static const String p3TopPro="p3TopPro";
   static const String p3LastIsLuckyCard="p3LastIsLuckyCard";
+  static const String p3NewUserGuideCompleted="p3NewUserGuideCompleted";
 }

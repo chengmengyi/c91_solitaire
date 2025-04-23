@@ -6,12 +6,12 @@ import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/p3_play.dart';
 
 class P3Level10Con extends P1BaseCon{
-  late P2Play p2play;
+  late P3Play p3play;
 
   @override
   void onInit() {
     super.onInit();
-    p2play=P2Play();
+    p3play=P3Play();
   }
 
   @override
@@ -21,7 +21,7 @@ class P3Level10Con extends P1BaseCon{
   }
 
   clickCard(CardBean bean){
-    p2play.clickCard(
+    p3play.clickCard(
       bean: bean,
       refresh: (list){
         update(["list"]);
@@ -30,22 +30,23 @@ class P3Level10Con extends P1BaseCon{
     );
   }
   _initCardList(){
-    p2play.cardList.clear();
+    p3play.cardList.clear();
     var currentIndex=0;
-    while(p2play.cardList.length<6){
-      var list=[CardBean(index: currentIndex,top: p2play.cardList.length>=4,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey())];
+    while(p3play.cardList.length<6){
+      var list=[CardBean(index: currentIndex,top: p3play.cardList.length>=4,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey())];
       currentIndex++;
-      if(p2play.cardList.length<5){
-        list.add(CardBean(index:currentIndex,top: p2play.cardList.length>=4,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
+      if(p3play.cardList.length<5){
+        list.add(CardBean(index:currentIndex,top: p3play.cardList.length>=4,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
         currentIndex++;
       }
-      p2play.cardList.add(list);
+      p3play.cardList.add(list);
       update(["list"]);
     }
     _checkOverlays();
+
   }
   _checkOverlays(){
-    p2play.checkOverlays(
+    p3play.checkOverlays(
         call: (list){
           update(["list"]);
           _sendFlipCardMsg(list);
@@ -75,7 +76,7 @@ class P3Level10Con extends P1BaseCon{
   onListenP1Event(P1EventBean bean) {
     switch(bean.code){
       case P3EventCode.longJuanFengLottieEnd:
-        p2play.hasLongJuanCard(
+        p3play.hasLongJuanCard(
             call: (){
               update(["list"]);
             }
@@ -85,7 +86,7 @@ class P3Level10Con extends P1BaseCon{
         _checkOverlays();
         break;
       case P3EventCode.replayGame:
-        p2play.resetGame(
+        p3play.resetGame(
           call: (){
             _initCardList();
           },

@@ -8,16 +8,16 @@ import 'package:solitaire_p3/view/bottom/p3_bottom_view_con.dart';
 import 'package:solitaire_p3/view/longjuanfeng_view.dart';
 import 'package:solitaire_p3/view/wan_neng_view.dart';
 
-class P2BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
-  P2Play p2play;
-  P2BottomView({required this.p2play});
+class P3BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
+  P3Play p3play;
+  P3BottomView({required this.p3play});
   
   @override
   P2BottomViewCon initCon() => P2BottomViewCon();
 
   @override
   initView() {
-    p1Con.p2play=p2play;
+    p1Con.p3play=p3play;
   }
   
   @override
@@ -33,7 +33,7 @@ class P2BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
           child: GetBuilder<P2BottomViewCon>(
             id: "hand_card_num",
             builder: (_){
-              var length = p1Con.p2play.currentHandsNum<5?p1Con.p2play.currentHandsNum:5;
+              var length = p1Con.p3play.currentHandsNum<5?p1Con.p3play.currentHandsNum:5;
               return Stack(
                 children: List.generate(length, (index) => Container(
                   margin: EdgeInsets.only(left: (10.w)*index),
@@ -51,7 +51,7 @@ class P2BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
                               color: "#000000".toColor().withOpacity(0.7),
                               borderRadius: BorderRadius.circular(20.w)
                           ),
-                          child: P1Text(text: "${p1Con.p2play.currentHandsNum}", size: 14.sp, color: "#FFFFFF"),
+                          child: P1Text(text: "${p1Con.p3play.currentHandsNum}", size: 14.sp, color: "#FFFFFF"),
                         ),
                       )
                     ],
@@ -68,9 +68,9 @@ class P2BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
           alignment: Alignment.center,
           child: GetBuilder<P2BottomViewCon>(
             id: "hand_card",
-            builder: (_)=>null==p1Con.p2play.currentHandCard?
+            builder: (_)=>null==p1Con.p3play.currentHandCard?
             Container():
-            P1Image(name: p1Con.p2play.getHandCardImageIcon(),width: 50.w,height: 78.h,),
+            P1Image(name: p1Con.p3play.getHandCardImageIcon(),width: 50.w,height: 78.h,),
           ),
         ),
       ),

@@ -8,6 +8,9 @@ import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 
 class CoinsView extends StatefulWidget{
+  bool canClick;
+  CoinsView({this.canClick=true});
+
   @override
   State<StatefulWidget> createState() => _CoinsViewState();
 }

@@ -15,6 +15,10 @@ class P1RouterFun{
     Get.offNamed(str);
   }
 
+  static offAllUnit({required String routers}){
+    Get.until((route) => route.settings.name==routers);
+  }
+
   static closePage(){
     Get.back();
   }

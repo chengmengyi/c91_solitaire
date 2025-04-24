@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
@@ -38,6 +39,7 @@ class P3AccountCon extends P1BaseCon{
     }
     hideKeyboard();
     await CashTaskHep.instance.createCashTask(type, amount, content);
+    P1EventBean(code: P3EventCode.updateCashList).send();
     P1RouterFun.closePage();
   }
 

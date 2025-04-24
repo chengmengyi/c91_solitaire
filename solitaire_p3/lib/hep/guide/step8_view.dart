@@ -6,11 +6,11 @@ import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
 
-class Step2View extends StatelessWidget{
+class Step8View extends StatelessWidget{
   Offset offset;
   double width;
   Function() clickCall;
-  Step2View({
+  Step8View({
     required this.offset,
     required this.width,
     required this.clickCall,
@@ -52,7 +52,7 @@ class Step2View extends StatelessWidget{
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
                       margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Slide Cards NOW → Cha-Ching in Ears!", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Ready to Make It Rain? Start Stacking Cash Instantly!", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
                 ),

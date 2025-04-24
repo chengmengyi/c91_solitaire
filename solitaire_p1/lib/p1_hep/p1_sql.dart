@@ -11,7 +11,7 @@ abstract class P1Sql{
         "solitaire.db",
         version: 1,
         onCreate: (db,version)async{
-          db.execute('CREATE TABLE ${TableName.cashTask} (id INTEGER PRIMARY KEY AUTOINCREMENT, cashType INTEGER, amount INTEGER, account TEXT, cashTask TEXT, currentPro INTEGER, totalPro INTEGER)');
+          db.execute('CREATE TABLE ${TableName.cashTask} (id INTEGER PRIMARY KEY AUTOINCREMENT, cashType INTEGER, amount INTEGER, account TEXT, cashTask TEXT, currentPro INTEGER, totalPro INTEGER, currentPro2 INTEGER, totalPro2 INTEGER)');
         },
         // onUpgrade: (db,oldVersion,newVersion){
         //   if(newVersion==2){

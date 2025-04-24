@@ -43,7 +43,7 @@ class P3Level10Con extends P1BaseCon{
       update(["list"]);
     }
     _checkOverlays();
-
+    p3play.checkShowGuideStep3(context);
   }
   _checkOverlays(){
     p3play.checkOverlays(
@@ -95,6 +95,9 @@ class P3Level10Con extends P1BaseCon{
       case P3EventCode.resetCardList:
         update(["level"]);
         _initCardList();
+        break;
+      case P3EventCode.newUserStep3ClickCard:
+        clickCard(bean.anyValue as CardBean);
         break;
     }
   }

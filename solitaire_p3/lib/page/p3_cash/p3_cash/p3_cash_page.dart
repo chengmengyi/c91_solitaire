@@ -4,7 +4,9 @@ import 'package:solitaire_p1/p1_base/p1_base_stateless_page.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
+import 'package:solitaire_p3/bean/cash_task_bean.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/page/p3_cash/p3_cash/p3_cash_con.dart';
 
@@ -93,6 +95,7 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
                   },
                   child: Container(
                     width: double.infinity,
+                    key: p1Con.cashTypeGlobalKey,
                     height: p1Con.cashType==0?57.h:53.h,
                     padding: EdgeInsets.all(2.w),
                     decoration: BoxDecoration(
@@ -182,7 +185,7 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
               shrinkWrap: true,
               itemCount: p1Con.amountList.length,
               itemBuilder: (context,index){
-                var amount = p1Con.amountList[index];
+                var bean = p1Con.amountList[index];
                 return InkWell(
                   onTap: (){
                     p1Con.clickAmount(index);
@@ -190,6 +193,7 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
                   child: Container(
                     width: double.infinity,
                     height: 117.h,
+                    key: index==0?p1Con.cashMoneyGlobalKey:null,
                     margin: EdgeInsets.only(top: 12.h),
                     decoration: BoxDecoration(
                       color: "#FFFFFF".toColor(),
@@ -203,7 +207,22 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
                           child: P1Image(name: p1Con.cashType==0?"cash5":"cash6",height: 30.h,),
                         ),
                         Align(
-                          child: P1Text(text: "\$$amount", size: 38.sp, color: "#D66400",showShadows: false,),
+                          child: Visibility(
+                            visible: null==bean.cashTaskBean,
+                            child: P1Text(text: "\$${bean.money}", size: 38.sp, color: "#D66400",showShadows: false,),
+                          ),
+                        ),
+                        Positioned(
+                          top: 6.h,
+                          right: 16.w,
+                          child: Visibility(
+                            visible: null!=bean.cashTaskBean,
+                            child: P1Text(text: "\$${bean.money}", size: 38.sp, color: "#D66400",showShadows: false,),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: _taskProWidget(bean.cashTaskBean),
                         )
                       ],
                     ),
@@ -216,4 +235,31 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
       ],
     ),
   );
+
+  _taskProWidget(CashTaskBean? bean){
+    if(null==bean){
+      return Container();
+    }
+    return Container(
+      width: double.infinity,
+      height: 45.h,
+      padding: EdgeInsets.only(left: 10.w,right: 10.w),
+      margin: EdgeInsets.only(left: 6.w,right: 6.w,bottom: 6.h),
+      decoration: BoxDecoration(
+        color: "#F5F5F5".toColor(),
+        borderRadius: BorderRadius.circular(14.w),
+      ),
+      child: Row(
+        children: [
+          P1Image(name: getTaskIcon(bean),width: 36.w,height: 36.w,),
+          SizedBox(width: 12.w,),
+          Expanded(
+            child: P1Text(text: getTaskStr(bean), size: 12.sp, color: "#000000",showShadows: false,),
+          ),
+          SizedBox(width: 12.w,),
+          P1Text(text: bean.cashTask==CashTask.complete?"5/5":"${bean.currentPro??0}/${bean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
+        ],
+      ),
+    );
+  }
 }

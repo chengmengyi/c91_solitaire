@@ -5,10 +5,12 @@ import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/dialog/p3_wheel_dialog/p3_wheel_dialog.dart';
+import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
+import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 
 
 class P3HomeCon extends P1BaseCon{
@@ -19,6 +21,12 @@ class P3HomeCon extends P1BaseCon{
   void onInit() {
     super.onInit();
     P1Mp3Hep.instance.playBgMp3();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _checkShowGuide();
   }
 
   clickPlay(){
@@ -46,11 +54,12 @@ class P3HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    // P2UserInfoHep.instance.updateUserCoins(200.03);
+    // P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);
 
-    _checkShowGuide();
+    // _checkShowGuide();
+    CashTaskHep.instance.updateCashTask(CashTask.task3, CashTaskType.pass5Level);
   }
 
   double getProgress(){
@@ -85,6 +94,9 @@ class P3HomeCon extends P1BaseCon{
         break;
       case P3EventCode.updateCoins:
         update(["progress"]);
+        break;
+      case P3EventCode.showNewUserGuide8:
+        GuideHep.instance.showGuideStep8(context: context, globalKey: playGlobalKey);
         break;
     }
   }

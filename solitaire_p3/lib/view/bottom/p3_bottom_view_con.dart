@@ -36,7 +36,7 @@ class P2BottomViewCon extends P1BaseCon{
     P1RouterFun.showDialog(
       w: P2BuyLongJuanDialog(
         hasLongJuanCall: (){
-          CashTaskHep.instance.updateCashTask(CashTask.get5Longjuanfeng);
+          CashTaskHep.instance.updateCashTask(CashTask.task3,CashTaskType.get5Longjuanfeng);
           List<CardBean> list=[];
           for (var value in p3play.cardList) {
             for (var value1 in value) {
@@ -57,6 +57,7 @@ class P2BottomViewCon extends P1BaseCon{
     }
     p3play.changeHandCard((){
       update(["hand_card_num","hand_card"]);
+      p3play.checkShowGuideStep3(context);
     });
   }
 

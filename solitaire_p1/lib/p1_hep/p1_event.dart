@@ -38,6 +38,9 @@ class P3EventCode{
   static const int removeHandCard=113;
   static const int updateTopPro=114;
   static const int flipLuckyCardEnd=115;
+  static const int newUserStep3ClickCard=116;
+  static const int updateCashList=117;
+  static const int showNewUserGuide8=118;
 }
 
 class P1EventBean{

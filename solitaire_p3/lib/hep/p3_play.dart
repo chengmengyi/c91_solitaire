@@ -8,7 +8,9 @@ import 'package:solitaire_p3/bean/random_card_bean.dart';
 import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
+import 'package:solitaire_p3/hep/guide/guide_hep.dart';
 import 'package:solitaire_p3/hep/p3_card_hep.dart';
+import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
@@ -58,7 +60,7 @@ class P3Play{
     var cardsAdjacent = false;
     if(currentHandCard?.hasWanNeng==true){
       cardsAdjacent=true;
-      CashTaskHep.instance.updateCashTask(CashTask.use5Wanneng);
+      CashTaskHep.instance.updateCashTask(CashTask.task2,CashTaskType.use5Wanneng);
     }else{
       cardsAdjacent = P2CardHep.instance.isCardsAdjacent(bean.cardNum, currentHandCard?.cardNum??"");
     }
@@ -72,7 +74,7 @@ class P3Play{
       }
     }
     P3UserInfoHep.instance.updateTopPro(1);
-    CashTaskHep.instance.updateCashTask(CashTask.pass2Card);
+    CashTaskHep.instance.updateCashTask(CashTask.task1,CashTaskType.pass2Card);
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     P1Mp3Hep.instance.playXiaoChu();
@@ -81,8 +83,8 @@ class P3Play{
 
   _clickCardResult(int addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P3EventCode.updateHandCard).send();
-    refresh.call([]);
     P3UserInfoHep.instance.updateUserCoins(addNum.toDouble());
+    refresh.call([]);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
     }else{
@@ -133,7 +135,7 @@ class P3Play{
           _topRandomCardList.clear();
           currentHandCard=null;
           var routerName = P3UserInfoHep.instance.updateLevel();
-          CashTaskHep.instance.updateCashTask(CashTask.pass5Level);
+          CashTaskHep.instance.updateCashTask(CashTask.task1,CashTaskType.pass5Level);
           if(routerName.isEmpty){
             P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
             P1EventBean(code: P3EventCode.resetCardList).send();
@@ -361,7 +363,22 @@ class P3Play{
     return false;
   }
 
-  checkShowGuideStep3()async{
+  checkShowGuideStep3(BuildContext context)async{
+    if(!GuideHep.instance.canShowStep3()){
+      return;
+    }
     await Future.delayed(const Duration(milliseconds: 600));
+    CardBean? cardBean;
+    for (var value in cardList) {
+      var indexWhere = value.indexWhere((value1) => value1.top&&value1.cardNum.isNotEmpty&&value1.show&&P2CardHep.instance.isCardsAdjacent(value1.cardNum, currentHandCard?.cardNum??""));
+      if(indexWhere>=0){
+        cardBean=value[indexWhere];
+        break;
+      }
+    }
+    if(null==cardBean){
+      return;
+    }
+    GuideHep.instance.showGuideStep3(context,cardBean);
   }
 }

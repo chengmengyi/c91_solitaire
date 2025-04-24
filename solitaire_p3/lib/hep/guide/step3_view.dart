@@ -1,18 +1,19 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
+import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 
-class Step2View extends StatelessWidget{
+class Step3View extends StatelessWidget{
   Offset offset;
-  double width;
+  CardBean cardBean;
   Function() clickCall;
-  Step2View({
+  Step3View({
     required this.offset,
-    required this.width,
+    required this.cardBean,
     required this.clickCall,
   });
 
@@ -37,7 +38,17 @@ class Step2View extends StatelessWidget{
                 },
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                child: P1Image(name: "home7",width: width,height: 70.h,),
+                child: P1Image(name: getCardImageIcon(cardBean),width: 50.w,height: 78.h,),
+              ),
+            ),
+            Positioned(
+              top: offset.dy+50.h,
+              left: offset.dx+30.w,
+              child: InkWell(
+                onTap: (){
+                  _click();
+                },
+                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
               ),
             ),
             Align(
@@ -45,29 +56,16 @@ class Step2View extends StatelessWidget{
               child: Container(
                 height: 138.h,
                 width: double.infinity,
-                margin: EdgeInsets.only(bottom: 300.h,left: 45.w,right: 45.w),
+                margin: EdgeInsets.only(bottom: 30.h,left: 45.w,right: 45.w),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
                       margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Slide Cards NOW → Cha-Ching in Ears!", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Tap This Card → Clear It → Claim Your First Victory!", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
-                ),
-              ),
-            ),
-            Positioned(
-              left: offset.dx+width-30.w,
-              top: offset.dy-50.w,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: Transform.rotate(
-                  angle: -90*pi/180,
-                  child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
                 ),
               ),
             )

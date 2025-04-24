@@ -6,11 +6,11 @@ import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
 
-class Step2View extends StatelessWidget{
+class Step6View extends StatelessWidget{
   Offset offset;
   double width;
   Function() clickCall;
-  Step2View({
+  Step6View({
     required this.offset,
     required this.width,
     required this.clickCall,
@@ -37,7 +37,31 @@ class Step2View extends StatelessWidget{
                 },
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                child: P1Image(name: "home7",width: width,height: 70.h,),
+                child: Container(
+                  width: width,
+                  height: 57.h,
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                    color: "#FFFFFF".toColor(),
+                    borderRadius: BorderRadius.circular(4.w),
+                  ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.w),
+                            gradient: LinearGradient(
+                                colors: ["#B1FFE2".toColor(),"#C3FED9".toColor(),]
+                            )
+                        ),
+                      ),
+                      P1Image(name: "cash5",width: 100.w,height: 30.h,)
+                    ],
+                  ),
+                ),
               ),
             ),
             Align(
@@ -45,14 +69,14 @@ class Step2View extends StatelessWidget{
               child: Container(
                 height: 138.h,
                 width: double.infinity,
-                margin: EdgeInsets.only(bottom: 300.h,left: 45.w,right: 45.w),
+                margin: EdgeInsets.only(bottom: 100.h,left: 45.w,right: 45.w),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
-                      margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Slide Cards NOW → Cha-Ching in Ears!", size: 14.sp, color: "#000000",showShadows: false,),
+                      margin: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 10.h),
+                      child: P1Text(text: "Sophia here! I always cash out to PayPal – instant & safe. Pick your favorite way to get paid!", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
                 ),
@@ -60,15 +84,12 @@ class Step2View extends StatelessWidget{
             ),
             Positioned(
               left: offset.dx+width-30.w,
-              top: offset.dy-50.w,
+              top: offset.dy+30.h,
               child: InkWell(
                 onTap: (){
                   _click();
                 },
-                child: Transform.rotate(
-                  angle: -90*pi/180,
-                  child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-                ),
+                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
               ),
             )
           ],

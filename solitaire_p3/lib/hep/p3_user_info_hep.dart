@@ -47,9 +47,17 @@ class P3UserInfoHep {
     }
   }
 
+  updatePlayCardNum(){
+    p3PlayCardNum.saveData(p3PlayCardNum.getData()+1);
+    if(p3PlayCardNum.getData()>=4&&!p3ShowedLongJuanFengGuide.getData()){
+      P1EventBean(code: P3EventCode.showLongjuanfengGuide).send();
+    }
+  }
+
   updateTopPro(int addNum){
     p3TopPro.saveData(p3TopPro.getData()+addNum);
     P1EventBean(code: P3EventCode.updateTopPro).send();
+
     if(p3TopPro.getData()>=5){
       var isLucky = p3LastIsLuckyCard.getData();
       if(isLucky){

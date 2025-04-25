@@ -74,7 +74,12 @@ class _CardItemViewState extends State<CardItemView> with SingleTickerProviderSt
         widget.clickCard.call();
       },
       key: widget.cardBean.globalKey,
-      child: AnimatedBuilder(
+      child: widget.cardBean.isMoneyCard?
+      Container(
+        width: 50.w,height: 78.h,
+        color: Colors.red,
+      ):
+      AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
           final angle = _animation.value * 3.1415926;

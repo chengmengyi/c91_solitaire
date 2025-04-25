@@ -41,6 +41,7 @@ class P3EventCode{
   static const int newUserStep3ClickCard=116;
   static const int updateCashList=117;
   static const int showNewUserGuide8=118;
+  static const int showLongjuanfengGuide=119;
 }
 
 class P1EventBean{

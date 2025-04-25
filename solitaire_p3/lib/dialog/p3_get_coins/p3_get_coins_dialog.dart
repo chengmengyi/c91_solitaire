@@ -8,7 +8,7 @@ import 'package:solitaire_p3/view/video_btn_view.dart';
 
 class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
   double addNum;
-   P3GetCoinsDialog({required this.addNum});
+  P3GetCoinsDialog({required this.addNum,});
 
   @override
   P3GetCoinsCon initCon() => P3GetCoinsCon();

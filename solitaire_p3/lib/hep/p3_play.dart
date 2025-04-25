@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/random_card_bean.dart';
+import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
@@ -56,7 +57,30 @@ class P3Play{
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
     }
-
+    if(bean.isMoneyCard){
+      for (var value in cardList) {
+        var indexWhere = value.indexWhere((element) => element.index==bean.index);
+        if(indexWhere>=0){
+          value[indexWhere].show=false;
+        }
+      }
+      refresh.call([]);
+      var moneyCardAddNum = P3ValueHep.instance.getMoneyCardAddNum();
+      if(_checkCardNotEmpty()){
+        _checkOverlays(refresh);
+        P1RouterFun.showDialog(
+          w: P3GetCoinsDialog(addNum: moneyCardAddNum)
+        );
+      }else{
+        P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
+        if(currentHandsNum>0){
+          P1EventBean(code: P3EventCode.removeHandCard).send();
+        }else{
+          showWinnerDialog();
+        }
+      }
+      return;
+    }
     var cardsAdjacent = false;
     if(currentHandCard?.hasWanNeng==true){
       cardsAdjacent=true;
@@ -78,47 +102,22 @@ class P3Play{
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     P1Mp3Hep.instance.playXiaoChu();
-    _clickCardResult(100,refresh);
+    _clickCardResult(P3ValueHep.instance.getCardAddNum(),refresh);
   }
 
-  _clickCardResult(int addNum,Function(List<CardBean>) refresh)async{
+  _clickCardResult(double addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P3EventCode.updateHandCard).send();
-    P3UserInfoHep.instance.updateUserCoins(addNum.toDouble());
     refresh.call([]);
+    P3UserInfoHep.instance.updateUserCoins(addNum);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
+      P3UserInfoHep.instance.updatePlayCardNum();
     }else{
       if(currentHandsNum>0){
         P1EventBean(code: P3EventCode.removeHandCard).send();
       }else{
         showWinnerDialog();
       }
-
-      // P1Mp3Hep.instance.playShengLi();
-      // if(currentHandsNum>0){
-      //   P2UserInfoHep.instance.updateUserCoins(currentHandsNum*100);
-      //   await Future.delayed(const Duration(milliseconds: 1000));
-      // }
-      // P1RouterFun.showDialog(
-      //   w: P2WinnerDialog(
-      //     close: (){
-      //       P1RouterFun.closePage();
-      //     },
-      //     next: (){
-      //       P2UserInfoHep.instance.updateUserCoins(2000);
-      //       currentHandsNum=17;
-      //       _topRandomCardList.clear();
-      //       currentHandCard=null;
-      //       var routerName = P2UserInfoHep.instance.updateLevel();
-      //       if(routerName.isEmpty){
-      //         P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
-      //         toNextLevel.call();
-      //       }else{
-      //         P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
-      //       }
-      //     },
-      //   ),
-      // );
     }
   }
 
@@ -204,7 +203,33 @@ class P3Play{
         }
       }
     }
+    _setMoneyCard();
     _getTopAndHandCard(call);
+  }
+
+  _setMoneyCard(){
+    var list = cardList.expand((element) => element).toList();
+    var indexWhere = list.indexWhere((element) => element.isMoneyCard);
+    if(indexWhere>=0){
+      return;
+    }
+    var bottomList = list.where((element) => element.covered).toList();
+    List<CardBean> randomList=[];
+    while(randomList.length<3){
+      var r = bottomList.random();
+      var where = randomList.indexWhere((element) => element.index==r.index);
+      if(where<0){
+        randomList.add(r);
+      }
+    }
+    for (var value in cardList) {
+      for (var bean in value) {
+        var where = randomList.indexWhere((element) => element.index==bean.index);
+        if(where>=0){
+          bean.isMoneyCard=true;
+        }
+      }
+    }
   }
 
   _getTopAndHandCard(Function(List<CardBean>) call){
@@ -212,7 +237,6 @@ class P3Play{
     for (var value in cardList) {
       for (var bean in value) {
         if(!bean.covered&&bean.show){
-          print("kk===noCoverList===${bean.index}====${bean.cardNum}");
           noCoverList.add(bean);
         }
       }

@@ -90,9 +90,9 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
           margin: EdgeInsets.only(bottom: 33.h),
           child: Stack(
             children: [
-              P1Image(name: "wheel3",width: 260.w, height: 260.h,),
+              P1Image(name: p1Con.showBox?"wheel4":"wheel3",width: 260.w, height: 260.h,),
               CustomPaint(
-                painter: SectorTextPainter(),
+                painter: SectorTextPainter(list: p1Con.coinsList),
                 size: Size(260.w, 260.h),
               )
             ],

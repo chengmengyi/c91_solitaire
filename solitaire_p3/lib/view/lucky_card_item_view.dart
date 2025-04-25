@@ -132,7 +132,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
   flipLuckyCardEnd(){
     _canClick=false;
     var i = Random().nextInt(81)+20;
-    addNum=(Decimal.fromInt(i)*Decimal.parse("${widget.addNum}")/Decimal.fromInt(100)).toDouble().toStringAsFixed(2).toDou();
+    addNum=(Decimal.fromInt(i)*Decimal.parse("${widget.addNum}")/Decimal.fromInt(100)).toDouble();
     setState(() {});
     Future.delayed(const Duration(milliseconds: 800),(){
       _controller.forward();

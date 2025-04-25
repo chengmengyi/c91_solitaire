@@ -9,6 +9,7 @@ class CardBean{
   bool show;
   CardType cardType;
   GlobalKey globalKey;
+  bool isMoneyCard;
   CardBean({
     required this.index,
     required this.top,
@@ -17,6 +18,7 @@ class CardBean{
     required this.covered,
     required this.globalKey,
     this.cardType=CardType.fangkuai,
+    this.isMoneyCard=false,
 });
 
   @override

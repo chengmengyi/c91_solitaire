@@ -1,17 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p3/bean/wheel_bean.dart';
 
 class SectorTextPainter extends CustomPainter {
-
+  List<WheelBean> list;
+  SectorTextPainter({required this.list});
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = min(size.width, size.height) / 2 * 0.5;
 
-    // 定义文字列表
-    final texts = ['+10', '+20', '+30', '+40', '+50', '+60', '+70', '+80'];
     const numTexts = 8;
     const startAngle = -pi / 2; // 扇形起始角度
     const sweepAngle = pi * 2; // 扇形扫过的角度
@@ -20,6 +21,7 @@ class SectorTextPainter extends CustomPainter {
     const angleStep = sweepAngle / numTexts;
 
     for (int i = 0; i < numTexts; i++) {
+      var bean = list[i];
       final currentAngle = startAngle + i * angleStep;
 
       // 计算文字的位置
@@ -29,11 +31,19 @@ class SectorTextPainter extends CustomPainter {
       // 绘制文字
       final textPainter = TextPainter(
         text: TextSpan(
-          text: texts[i],
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
+          text: bean.isBox?"??":"+${bean.addNum}",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
+            fontFamily: "baloo",
+            shadows: [
+              Shadow(
+                  color: Colors.black,
+                  blurRadius: 2.w,
+                  offset: Offset(0,0.5.w)
+              )
+            ]
           ),
         ),
         textDirection: TextDirection.ltr,

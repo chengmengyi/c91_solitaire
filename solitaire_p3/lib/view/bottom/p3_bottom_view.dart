@@ -78,14 +78,20 @@ class P3BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
         onTap: (){
           p1Con.clickWanNeng();
         },
-        child: WanNengView(),
+        child: SizedBox(
+          key: p1Con.wannengGlobalKey,
+          child: WanNengView(),
+        ),
       ),
       SizedBox(width: 12.w,),
       InkWell(
         onTap: (){
           p1Con.clickLongJuanFeng();
         },
-        child: LongJuanFengView(),
+        child: SizedBox(
+          key: p1Con.longjuanfengGlobalKey,
+          child: LongJuanFengView(),
+        ),
       ),
       SizedBox(width: 22.w,),
     ],

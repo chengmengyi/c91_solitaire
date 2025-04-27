@@ -1,20 +1,35 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/wheel_bean.dart';
+import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
-class P3WheelCon extends P1BaseCon{
+class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
+  var canClick=true;
   var showBox=P3ValueHep.instance.checkWheelShowBox();
   var wheelAddNum=P3ValueHep.instance.getLuckyCardAddNum();
   List<WheelBean> coinsList=[];
+  late AnimationController _animationController;
+  late Animation<double> animation;
+  late AnimationStatusListener _statusListener;
 
   @override
   void onInit() {
     super.onInit();
     _initCoinsList();
+  }
+
+  startAnimator(){
+    if(!canClick){
+      return;
+    }
+    canClick=false;
+    _animationController.forward();
   }
 
   _initCoinsList(){
@@ -29,19 +44,28 @@ class P3WheelCon extends P1BaseCon{
         }
       }
       coinsList = _randomSortExceptPositions();
+      int angle = [90,180,270].random();
+      _initAnimator(360-angle);
     }else{
       coinsList.add(WheelBean(isBox: false, addNum: wheelAddNum.toInt()));
-      while(coinsList.length<6){
+      while(coinsList.length<8){
         var i = Random().nextInt(81)+20;
         var add = (i*wheelAddNum/100).ceil();
         coinsList.add(WheelBean(isBox: false, addNum: add));
       }
       coinsList.shuffle();
+      var indexWhere = coinsList.indexWhere((element) => element.addNum==wheelAddNum.toInt());
+      if(indexWhere>=0){
+        _initAnimator(360-45*indexWhere);
+      }
     }
 
   }
 
   clickClose(){
+    if(!canClick){
+      return;
+    }
     P3UserInfoHep.instance.updateTopPro(-5);
     P1RouterFun.closePage();
   }
@@ -66,5 +90,26 @@ class P3WheelCon extends P1BaseCon{
       }
     }
     return result;
+  }
+
+  _initAnimator(int angle){
+    _animationController=AnimationController(vsync: this,duration: const Duration(milliseconds: 1000));
+    _statusListener=(status){
+      if(status==AnimationStatus.completed){
+        Future.delayed(const Duration(milliseconds: 1000),(){
+          P1RouterFun.closePage();
+          P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: wheelAddNum));
+        });
+      }
+    };
+    _animationController.addStatusListener(_statusListener);
+    animation=Tween<double>(begin: 0,end: (720+angle)*(pi/180)).animate(_animationController);
+  }
+
+  @override
+  void onClose() {
+    _animationController.dispose();
+    _animationController.removeStatusListener(_statusListener);
+    super.onClose();
   }
 }

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:solitaire/launch/launch_page.dart';
+import 'package:solitaire_p1/p1_hep/check_user_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
+import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 void main() async{
   await init();
@@ -35,7 +38,10 @@ initP1P2()async{
 }
 
 initP3()async{
-
+  PointHep.instance.install();
+  PointHep.instance.session();
+  P3ValueHep.instance.initValue();
+  CheckUserHep.instance.init();
 }
 
 class MyApp extends StatelessWidget {

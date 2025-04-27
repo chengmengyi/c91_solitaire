@@ -88,17 +88,28 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 33.h),
-          child: Stack(
-            children: [
-              P1Image(name: p1Con.showBox?"wheel4":"wheel3",width: 260.w, height: 260.h,),
-              CustomPaint(
-                painter: SectorTextPainter(list: p1Con.coinsList),
-                size: Size(260.w, 260.h),
-              )
-            ],
+          child: AnimatedBuilder(
+            animation: p1Con.animation,
+            builder: (context,child)=>Transform.rotate(
+              angle: p1Con.animation.value,
+              child: Stack(
+                children: [
+                  P1Image(name: p1Con.showBox?"wheel4":"wheel3",width: 260.w, height: 260.h,),
+                  CustomPaint(
+                    painter: SectorTextPainter(list: p1Con.coinsList),
+                    size: Size(260.w, 260.h),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-        P1Image(name: "wheel2",width: double.infinity,height: 370.h,),
+        InkWell(
+          onTap: (){
+            p1Con.startAnimator();
+          },
+          child: P1Image(name: "wheel2",width: double.infinity,height: 370.h,),
+        ),
       ],
     ),
   );

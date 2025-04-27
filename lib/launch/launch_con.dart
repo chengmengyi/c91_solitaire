@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/check_user_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
@@ -38,8 +40,8 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
 
   clickPlay(){
     firstLaunch.saveData(false);
-    // P1RouterFun.toNextPageAndCloseCurrent(str: P2RoutersName.p2Home);
-    P1RouterFun.toNextPageAndCloseCurrent(str: P3RoutersName.p3Home);
+    var user = kDebugMode?true:CheckUserHep.instance.checkUser();
+    P1RouterFun.toNextPageAndCloseCurrent(str: user?P3RoutersName.p3Home:P2RoutersName.p2Home);
   }
 
   @override

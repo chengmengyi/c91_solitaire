@@ -75,10 +75,7 @@ class _CardItemViewState extends State<CardItemView> with SingleTickerProviderSt
       },
       key: widget.cardBean.globalKey,
       child: widget.cardBean.isMoneyCard?
-      Container(
-        width: 50.w,height: 78.h,
-        color: Colors.red,
-      ):
+      P1Image(name: "icon_money_card",width: 50.w,height: 78.h,):
       AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {

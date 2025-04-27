@@ -20,6 +20,23 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
       mainAxisSize: MainAxisSize.min,
       children: [
         P1Image(name: "get1",width: double.infinity,height: 56.h,),
+        SizedBox(height: 8.h,),
+        SizedBox(
+          width: 230.w,
+          height: 230.h,
+          child: Stack(
+            children: [
+              P1Image(name: "buy2",width: 230.w,height: 230.h,),
+              Align(
+                alignment: Alignment.center,
+                child: ScaleTransition(
+                  scale: p1Con.animation,
+                  child: P1Image(name: "get3",width: 130.w,height: 120.h,),
+                ),
+              ),
+            ],
+          ),
+        ),
         VideoBtnView(
           text: "Double",
           clickCall: (){

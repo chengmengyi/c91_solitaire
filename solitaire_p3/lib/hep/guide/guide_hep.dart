@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/guide/step1_view.dart';
@@ -28,6 +30,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=1){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop1"});
     showOverlay(
       context: context,
       widget: Step1View(
@@ -46,6 +49,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=2){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop2"});
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -65,6 +69,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=3){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop3"});
     var renderBox = cardBean.globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -85,6 +90,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=4){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop4"});
     showOverlay(
       context: context,
       widget: Step4View(
@@ -100,6 +106,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=5){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop7"});
     showOverlay(
       context: context,
       widget: Step5View(
@@ -115,6 +122,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=6){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop8"});
     var renderBox = cashTypeGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -134,6 +142,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=7){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop9"});
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -155,6 +164,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=8){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop11"});
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(

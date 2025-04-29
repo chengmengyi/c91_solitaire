@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/amount_bean.dart';
 import 'package:solitaire_p3/bean/cash_task_bean.dart';
@@ -24,8 +26,9 @@ class P3CashCon extends P1BaseCon{
 
   @override
   void onInit() {
-    _initList();
     super.onInit();
+    _initList();
+    PointHep.instance.point(pointEvent: PointEvent.cash_page);
   }
 
   @override
@@ -45,6 +48,7 @@ class P3CashCon extends P1BaseCon{
     if(cashType==index){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.cash_page_change_method);
     cashType=index;
     update(["cash_type","list"]);
     _initList();
@@ -52,6 +56,7 @@ class P3CashCon extends P1BaseCon{
 
   clickAmount(index,{bool fromGuide=false}){
     var bean = amountList[index];
+    PointHep.instance.point(pointEvent: PointEvent.cash_page_withdraw,params: {"cash_numbers":bean.money});
     if(null!=bean.cashTaskBean){
       switch(bean.cashTaskBean?.cashTask){
         case CashTask.task1:

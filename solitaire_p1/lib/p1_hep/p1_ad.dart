@@ -5,9 +5,15 @@ import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
+import 'package:solitaire_p1/p1_base/p3_ad_load_fail/ad_load_fail_dialog.dart';
+import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 
 class P1AD{
   static final P1AD _instance = P1AD();
@@ -45,7 +51,8 @@ class P1AD{
     return resultList;
   }
 
-  showAd({
+  //a 包显示广告
+  showAdByAPackage({
     required Function() closeAd,
 }){
     var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
@@ -61,6 +68,94 @@ class P1AD{
         },
         showFail: (ad){
           P1Mp3Hep.instance.playOrPauseBg();
+        },
+        closeAd: (){
+          P1Mp3Hep.instance.playOrPauseBg();
+          closeAd.call();
+        },
+        onAdRevenuePaidCallback: (ad,info){},
+      ),
+    );
+  }
+
+  //B包显示广告
+  showAdByBPackage({
+    required AdType adType,
+    required bool showAd,
+    required AdEvent adEvent,
+    required Function() closeAd,
+  }){
+    if(!showAd){
+      closeAd.call();
+      return;
+    }
+    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name});
+    var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    if(null==hasCache){
+      FlutterIosAdHep.instance.loadAd(adType);
+      if(adType==AdType.interstitial){
+        closeAd.call();
+        return;
+      }
+      P1RouterFun.showDialog(
+        w: AdLoadFailDialog(
+          tryAgain: (){
+            if(null!=FlutterIosAdHep.instance.getCacheResultData(AdType.reward)){
+              _startShowAd(adEvent: adEvent, closeAd: closeAd);
+            }
+          },
+        )
+      );
+      return;
+    }
+    _startShowAd(adEvent: adEvent, closeAd: closeAd);
+  }
+
+  _startShowAd({
+    required AdEvent adEvent,
+    required Function() closeAd,
+}){
+    FlutterIosAdHep.instance.showAd(
+      adType: AdType.reward,
+      iosAdCallback: IosAdCallback(
+        showSuccess: (ad,info){
+          P1Mp3Hep.instance.playOrPauseBg();
+          PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
+          FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEvent.name);
+        },
+        showFail: (ad){
+          P1Mp3Hep.instance.playOrPauseBg();
+          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
+        },
+        closeAd: (){
+          P1Mp3Hep.instance.playOrPauseBg();
+          closeAd.call();
+        },
+        onAdRevenuePaidCallback: (ad,info){},
+      ),
+    );
+  }
+
+  showOpenAd({
+    required AdEvent adEvent,
+    required Function() closeAd,
+  }){
+    var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    if(null==hasCache){
+      closeAd.call();
+      return;
+    }
+    FlutterIosAdHep.instance.showAd(
+      adType: AdType.reward,
+      iosAdCallback: IosAdCallback(
+        showSuccess: (ad,info){
+          P1Mp3Hep.instance.playOrPauseBg();
+          PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
+        },
+        showFail: (ad){
+          P1Mp3Hep.instance.playOrPauseBg();
+          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
+          closeAd.call();
         },
         closeAd: (){
           P1Mp3Hep.instance.playOrPauseBg();

@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_con.dart';
+import 'package:solitaire_p3/view/scale_coins_icon_view.dart';
 
 class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
   Function() close;
@@ -34,7 +35,7 @@ class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
             SizedBox(height: 30.h,),
             _btnWidget(),
           ],
-        )
+        ),
       ],
     ),
   );
@@ -46,10 +47,13 @@ class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
         alignment: Alignment.center,
         children: [
           P1Image(name: "winner3",width: 98.w,height: 98.h,),
-          P1Image(name: "winner4",width: 50.w,height: 50.h,),
+          ScaleCoinsIconView(
+            width: 50.w,
+            height: 50.w,
+          ),
         ],
       ),
-      P1Text(text: "+2000", size: 40.sp, color: "#FFFFFF",shadowsColor: "#650000",)
+      P1Text(text: "+20", size: 40.sp, color: "#FFFFFF",shadowsColor: "#650000",)
     ],
   );
 
@@ -58,8 +62,7 @@ class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
     children: [
       InkWell(
         onTap: (){
-          P1RouterFun.closePage();
-          close.call();
+          p1Con.clickHome(close);
         },
         child: Stack(
           alignment: Alignment.center,
@@ -72,8 +75,7 @@ class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
       SizedBox(width: 20.w,),
       InkWell(
         onTap: (){
-          P1RouterFun.closePage();
-          next.call();
+          p1Con.clickNext(next);
         },
         child: Stack(
           alignment: Alignment.center,

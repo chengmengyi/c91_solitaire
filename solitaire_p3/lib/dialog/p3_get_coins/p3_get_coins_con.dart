@@ -1,42 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
+import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
-class P3GetCoinsCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
-  late AnimationController _controller;
-  late Animation<double> animation;
+class P3GetCoinsCon extends P1BaseCon{
+  GetCoinsEnum getCoinsEnum=GetCoinsEnum.other;
 
   @override
   void onInit() {
     super.onInit();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    )..repeat(reverse: true);
-    animation = Tween<double>(begin: 1.0, end: 1.3).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
-
+    PointHep.instance.point(pointEvent: PointEvent.claim_pop,);
   }
 
   clickDou(double addNum){
-    P1RouterFun.closePage();
-    P3UserInfoHep.instance.updateUserCoins(addNum*2);
+    PointHep.instance.point(pointEvent: PointEvent.claim_pop_claim,params: {"pop_scene":getCoinsEnum.name});
+    P1AD.instance.showAdByBPackage(
+      adType: AdType.reward,
+      showAd: P3ValueHep.instance.showIntAd(AdType.reward),
+      adEvent: AdEvent.vvslt_obtainpop_rv,
+      closeAd: (){
+        P1RouterFun.closePage();
+        P3UserInfoHep.instance.updateUserCoins(addNum*2);
+      },
+    );
   }
 
   clickSingle(double addNum){
-    P1RouterFun.closePage();
-    P3UserInfoHep.instance.updateUserCoins(addNum);
-  }
-
-  @override
-  void onClose() {
-    _controller.dispose();
-    super.onClose();
+    PointHep.instance.point(pointEvent: PointEvent.claim_pop_claim_single,params: {"pop_scene":getCoinsEnum.name});
+    P1AD.instance.showAdByBPackage(
+      adType: AdType.interstitial,
+      showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
+      adEvent: AdEvent.vvslt_obtainpopclose_int,
+      closeAd: (){
+        P1RouterFun.closePage();
+        P3UserInfoHep.instance.updateUserCoins(addNum);
+      },
+    );
   }
 }

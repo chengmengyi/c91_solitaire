@@ -2,7 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/wheel_bean.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
@@ -22,12 +26,14 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
   void onInit() {
     super.onInit();
     _initCoinsList();
+    PointHep.instance.point(pointEvent: PointEvent.wheel_page,);
   }
 
   startAnimator(){
     if(!canClick){
       return;
     }
+    PointHep.instance.point(pointEvent: PointEvent.wheel_page_c,);
     canClick=false;
     _animationController.forward();
   }
@@ -66,8 +72,15 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
     if(!canClick){
       return;
     }
-    P3UserInfoHep.instance.updateTopPro(-5);
-    P1RouterFun.closePage();
+    P1AD.instance.showAdByBPackage(
+      adType: AdType.interstitial,
+      showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
+      adEvent: AdEvent.vvslt_turntablepopclose_int,
+      closeAd: (){
+        P3UserInfoHep.instance.updateTopPro(-5);
+        P1RouterFun.closePage();
+      },
+    );
   }
 
   _randomSortExceptPositions() {
@@ -98,7 +111,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
       if(status==AnimationStatus.completed){
         Future.delayed(const Duration(milliseconds: 1000),(){
           P1RouterFun.closePage();
-          P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: wheelAddNum));
+          P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: wheelAddNum,getCoinsEnum: GetCoinsEnum.wheel,));
         });
       }
     };

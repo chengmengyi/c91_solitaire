@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/random_card_bean.dart';
@@ -22,6 +24,10 @@ class P3Play{
   List<List<CardBean>> cardList=[];
   final List<RandomCardBean> _topRandomCardList=[];
   RandomCardBean? currentHandCard;
+
+  P3Play(){
+    PointHep.instance.point(pointEvent: PointEvent.game_page,params: {"level":p3CurrentLevel.getData()});
+  }
 
   hasWanNengCard(){
     P1Mp3Hep.instance.playWanNeng();
@@ -69,7 +75,7 @@ class P3Play{
       if(_checkCardNotEmpty()){
         _checkOverlays(refresh);
         P1RouterFun.showDialog(
-          w: P3GetCoinsDialog(addNum: moneyCardAddNum)
+          w: P3GetCoinsDialog(addNum: moneyCardAddNum,getCoinsEnum: GetCoinsEnum.cash_card,)
         );
       }else{
         P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
@@ -129,7 +135,7 @@ class P3Play{
           P1RouterFun.closePage();
         },
         next: (){
-          P3UserInfoHep.instance.updateUserCoins(2000);
+          P3UserInfoHep.instance.updateUserCoins(20);
           currentHandsNum=17;
           _topRandomCardList.clear();
           currentHandCard=null;

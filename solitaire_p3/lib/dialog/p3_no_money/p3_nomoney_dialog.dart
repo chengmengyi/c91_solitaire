@@ -31,8 +31,7 @@ class P3NoMoneyDialog extends P1BaseStatelessDialog<P3NoMoneyCon>{
         SizedBox(height: 34.h,),
         InkWell(
           onTap: (){
-            P1RouterFun.closePage();
-            clickNow.call();
+            p1Con.click(clickNow);
           },
           child: Container(
             width: 180.w,

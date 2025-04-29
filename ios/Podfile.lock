@@ -49,6 +49,12 @@ PODS:
     - AppLovinSDK (>= 13.0.0)
     - VungleAds (= 7.4.5)
   - AppLovinSDK (13.0.1)
+  - appsflyer_sdk (6.15.3):
+    - AppsFlyerFramework (= 6.15.3)
+    - Flutter
+  - AppsFlyerFramework (6.15.3):
+    - AppsFlyerFramework/Main (= 6.15.3)
+  - AppsFlyerFramework/Main (6.15.3)
   - audioplayers_darwin (0.0.1):
     - Flutter
   - BidMachine (3.2.1):
@@ -60,6 +66,10 @@ PODS:
   - FBAudienceNetwork (6.17.1)
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
+    - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_tba_info (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -159,9 +169,12 @@ DEPENDENCIES:
   - AppLovinMediationMolocoAdapter
   - AppLovinMediationUnityAdsAdapter
   - AppLovinMediationVungleAdapter
+  - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_tba_info (from `.symlinks/plugins/flutter_tba_info/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - solitaire_p1 (from `.symlinks/plugins/solitaire_p1/ios`)
@@ -189,6 +202,7 @@ SPEC REPOS:
     - AppLovinMediationUnityAdsAdapter
     - AppLovinMediationVungleAdapter
     - AppLovinSDK
+    - AppsFlyerFramework
     - BidMachine
     - BigoADS
     - ChartboostSDK
@@ -209,12 +223,18 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   applovin_max:
     :path: ".symlinks/plugins/applovin_max/ios"
+  appsflyer_sdk:
+    :path: ".symlinks/plugins/appsflyer_sdk/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   Flutter:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_tba_info:
+    :path: ".symlinks/plugins/flutter_tba_info/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   path_provider_foundation:
@@ -250,6 +270,8 @@ SPEC CHECKSUMS:
   AppLovinMediationUnityAdsAdapter: 5be40deb046081cdd36c988c466136129fd8734c
   AppLovinMediationVungleAdapter: 969448b436df91ac3f78e3b2e41ce4cd9cdf0c9e
   AppLovinSDK: fdae6a4361c9c9b09f8d7d18ede792368221d987
+  appsflyer_sdk: 2765219407587b6f8e3b34bf33a87ebf96937a51
+  AppsFlyerFramework: ad7ff0d22aa36c7f8cc4f71a5424e19b89ccb8ae
   audioplayers_darwin: ccf9c770ee768abb07e26d90af093f7bab1c12ab
   BidMachine: 48529ae35f438e48708882e08426b907434eeee9
   BigoADS: 8f0cee203e50095cc4d43dc5067695fc32eb094f
@@ -257,6 +279,8 @@ SPEC CHECKSUMS:
   FBAudienceNetwork: eb3ffbf2b35df25e21e163657044ffef66616a40
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
+  flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
+  flutter_tba_info: fce89f2ce0bf3af177f0c88e99b153260bc6a7df
   fluttertoast: 61c4d04b244937570e728fcd5f541ddc8b58d01c
   Fyber_Marketplace_SDK: 215c2020efd507c0e97f40871e96a26918f8986e
   Google-Mobile-Ads-SDK: 6a3cdd892fd87c8b2a388c1cc74d2b7df2570f0b
@@ -278,6 +302,6 @@ SPEC CHECKSUMS:
   VungleAds: 1da221690dd1a8710d0b6a4c7aeac14cb12d31ab
   webview_flutter_wkwebview: 45a041c7831641076618876de3ba75c712860c6b
 
-PODFILE CHECKSUM: 4f54eedba57f67960a09e29288d7f3bcab5fa22a
+PODFILE CHECKSUM: 13aca95f3e66588e5dbe9901d4675555a974f213
 
 COCOAPODS: 1.16.2

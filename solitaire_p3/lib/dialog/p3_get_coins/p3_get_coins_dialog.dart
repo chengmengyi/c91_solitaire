@@ -4,14 +4,25 @@ import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_con.dart';
+import 'package:solitaire_p3/view/scale_coins_icon_view.dart';
 import 'package:solitaire_p3/view/video_btn_view.dart';
+
+enum GetCoinsEnum{
+  wheel,card,cash_card,pop,other,
+}
 
 class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
   double addNum;
-  P3GetCoinsDialog({required this.addNum,});
+  GetCoinsEnum getCoinsEnum;
+  P3GetCoinsDialog({required this.addNum,required this.getCoinsEnum});
 
   @override
   P3GetCoinsCon initCon() => P3GetCoinsCon();
+
+  @override
+  initView() {
+    p1Con.getCoinsEnum=getCoinsEnum;
+  }
 
   @override
   Widget contentWidget() => Container(
@@ -29,10 +40,7 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
               P1Image(name: "buy2",width: 230.w,height: 230.h,),
               Align(
                 alignment: Alignment.center,
-                child: ScaleTransition(
-                  scale: p1Con.animation,
-                  child: P1Image(name: "get3",width: 130.w,height: 120.h,),
-                ),
+                child: ScaleCoinsIconView(),
               ),
             ],
           ),

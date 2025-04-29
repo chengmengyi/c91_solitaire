@@ -57,8 +57,7 @@ class P3CashTask2Dialog extends P1BaseStatelessDialog<P3CashTask2Con>{
               SizedBox(height: 34.h,),
               InkWell(
                 onTap: (){
-                  P1RouterFun.closePage();
-                  clickNow.call();
+                  p1Con.click(clickNow);
                 },
                 child: Container(
                   width: 180.w,

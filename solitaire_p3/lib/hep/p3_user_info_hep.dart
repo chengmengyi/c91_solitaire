@@ -1,5 +1,7 @@
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
@@ -41,6 +43,11 @@ class P3UserInfoHep {
   updateUserCoins(double addNum){
     var d = (Decimal.parse("${p3Coins.getData()}")+Decimal.parse("$addNum")).toDouble();
     p3Coins.saveData(d);
+    var moneyLevel = p3LastMoneyLevel.getData()+100;
+    if(p3Coins.getData()>=moneyLevel){
+      PointHep.instance.point(pointEvent: PointEvent.cash_dall,params: {"money_from":moneyLevel});
+      p3LastMoneyLevel.saveData(moneyLevel);
+    }
     P1EventBean(code: P3EventCode.updateCoins).send();
     if(addNum>0){
       P1EventBean(code: P3EventCode.showCoinsLottie).send();

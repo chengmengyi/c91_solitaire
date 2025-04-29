@@ -29,7 +29,7 @@ class P2BuyLongJuanCardCon extends P1BaseCon{
   }
 
   clickVideo(Function() hasLongJuanCall){
-    P1AD.instance.showAd(
+    P1AD.instance.showAdByAPackage(
       closeAd: (){
         hasLongJuanCall.call();
         P1RouterFun.closePage();

@@ -28,7 +28,7 @@ class P2BuyWanNengCardCon extends P1BaseCon{
   }
 
   clickVideo(Function() hasWanNengCall){
-    P1AD.instance.showAd(
+    P1AD.instance.showAdByAPackage(
       closeAd: (){
         hasWanNengCall.call();
         P1RouterFun.closePage();

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/random_card_bean.dart';
@@ -114,6 +116,7 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   _showLongjuanfengGuide(){
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop5"});
     var renderBox = longjuanfengGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     GuideHep.instance.showOverlay(
@@ -128,6 +131,7 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   _showWannengGuide(){
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop6"});
     var renderBox = wannengGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     GuideHep.instance.showOverlay(

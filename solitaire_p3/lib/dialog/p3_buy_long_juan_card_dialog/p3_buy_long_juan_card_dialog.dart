@@ -43,35 +43,6 @@ class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P3BuyLongJuanCardCon>{
         SizedBox(height: 12.h,),
         InkWell(
           onTap: (){
-            p1Con.clickCoins(hasLongJuanCall);
-          },
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              P1Image(name: "btn_bg3",width: 180.w,height: 60.h,),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  P1Image(name: "coins2",width: 30.w,height: 30.h,),
-                  SizedBox(width: 6.w,),
-                  ShakeAnimationWidget(
-                    shakeAnimationController: p1Con.shakeAnimationController,
-                    shakeAnimationType: ShakeAnimationType.LeftRightShake,
-                    isForward: false,
-                    shakeCount: 1,
-                    shakeRange: 0.2,
-                    child: P1Text(text: "2000", size: 26.sp, color: p3Coins.getData()>=2000?"#FFFFFF":"#C13336",shadowsColor: "#000000",),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-        SizedBox(height: 12.h,),
-        InkWell(
-          onTap: (){
             p1Con.clickVideo(hasLongJuanCall);
           },
           child: SizedBox(
@@ -79,7 +50,7 @@ class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P3BuyLongJuanCardCon>{
             height: 60.h,
             child: Stack(
               children: [
-                P1Image(name: "btn_bg4",width: 180.w,height: 60.h,),
+                P1Image(name: "btn_bg3",width: 180.w,height: 60.h,),
                 Align(
                   alignment: Alignment.center,
                   child: P1Text(text: "Collect", size: 26.sp, color: "#FFFFFF",shadowsColor: "#303E10",),
@@ -91,7 +62,14 @@ class P2BuyLongJuanDialog extends P1BaseStatelessDialog<P3BuyLongJuanCardCon>{
               ],
             ),
           ),
-        )
+        ),
+        SizedBox(height: 12.h,),
+        InkWell(
+          onTap: (){
+            p1Con.clickClose();
+          },
+          child: P1Text(text: "No Thanks", size: 14.sp, color: "#FFFFFF",decoration: TextDecoration.underline,decorationColor: "#FFFFFF".toColor(),),
+        ),
       ],
     ),
   );

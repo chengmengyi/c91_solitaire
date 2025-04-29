@@ -1,10 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/local_notification_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
@@ -26,6 +27,9 @@ class P3HomeCon extends P1BaseCon{
   void onInit() {
     super.onInit();
     P1Mp3Hep.instance.playBgMp3();
+    PointHep.instance.point(pointEvent: PointEvent.home_page);
+    LocalNotificationHep.instance.setLocalNotifications();
+    LocalNotificationHep.instance.checkFromIcon();
   }
 
   @override
@@ -35,6 +39,7 @@ class P3HomeCon extends P1BaseCon{
   }
 
   clickPlay(){
+    PointHep.instance.point(pointEvent: PointEvent.home_page_cash);
     var routerName = _getRouterNameByLevel();
     if(routerName.isNotEmpty){
       P1RouterFun.toNextPage(str: routerName);
@@ -42,6 +47,7 @@ class P3HomeCon extends P1BaseCon{
   }
 
   clickCash(){
+    PointHep.instance.point(pointEvent: PointEvent.home_page_withdraw);
     P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
   }
 
@@ -65,8 +71,7 @@ class P3HomeCon extends P1BaseCon{
 
     // _checkShowGuide();
 
-    // P1RouterFun.showDialog(w: P3WheelDialog());
-    P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100));
+    // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100));
   }
 
   double getProgress(){

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p3/bean/value_bean.dart';
@@ -15,6 +16,18 @@ class P3ValueHep{
   ValueBean? _valueBean;
 
   initValue(){
+    _initBean();
+    print("kkkk===first init value");
+    FirebaseHep.instance.valueCallback=(s){
+      if(p3ValueConfig.getData().isEmpty){
+        print("kkkk===second init value");
+        p3ValueConfig.saveData(s);
+        _initBean();
+      }
+    };
+  }
+
+  _initBean(){
     try{
       var s = p3ValueConfig.getData();
       if(s.isEmpty){

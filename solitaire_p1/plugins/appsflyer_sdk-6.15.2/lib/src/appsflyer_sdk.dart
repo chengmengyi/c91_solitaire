@@ -201,10 +201,12 @@ class AppsflyerSdk {
       _methodChannel.setMethodCallHandler((call) async {
         switch (call.method) {
           case 'onSuccess':
+            _isSdkStarted = false;
             onSuccess?.call();
             _methodChannel.setMethodCallHandler(null);
             break;
           case 'onError':
+            _isSdkStarted = false;
             final int errorCode = call.arguments['errorCode'];
             final String errorMessage = call.arguments['errorMessage'];
             onError?.call(errorCode, errorMessage);

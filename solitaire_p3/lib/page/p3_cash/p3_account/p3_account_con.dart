@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 
@@ -15,6 +17,7 @@ class P3AccountCon extends P1BaseCon{
     var map = P1RouterFun.getArguments();
     type=map["type"];
     amount=map["amount"];
+    PointHep.instance.point(pointEvent: PointEvent.cash_form_page,params: {"form_type":_getCashTypeStr()});
   }
 
   clickClose(){
@@ -39,6 +42,7 @@ class P3AccountCon extends P1BaseCon{
     }
     hideKeyboard();
     await CashTaskHep.instance.createCashTask(type, amount, content);
+    PointHep.instance.point(pointEvent: PointEvent.cash_form_page_confirm,params: {"form_type":_getCashTypeStr(),"account":content});
     P1EventBean(code: P3EventCode.updateCashList).send();
     P1RouterFun.closePage();
   }
@@ -62,6 +66,13 @@ class P3AccountCon extends P1BaseCon{
     }
   }
 
+  String _getCashTypeStr(){
+    switch(type){
+      case 0: return "cashApp";
+      case 1: return "paypal";
+      default: return "";
+    }
+  }
 
   @override
   void onClose() {

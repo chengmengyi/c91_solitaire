@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:solitaire/launch/launch_page.dart';
 import 'package:solitaire_p1/p1_hep/check_user_hep.dart';
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
@@ -38,9 +39,10 @@ initP1P2()async{
 }
 
 initP3()async{
+  P3ValueHep.instance.initValue();
+  FirebaseHep.instance.initFirebase();
   PointHep.instance.install();
   PointHep.instance.session();
-  P3ValueHep.instance.initValue();
   CheckUserHep.instance.init();
 }
 

@@ -52,11 +52,15 @@ class P3HomeCon extends P1BaseCon{
   }
 
   String _getRouterNameByLevel(){
-    var i = (p3CurrentLevel.getData()-1)%20;
+    var i = (p3CurrentLevel.getData()-1)%50+1;
     if(i<=10){
       return P3RoutersName.p3Level10;
     }else if(i<=20){
       return P3RoutersName.p3Level20;
+    }else if(i<=30){
+      return P3RoutersName.p3Level30;
+    } else if(i<=40){
+      return P3RoutersName.p3Level40;
     }
     return "";
   }
@@ -65,6 +69,7 @@ class P3HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
+    P3UserInfoHep.instance.updateLevel();
     // P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);

@@ -5,19 +5,18 @@ import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
-import 'package:solitaire_p3/page/p3_level20/p3_level20_con.dart';
+import 'package:solitaire_p3/page/p3_level30/p3_level30_controller.dart';
 import 'package:solitaire_p3/view/bottom/p3_bottom_view.dart';
 import 'package:solitaire_p3/view/card_item_view.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
-import 'package:solitaire_p3/view/wind_animator_view.dart';
 
-class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
+class P3Level30Page extends P1BaseStatelessPage<P3Level30Controller>{
   @override
   String bgName() => "level101";
 
   @override
-  P3Level20Con initCon() => P3Level20Con();
+  P3Level30Controller initCon() => P3Level30Controller();
 
   @override
   Widget contentWidget() => Stack(
@@ -34,83 +33,85 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
           ],
         ),
       ),
-      WindAnimatorView(),
     ],
   );
 
   _playWidget()=>Expanded(
     child: Center(
-      child: GetBuilder<P3Level20Con>(
-        id: "list",
-        builder: (_){
-          if(p1Con.p3play.cardList.isEmpty){
-            return Container();
+      child: GetBuilder<P3Level30Controller>(
+          id: "list",
+          builder: (_){
+            if(p1Con.p3play.cardList.length!=3){
+              return Container();
+            }
+            return SizedBox(
+              width: 260.w,
+              height: 348.h,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  _cardBottomWidget(p1Con.p3play.cardList.first),
+                  _cardCenterWidget(p1Con.p3play.cardList[1]),
+                  _cardTopWidget(p1Con.p3play.cardList[2]),
+                ],
+              ),
+            );
           }
-          return SizedBox(
-            width: 238.w,
-            height: 258.h,
-            child: Stack(
-              children: [
-                _playBottomCardWidget(p1Con.p3play.cardList.first),
-                _playTopCardWidget(p1Con.p3play.cardList.last),
-              ],
-            ),
-          );
-        }
       ),
     ),
   );
 
-  _playTopCardWidget(List<CardBean> list)=>Stack(
+  _cardBottomWidget(List<CardBean> list)=>Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
-      Positioned(
-        top: 43.h,
-        left: 27.w,
-        child: _cardItemWidget(list.first),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _cardItemWidget(list[0]),
+          SizedBox(width: 93.w,),
+          _cardItemWidget(list[1]),
+        ],
       ),
-      Positioned(
-        top: 43.h,
-        right: 27.w,
-        child: _cardItemWidget(list[1]),
-      ),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          margin: EdgeInsets.only(bottom: 50.h),
-          child: _cardItemWidget(list[2]),
-        ),
-      ),
+      SizedBox(height: 108.h,),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _cardItemWidget(list[2]),
+          SizedBox(width: 93.w,),
+          _cardItemWidget(list[3]),
+        ],
+      )
     ],
   );
 
-  _playBottomCardWidget(List<CardBean> list)=>Column(
+  _cardCenterWidget(List<CardBean> list)=>Column(
     mainAxisSize: MainAxisSize.min,
-    children: List.generate(3, (index){
-      if(index==2){
+    children: List.generate(4, (index){
+      if(index==0||index==3){
         return Container(
-          margin: EdgeInsets.only(top: 12.h),
+          margin: EdgeInsets.only(top: index==3?12.h:0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _cardItemWidget(list[8]),
-              SizedBox(width: 26.w,),
-              _cardItemWidget(list[9]),
+              _cardItemWidget(list[index==0?0:10]),
+              SizedBox(width: 30.w,),
+              _cardItemWidget(list[index==0?1:11]),
             ],
           ),
         );
       }
-      var start = index*4;
+      var start = index*(index==1?2:3);
       return Container(
-        margin: EdgeInsets.only(bottom: index==0?12.h:0),
+        margin: EdgeInsets.only(top: 12.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             _cardItemWidget(list[start]),
-            SizedBox(width: 6.w,),
+            SizedBox(width: 15.w,),
             _cardItemWidget(list[start+1]),
-            SizedBox(width: 26.w,),
+            SizedBox(width: 30.w,),
             _cardItemWidget(list[start+2]),
-            SizedBox(width: 6.w,),
+            SizedBox(width: 15.w,),
             _cardItemWidget(list[start+3]),
           ],
         ),
@@ -118,6 +119,26 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
     }),
   );
 
+
+  _cardTopWidget(List<CardBean> list)=>Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      _cardItemWidget(list.first),
+      SizedBox(height: 22.h,),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _cardItemWidget(list[1]),
+          SizedBox(width: 20.w,),
+          _cardItemWidget(list[2]),
+          SizedBox(width: 20.w,),
+          _cardItemWidget(list[3]),
+        ],
+      ),
+      SizedBox(height: 22.h,),
+      _cardItemWidget(list.last),
+    ],
+  );
 
   _cardItemWidget(CardBean bean)=> CardItemView(
     cardBean: bean,
@@ -148,7 +169,7 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
           children: [
             P1Text(text: "Level", size: 20.sp, color: "#FFFFFF"),
             SizedBox(width: 10.w,),
-            GetBuilder<P3Level20Con>(
+            GetBuilder<P3Level30Controller>(
               id: "level",
               builder: (_)=>P1Text(text: "${p3CurrentLevel.getData()}", size: 20.sp, color: "#6CFFF8",),
             ),

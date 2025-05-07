@@ -10,6 +10,7 @@ class CardBean{
   CardType cardType;
   GlobalKey globalKey;
   bool isMoneyCard;
+  double rotation;
   CardBean({
     required this.index,
     required this.top,
@@ -19,6 +20,7 @@ class CardBean{
     required this.globalKey,
     this.cardType=CardType.fangkuai,
     this.isMoneyCard=false,
+    this.rotation=0.0,
 });
 
   @override

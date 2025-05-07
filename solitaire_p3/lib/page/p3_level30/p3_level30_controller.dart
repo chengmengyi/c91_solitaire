@@ -59,12 +59,6 @@ class P3Level30Controller extends P1BaseCon{
       }
     }
 
-    for (var value in p3play.cardList) {
-      for(var v in value){
-        print(v);
-      }
-    }
-
     update(["list"]);
     _checkOverlays();
   }

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/local_notification_hep.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
@@ -52,16 +53,37 @@ class P3HomeCon extends P1BaseCon{
   }
 
   String _getRouterNameByLevel(){
-    var i = (p3CurrentLevel.getData()-1)%50+1;
+    var i = (p3CurrentLevel.getData()-1)%60+1;
     if(i<=10){
       return P3RoutersName.p3Level10;
     }else if(i<=20){
       return P3RoutersName.p3Level20;
     }else if(i<=30){
       return P3RoutersName.p3Level30;
-    } else if(i<=40){
+    }else if(i<=40){
       return P3RoutersName.p3Level40;
+    }else if(i<=50){
+      return P3RoutersName.p3Level60;
+    }else if(i<=60){
+      return P3RoutersName.p3Level90;
     }
+    // if(i<=10){
+    //   return P3RoutersName.p3Level10;
+    // }else if(i<=20){
+    //   return P3RoutersName.p3Level20;
+    // }else if(i<=30){
+    //   return P3RoutersName.p3Level30;
+    // }else if(i<=40){
+    //   return P3RoutersName.p3Level40;
+    // }else if(i<=50){
+    //   return P3RoutersName.p3Level50;
+    // }else if(i<=60){
+    //   return P3RoutersName.p3Level60;
+    // }else if(i<=70){
+    //   return P3RoutersName.p3Level70;
+    // }else if(i<=90){
+    //   return P3RoutersName.p3Level90;
+    // }
     return "";
   }
 
@@ -69,7 +91,8 @@ class P3HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    P3UserInfoHep.instance.updateLevel();
+    // p3CurrentLevel.saveData(45);
+    // P3UserInfoHep.instance.updateLevel();
     // P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);
@@ -77,6 +100,8 @@ class P3HomeCon extends P1BaseCon{
     // _checkShowGuide();
 
     // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100));
+
+    P1AD.instance.initAdInfo();
   }
 
   double getProgress(){

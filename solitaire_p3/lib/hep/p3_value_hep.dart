@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
@@ -45,6 +46,9 @@ class P3ValueHep{
   }
 
   bool showIntAd(AdType adType){
+    if(kDebugMode){
+      return false;
+    }
     if(adType==AdType.reward){
       return true;
     }

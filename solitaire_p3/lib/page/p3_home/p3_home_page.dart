@@ -65,7 +65,12 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
                       ),
                     ),
                   ),
-                  P1Image(name: "home10",width: 70.w,height: 33.h,),
+                  InkWell(
+                    onTap: (){
+                      p1Con.clickCash();
+                    },
+                    child: P1Image(name: p3Coins.getData()<200?"home10":"home12",width: 70.w,height: 33.h,),
+                  ),
                   SizedBox(width: 16.w,),
                 ],
               ),

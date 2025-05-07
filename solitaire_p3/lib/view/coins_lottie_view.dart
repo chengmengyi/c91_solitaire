@@ -26,7 +26,7 @@ class _CoinsLottieViewState extends State<CoinsLottieView> with TickerProviderSt
           break;
       }
     });
-    coinLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 1000))..addStatusListener((status) {
+    coinLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 400))..addStatusListener((status) {
       if(status==AnimationStatus.completed){
         setState(() {
           showCoinsLottie=false;

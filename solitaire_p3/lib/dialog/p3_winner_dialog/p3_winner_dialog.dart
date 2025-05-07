@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_con.dart';
+import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/view/scale_coins_icon_view.dart';
 
 class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
@@ -53,7 +54,7 @@ class P3WinnerDialog extends P1BaseStatelessDialog<P3WinnerCon>{
           ),
         ],
       ),
-      P1Text(text: "+20", size: 40.sp, color: "#FFFFFF",shadowsColor: "#650000",)
+      P1Text(text: "+${P3UserInfoHep.instance.getOneLevelAddAllCoins()}", size: 40.sp, color: "#FFFFFF",shadowsColor: "#650000",)
     ],
   );
 

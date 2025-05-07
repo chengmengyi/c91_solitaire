@@ -7,6 +7,7 @@ import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
+import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 class WindAnimatorView extends StatefulWidget{
   @override
@@ -103,7 +104,8 @@ class _WindAnimatorViewState extends State<WindAnimatorView>  with SingleTickerP
         setState(() {
           showCard=false;
         });
-        P3UserInfoHep.instance.updateUserCoins((100*cardList.length).toDouble());
+        var addNum = (Decimal.parse("${P3ValueHep.instance.getCardAddNum()}")*Decimal.fromInt(cardList.length)).toDouble();
+        P3UserInfoHep.instance.updateUserCoins(addNum);
         P1EventBean(code: P3EventCode.completedWindAnimator).send();
       }
     };

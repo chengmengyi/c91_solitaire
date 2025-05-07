@@ -4,7 +4,7 @@ import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/hep/p3_play.dart';
 
-class P3Level40Controller extends P1BaseCon{
+class P3Level50Controller extends P1BaseCon{
   late P3Play p3play;
 
   @override
@@ -33,24 +33,38 @@ class P3Level40Controller extends P1BaseCon{
   _initCardList()async{
     p3play.cardList.clear();
     var currentIndex=0;
-    while(p3play.cardList.length<3){
+    while(p3play.cardList.length<5){
       if(p3play.cardList.isEmpty){
         List<CardBean> list=[];
-        for(int index=0;index<7;index++){
+        for(int index=0;index<4;index++){
           list.add(CardBean(index: currentIndex,top: false,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
           currentIndex++;
         }
         p3play.cardList.add(list);
       }else if(p3play.cardList.length==1){
         List<CardBean> list=[];
-        for(int index=0;index<13;index++){
+        for(int index=0;index<5;index++){
+          list.add(CardBean(index: currentIndex,top: false,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey(),rotation: index==0?-30:index==1?30:0,));
+          currentIndex++;
+        }
+        p3play.cardList.add(list);
+      }else if(p3play.cardList.length==2){
+        List<CardBean> list=[];
+        for(int index=0;index<4;index++){
+          list.add(CardBean(index: currentIndex,top: false,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
+          currentIndex++;
+        }
+        p3play.cardList.add(list);
+      }else if(p3play.cardList.length==3){
+        List<CardBean> list=[];
+        for(int index=0;index<8;index++){
           list.add(CardBean(index: currentIndex,top: false,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
           currentIndex++;
         }
         p3play.cardList.add(list);
       }else{
         List<CardBean> list=[];
-        for(int index=0;index<2;index++){
+        for(int index=0;index<8;index++){
           list.add(CardBean(index: currentIndex,top: true,cardNum: "-1", show: true, covered: true,globalKey: GlobalKey()));
           currentIndex++;
         }

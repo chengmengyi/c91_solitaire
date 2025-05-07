@@ -25,17 +25,21 @@ class P1AD{
       var data = ConfigAdData(
         maxShowNum: json["wbpryjrf"],
         maxClickNum: json["gelxuwdg"],
-        oneRewardList: _getAdList(json["vvslt_arv_one"]),
-        oneInterList: [],
-        twoRewardList: [],
-        twoInterList: [],
+        oneRewardList: _getAdList(json["vvslt_rv_one"]),
+        oneInterList: _getAdList(json["vvslt_int_one"]),
+        twoRewardList: _getAdList(json["vvslt_rv_two"]),
+        twoInterList: _getAdList(json["vvslt_int_two"]),
       );
       FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data);
     }catch(e){
+      print("kk===$e");
     }
   }
 
-  List<AdInfoData> _getAdList(List list){
+  List<AdInfoData> _getAdList(List? list){
+    if(null==list){
+      return [];
+    }
     List<AdInfoData> resultList=[];
     for (var value in list) {
       resultList.add(

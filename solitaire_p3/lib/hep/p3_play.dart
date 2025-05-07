@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
@@ -26,6 +28,7 @@ class P3Play{
   RandomCardBean? currentHandCard;
 
   P3Play(){
+    P3UserInfoHep.instance.setStartCoins();
     PointHep.instance.point(pointEvent: PointEvent.game_page,params: {"level":p3CurrentLevel.getData()});
   }
 
@@ -135,7 +138,7 @@ class P3Play{
           P1RouterFun.closePage();
         },
         next: (){
-          P3UserInfoHep.instance.updateUserCoins(20);
+          P3UserInfoHep.instance.setStartCoins();
           currentHandsNum=17;
           _topRandomCardList.clear();
           currentHandCard=null;
@@ -209,9 +212,66 @@ class P3Play{
         }
       }
     }
+
+
+    // for (int outerIndex = 0; outerIndex < cardList.length; outerIndex++) {
+    //   for (int innerIndex = 0; innerIndex < cardList[outerIndex].length; innerIndex++) {
+    //     var bean = cardList[outerIndex][innerIndex];
+    //     final GlobalKey currentKey = bean.globalKey;
+    //     final RenderBox? currentBox = currentKey.currentContext?.findRenderObject() as RenderBox?;
+    //     if (currentBox == null) {
+    //       continue;
+    //     }
+    //     final Path currentPath = _getRotatedPath(currentBox, bean.rotation);
+    //     bool isOverlayed = false;
+    //     for (int laterOuterIndex = outerIndex; laterOuterIndex < cardList.length; laterOuterIndex++) {
+    //       for (int laterInnerIndex = 0; laterInnerIndex < cardList[laterOuterIndex].length; laterInnerIndex++) {
+    //         if (laterOuterIndex > outerIndex || (laterOuterIndex == outerIndex && laterInnerIndex > innerIndex)) {
+    //           var innerBean = cardList[laterOuterIndex][laterInnerIndex];
+    //           if (!innerBean.show) {
+    //             continue;
+    //           }
+    //           final GlobalKey otherKey = innerBean.globalKey;
+    //           final RenderBox? otherBox = otherKey.currentContext?.findRenderObject() as RenderBox?;
+    //           if (otherBox != null) {
+    //             final Path otherPath = _getRotatedPath(otherBox, innerBean.rotation);
+    //             if (_isPathOverlapping(currentPath, otherPath)) {
+    //               isOverlayed = true;
+    //               break;
+    //             }
+    //           }
+    //         }
+    //       }
+    //       if (isOverlayed) {
+    //         break;
+    //       }
+    //     }
+    //     bean.covered = isOverlayed;
+    //   }
+    // }
+
     _setMoneyCard();
     _getTopAndHandCard(call);
   }
+
+  Path _getRotatedPath(RenderBox box, double rotation) {
+    final Offset position = box.localToGlobal(Offset.zero);
+    final Size size = box.size;
+    final Matrix4 transform = Matrix4.identity()
+      ..translate(position.dx + size.width / 2, position.dy + size.height / 2)
+      ..rotateZ(rotation * (pi / 180))
+      ..translate(-size.width / 2, -size.height / 2);
+    final Path path = Path()
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..transform(transform.storage);
+    return path;
+  }
+
+  bool _isPathOverlapping(Path path1, Path path2) {
+    final Path intersection = Path.combine(PathOperation.intersect, path1, path2);
+    return !intersection.getBounds().isEmpty;
+  }
+
 
   _setMoneyCard(){
     var list = cardList.expand((element) => element).toList();

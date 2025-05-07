@@ -154,7 +154,7 @@ class P2BottomViewCon extends P1BaseCon{
       update(["hand_card_num"]);
       P1Mp3Hep.instance.playXiaoChu();
       P3UserInfoHep.instance.updateUserCoins(P3ValueHep.instance.getCardAddNum());
-      await Future.delayed(const Duration(milliseconds: 1000));
+      await Future.delayed(const Duration(milliseconds: 400));
     }
     p3play.showWinnerDialog();
   }

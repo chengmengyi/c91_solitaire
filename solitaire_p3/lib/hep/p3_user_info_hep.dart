@@ -11,6 +11,8 @@ class P3UserInfoHep {
   static final P3UserInfoHep _instance = P3UserInfoHep();
   static P3UserInfoHep get instance => _instance;
 
+  var _startCoinsNum=0.0;
+
   String updateLevel(){
     var currentLevel = p3CurrentLevel.getData();
     int nextLevel = currentLevel + 1;
@@ -74,5 +76,13 @@ class P3UserInfoHep {
       }
       p3LastIsLuckyCard.saveData(!isLucky);
     }
+  }
+
+  setStartCoins(){
+    _startCoinsNum=p3Coins.getData();
+  }
+
+  double getOneLevelAddAllCoins(){
+    return (Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$_startCoinsNum")).toDouble();
   }
 }

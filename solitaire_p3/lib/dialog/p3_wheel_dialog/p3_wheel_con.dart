@@ -10,6 +10,7 @@ import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/wheel_bean.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
@@ -111,7 +112,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
       if(status==AnimationStatus.completed){
         Future.delayed(const Duration(milliseconds: 1000),(){
           P1RouterFun.closePage();
-          P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: wheelAddNum,getCoinsEnum: GetCoinsEnum.wheel,));
+          showGetCoinsDialog(wheelAddNum, GetCoinsEnum.wheel);
         });
       }
     };

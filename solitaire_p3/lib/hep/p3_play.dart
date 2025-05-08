@@ -14,6 +14,7 @@ import 'package:solitaire_p3/dialog/p3_winner_dialog/p3_winner_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_card_hep.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
@@ -78,9 +79,7 @@ class P3Play{
       var moneyCardAddNum = P3ValueHep.instance.getMoneyCardAddNum();
       if(_checkCardNotEmpty()){
         _checkOverlays(refresh);
-        P1RouterFun.showDialog(
-          w: P3GetCoinsDialog(addNum: moneyCardAddNum,getCoinsEnum: GetCoinsEnum.cash_card,)
-        );
+        showGetCoinsDialog(moneyCardAddNum, GetCoinsEnum.card);
       }else{
         P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
         if(currentHandsNum>0){
@@ -111,7 +110,7 @@ class P3Play{
     P1Mp3Hep.instance.playXiaoChu();
     P1EventBean(code: P3EventCode.moveHandCardToBottom,anyValue: bean,anyValue2: _handCardOffset).send();
     refresh.call([]);
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 300));
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     _clickCardResult(P3ValueHep.instance.getCardAddNum(),refresh);

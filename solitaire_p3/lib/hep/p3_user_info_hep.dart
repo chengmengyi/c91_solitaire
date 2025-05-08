@@ -4,6 +4,7 @@ import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
+import 'package:solitaire_p3/dialog/p3_wheel_dialog/p3_wheel_dialog.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 
@@ -72,7 +73,7 @@ class P3UserInfoHep {
       if(isLucky){
         P1RouterFun.showDialog(w: P3LuckyCardDialog());
       }else{
-
+        P1RouterFun.showDialog(w: P3WheelDialog());
       }
       p3LastIsLuckyCard.saveData(!isLucky);
     }

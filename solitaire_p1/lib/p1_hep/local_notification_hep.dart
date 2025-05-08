@@ -49,9 +49,9 @@ class LocalNotificationHep{
         duration: const Duration(minutes: 90),
       );
       _showNotification(
-        id: 3,
+        id: 4,
         title: "Top Gamers Cash Out!",
-        content: "        - Top Gamers Earn Huge! Instant Cash Rewards!",
+        content: "Top Gamers Earn Huge! Instant Cash Rewards!",
         duration: const Duration(minutes: 300),
       );
     }else{

@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
+import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/view/top_pro_view/top_pro_con.dart';
 
 class TopProView extends P1BaseStatelessWidget<TopProCon>{
@@ -55,7 +56,10 @@ class TopProView extends P1BaseStatelessWidget<TopProCon>{
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: P1Image(name: "pro2",width: 44.w,height: 48.h,),
+              child: GetBuilder<TopProCon>(
+                id: "pro",
+                builder: (_)=>P1Image(name: p3LastIsLuckyCard.getData()?"pro3":"pro2",width: 44.w,height: 48.h,),
+              ),
             )
           ],
         )

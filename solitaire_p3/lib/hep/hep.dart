@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
 import 'package:solitaire_p3/bean/cash_task_bean.dart';
+import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
+import 'package:solitaire_p3/dialog/p3_net_dialog/p3_net_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 
 String getCardImageIcon(CardBean bean){
@@ -48,4 +51,13 @@ String getTaskStr(CashTaskBean bean){
     case CashTask.luckyCard: return "Tap ${bean.totalPro??0} cards";
     default: return "Completed";
   }
+}
+
+showGetCoinsDialog(double addNum, GetCoinsEnum getCoinsEnum)async{
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if(connectivityResult.contains(ConnectivityResult.none)){
+    P1RouterFun.showDialog(w: P3NetDialog());
+    return;
+  }
+  P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: addNum,getCoinsEnum: getCoinsEnum,));
 }

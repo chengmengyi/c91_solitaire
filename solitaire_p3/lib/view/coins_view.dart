@@ -37,7 +37,9 @@ class _CoinsViewState extends State<CoinsView>{
   @override
   Widget build(BuildContext context) => InkWell(
     onTap: (){
-      P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
+      if(widget.canClick){
+        P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
+      }
     },
     child: SizedBox(
       width: 160.w,

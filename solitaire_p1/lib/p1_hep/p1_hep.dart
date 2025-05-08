@@ -12,6 +12,7 @@ export 'package:webview_flutter/webview_flutter.dart';
 export 'package:decimal/decimal.dart';
 export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
+export 'package:connectivity_plus/connectivity_plus.dart';
 
 
 extension String2Color on String{

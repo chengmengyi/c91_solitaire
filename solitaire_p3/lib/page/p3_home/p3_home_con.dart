@@ -10,6 +10,7 @@ import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
+import 'package:solitaire_p3/dialog/p3_net_dialog/p3_net_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_wheel_dialog/p3_wheel_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
@@ -98,9 +99,9 @@ class P3HomeCon extends P1BaseCon{
 
     // _checkShowGuide();
 
-    // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100));
+    P1RouterFun.showDialog(w: P3NetDialog());
 
-    CashTaskHep.instance.updateCashTask(CashTask.wannengka);
+    // CashTaskHep.instance.updateCashTask(CashTask.wannengka);
   }
 
   double getProgress(){

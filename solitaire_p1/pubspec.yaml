@@ -30,6 +30,7 @@ dependencies:
   firebase_analytics: 11.2.0
   firebase_core: 3.4.0
   firebase_remote_config: 5.1.0
+  connectivity_plus: 6.1.4
   appsflyer_sdk:
     path: plugins/appsflyer_sdk-6.15.2
 

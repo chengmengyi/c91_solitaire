@@ -63,6 +63,8 @@ PODS:
     - StackModules/Static (~> 3.2.0)
   - BigoADS (4.7.0)
   - ChartboostSDK (9.8.1)
+  - connectivity_plus (0.0.1):
+    - Flutter
   - FBAudienceNetwork (6.17.1)
   - Firebase/Analytics (11.0.0):
     - Firebase/Core
@@ -286,6 +288,7 @@ DEPENDENCIES:
   - AppLovinMediationVungleAdapter
   - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
@@ -358,6 +361,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/appsflyer_sdk/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -413,6 +418,7 @@ SPEC CHECKSUMS:
   BidMachine: 48529ae35f438e48708882e08426b907434eeee9
   BigoADS: 8f0cee203e50095cc4d43dc5067695fc32eb094f
   ChartboostSDK: 5d387aeccf2748cd71c0b033e6c2cad4a558b308
+  connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   FBAudienceNetwork: eb3ffbf2b35df25e21e163657044ffef66616a40
   Firebase: 9f574c08c2396885b5e7e100ed4293d956218af9
   firebase_analytics: 7c395c58f1942e81d8425a3ebcb8b74e9db13b6d

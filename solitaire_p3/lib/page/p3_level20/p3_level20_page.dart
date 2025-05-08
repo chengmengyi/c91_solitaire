@@ -8,7 +8,10 @@ import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/page/p3_level20/p3_level20_con.dart';
 import 'package:solitaire_p3/view/bottom/p3_bottom_view.dart';
 import 'package:solitaire_p3/view/card_item_view.dart';
+import 'package:solitaire_p3/view/coins_lottie_view.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
+import 'package:solitaire_p3/view/hand_card_remove_view.dart';
+import 'package:solitaire_p3/view/longjuanfeng_lottie_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
 import 'package:solitaire_p3/view/wind_animator_view.dart';
 
@@ -34,7 +37,10 @@ class P3Level20Page extends P1BaseStatelessPage<P3Level20Con>{
           ],
         ),
       ),
+      LongJuanFengLottieView(),
+      CoinsLottieView(),
       WindAnimatorView(),
+      HandCardRemoveView(),
     ],
   );
 

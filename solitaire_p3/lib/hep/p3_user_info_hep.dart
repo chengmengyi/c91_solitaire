@@ -42,7 +42,7 @@ class P3UserInfoHep {
     return "";
   }
 
-  updateUserCoins(double addNum){
+  updateUserCoins(double addNum,{bool removeHandCard=false}){
     var d = (Decimal.parse("${p3Coins.getData()}")+Decimal.parse("$addNum")).toDouble();
     p3Coins.saveData(d);
     var moneyLevel = p3LastMoneyLevel.getData()+100;
@@ -52,7 +52,7 @@ class P3UserInfoHep {
     }
     P1EventBean(code: P3EventCode.updateCoins).send();
     if(addNum>0){
-      P1EventBean(code: P3EventCode.showCoinsLottie).send();
+      P1EventBean(code: P3EventCode.showCoinsLottie,boolValue: removeHandCard).send();
     }
   }
 

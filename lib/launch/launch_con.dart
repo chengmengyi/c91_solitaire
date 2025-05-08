@@ -32,7 +32,7 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
   }
 
   _initAnimator()async{
-    animationController=AnimationController(duration: const Duration(seconds: 3),vsync: this)
+    animationController=AnimationController(duration: const Duration(seconds: 13),vsync: this)
       ..addListener(() {
         update(["progress"]);
       })

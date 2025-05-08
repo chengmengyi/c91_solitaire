@@ -19,10 +19,12 @@ class _CoinsLottieViewState extends State<CoinsLottieView> with TickerProviderSt
     _streamSubscription=eventBus.on<P1EventBean>().listen((bean) {
       switch(bean.code){
         case P3EventCode.showCoinsLottie:
-          coinLottieController..reset()..forward();
-          setState(() {
-            showCoinsLottie=true;
-          });
+          if(bean.boolValue!=true){
+            coinLottieController..reset()..forward();
+            setState(() {
+              showCoinsLottie=true;
+            });
+          }
           break;
       }
     });
@@ -40,7 +42,7 @@ class _CoinsLottieViewState extends State<CoinsLottieView> with TickerProviderSt
   Widget build(BuildContext context) => Visibility(
     visible: showCoinsLottie,
     child: P1LottieView(
-      name: "coins",
+      name: "money",
       repeat: false,
       controller: coinLottieController,
     ),

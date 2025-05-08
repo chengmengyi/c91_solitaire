@@ -47,11 +47,13 @@ class P3EventCode{
 class P1EventBean{
   int code;
   int? intValue;
+  bool? boolValue;
   dynamic anyValue;
   P1EventBean({
     required this.code,
     this.intValue,
     this.anyValue,
+    this.boolValue,
   });
 
   send(){

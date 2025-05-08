@@ -19,7 +19,6 @@ import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
-
 class P3HomeCon extends P1BaseCon{
   var currentLevel=p3CurrentLevel.getData();
   GlobalKey playGlobalKey=GlobalKey();
@@ -92,7 +91,7 @@ class P3HomeCon extends P1BaseCon{
       return;
     }
     // p3CurrentLevel.saveData(45);
-    // P3UserInfoHep.instance.updateLevel();
+    P3UserInfoHep.instance.updateLevel();
     // P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);

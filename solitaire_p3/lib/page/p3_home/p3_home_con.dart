@@ -90,8 +90,8 @@ class P3HomeCon extends P1BaseCon{
     if(!kDebugMode){
       return;
     }
-    // p3CurrentLevel.saveData(45);
-    P3UserInfoHep.instance.updateLevel();
+    // p3CurrentLevel.saveData(1);
+    // P3UserInfoHep.instance.updateLevel();
     // P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);
@@ -100,7 +100,7 @@ class P3HomeCon extends P1BaseCon{
 
     // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100));
 
-    P1AD.instance.initAdInfo();
+    CashTaskHep.instance.updateCashTask(CashTask.wannengka);
   }
 
   double getProgress(){

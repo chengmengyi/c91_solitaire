@@ -6,6 +6,7 @@ import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/bean/cash_task_bean.dart';
 import 'package:solitaire_p3/dialog/p3_cash_task1_dialog/p3_cash_task1_con.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 
 class P3CashTask1Dialog extends P1BaseStatelessDialog<P3CashTask1Con>{
   CashTaskBean bean;
@@ -42,39 +43,15 @@ class P3CashTask1Dialog extends P1BaseStatelessDialog<P3CashTask1Con>{
                   color: "#EBE0C9".toColor(),
                   borderRadius: BorderRadius.circular(18.w),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                child: Row(
                   children: [
-                    SizedBox(height: 10.h,),
-                    Row(
-                      children: [
-                        P1Image(name: "task_level",width: 36.w,height: 36.w,),
-                        SizedBox(width: 12.w,),
-                        Expanded(
-                          child: P1Text(text: "Complete the game 5 more times", size: 12.sp, color: "#000000",showShadows: false,),
-                        ),
-                        SizedBox(width: 12.w,),
-                        P1Text(text: "${bean.currentPro??0}/${bean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
-                      ],
+                    P1Image(name: "task_level",width: 36.w,height: 36.w,),
+                    SizedBox(width: 12.w,),
+                    Expanded(
+                      child: P1Text(text: getTaskStr(bean), size: 12.sp, color: "#000000",showShadows: false,),
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 0.5.h,
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: 10.h,bottom: 10.h),
-                    ),
-                    Row(
-                      children: [
-                        P1Image(name: "task_card",width: 36.w,height: 36.w,),
-                        SizedBox(width: 12.w,),
-                        Expanded(
-                          child: P1Text(text: "Tap 5 cards", size: 12.sp, color: "#000000",showShadows: false,),
-                        ),
-                        SizedBox(width: 12.w,),
-                        P1Text(text: "${bean.currentPro2??0}/${bean.totalPro2??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
-                      ],
-                    ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(width: 12.w,),
+                    P1Text(text: "${bean.currentPro??0}/${bean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
                   ],
                 ),
               ),

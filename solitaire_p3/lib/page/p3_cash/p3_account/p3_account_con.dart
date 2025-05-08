@@ -6,6 +6,7 @@ import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
+import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 
 class P3AccountCon extends P1BaseCon{
   var type=0,amount=0;
@@ -42,6 +43,7 @@ class P3AccountCon extends P1BaseCon{
     }
     hideKeyboard();
     await CashTaskHep.instance.createCashTask(type, amount, content);
+    P3UserInfoHep.instance.updateUserCoins((-amount).toDouble());
     PointHep.instance.point(pointEvent: PointEvent.cash_form_page_confirm,params: {"form_type":_getCashTypeStr(),"account":content});
     P1EventBean(code: P3EventCode.updateCashList).send();
     P1RouterFun.closePage();

@@ -21,79 +21,128 @@ class P3BottomView extends P1BaseStatelessWidget<P2BottomViewCon>{
   }
   
   @override
-  Widget initWidget() => Row(
-    children: [
-      SizedBox(width: 22.w,),
-      InkWell(
-        onTap: (){
-          p1Con.changeHandCard();
-        },
-        child: SizedBox(
-          width: 90.w,
-          child: GetBuilder<P2BottomViewCon>(
-            id: "hand_card_num",
-            builder: (_){
-              var length = p1Con.p3play.currentHandsNum<5?p1Con.p3play.currentHandsNum:5;
-              return Stack(
-                children: List.generate(length, (index) => Container(
-                  margin: EdgeInsets.only(left: (10.w)*index),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter ,
-                    children: [
-                      P1Image(name: "card_back",width: 50.w,height: 78.h,),
-                      Visibility(
-                        visible: length==index+1,
-                        child: Container(
-                          width: 42.w,
-                          height: 14.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: "#000000".toColor().withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(20.w)
-                          ),
-                          child: P1Text(text: "${p1Con.p3play.currentHandsNum}", size: 14.sp, color: "#FFFFFF"),
+  Widget initWidget() => Container(
+    margin: EdgeInsets.only(left: 22.w,right: 22.w),
+    child: Stack(
+      children: [
+        Row(
+          children: [
+            InkWell(
+              onTap: (){
+                p1Con.changeHandCard();
+              },
+              child: SizedBox(
+                width: 90.w,
+                child: GetBuilder<P2BottomViewCon>(
+                  id: "hand_card_num",
+                  builder: (_){
+                    var length = p1Con.p3play.currentHandsNum<5?p1Con.p3play.currentHandsNum:5;
+                    return Stack(
+                      children: List.generate(length, (index) => Container(
+                        margin: EdgeInsets.only(left: (10.w)*index),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter ,
+                          children: [
+                            P1Image(name: "card_back",width: 50.w,height: 78.h,),
+                            Visibility(
+                              visible: length==index+1,
+                              child: Container(
+                                width: 42.w,
+                                height: 14.h,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: "#000000".toColor().withOpacity(0.7),
+                                    borderRadius: BorderRadius.circular(20.w)
+                                ),
+                                child: P1Text(text: "${p1Con.p3play.currentHandsNum}", size: 14.sp, color: "#FFFFFF"),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
+                      )),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: GetBuilder<P2BottomViewCon>(
+                  id: "hand_card",
+                  builder: (_)=>SizedBox(
+                    key: p1Con.handCardGlobalKey,
+                    child: null==p1Con.p3play.currentHandCard?
+                    SizedBox(width: 50.w,height: 78.h,):
+                    AnimatedBuilder(
+                      animation: p1Con.handCardAnimation,
+                      builder: (context, child) {
+                        final angle = p1Con.handCardAnimation.value * 3.1415926;
+                        final transform = Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(angle);
+                        return Transform(
+                          transform: transform,
+                          alignment: Alignment.center,
+                          child: Opacity(
+                            opacity: angle <= 3.1415926 / 2 ? 1 : 0,
+                            child: p1Con.isFront ?
+                            P1Image(name: p1Con.p3play.getHandCardImageIcon(),width: 50.w,height: 78.h,) :
+                            Transform(
+                              transform: Matrix4.identity()..rotateY(3.1415926),
+                              alignment: Alignment.center,
+                              child: P1Image(name: "card_back",width: 50.w,height: 78.h,),
+                            ),
+                          ),
+                        );
+                      },
+                    )
                   ),
-                )),
-              );
-            },
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                p1Con.clickWanNeng();
+              },
+              child: SizedBox(
+                key: p1Con.wannengGlobalKey,
+                child: WanNengView(),
+              ),
+            ),
+            SizedBox(width: 12.w,),
+            InkWell(
+              onTap: (){
+                p1Con.clickLongJuanFeng();
+              },
+              child: SizedBox(
+                key: p1Con.longjuanfengGlobalKey,
+                child: LongJuanFengView(),
+              ),
+            ),
+          ],
+        ),
+        _backHandCardWidget(),
+      ],
+    ),
+  );
+
+  _backHandCardWidget()=>GetBuilder<P2BottomViewCon>(
+    id: "back_hand_card",
+    builder: (_){
+      var value = p1Con.keyAnimation?.value;
+      var dx = (value?.dx??0)-22.w;
+      return SizedBox(
+        key: p1Con.backHandCardGlobalKey,
+        child: Visibility(
+          visible: p1Con.showBackHandCard,
+          child: Container(
+            margin: EdgeInsets.only(left: dx<=0?0:dx),
+            child: P1Image(name: "card_back",width: 50.w,height: 78.h,),
           ),
         ),
-      ),
-      Expanded(
-        child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: GetBuilder<P2BottomViewCon>(
-            id: "hand_card",
-            builder: (_)=>null==p1Con.p3play.currentHandCard?
-            Container():
-            P1Image(name: p1Con.p3play.getHandCardImageIcon(),width: 50.w,height: 78.h,),
-          ),
-        ),
-      ),
-      InkWell(
-        onTap: (){
-          p1Con.clickWanNeng();
-        },
-        child: SizedBox(
-          key: p1Con.wannengGlobalKey,
-          child: WanNengView(),
-        ),
-      ),
-      SizedBox(width: 12.w,),
-      InkWell(
-        onTap: (){
-          p1Con.clickLongJuanFeng();
-        },
-        child: SizedBox(
-          key: p1Con.longjuanfengGlobalKey,
-          child: LongJuanFengView(),
-        ),
-      ),
-      SizedBox(width: 22.w,),
-    ],
+      );
+    },
   );
 }

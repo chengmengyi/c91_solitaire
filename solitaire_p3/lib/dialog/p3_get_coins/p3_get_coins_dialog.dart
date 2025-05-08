@@ -42,6 +42,13 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
                 alignment: Alignment.center,
                 child: ScaleCoinsIconView(),
               ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 18.h),
+                  child: P1Text(text: "+$addNum", size: 20.sp, color: "#00F108",showShadows: false,),
+                ),
+              )
             ],
           ),
         ),

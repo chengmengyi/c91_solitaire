@@ -12,11 +12,11 @@ class CashTaskHep extends P1Sql{
     if(list.isNotEmpty){
       return;
     }
-    var bean = CashTaskBean(cashType: cashType,amount: amount,cashTask: CashTask.task1,currentPro: 0,totalPro: 5,currentPro2: 0,totalPro2: 2,account: account);
+    var bean = CashTaskBean(cashType: cashType,amount: amount,cashTask: CashTask.level,cashTaskIndex: 0,currentPro: 0,totalPro: 10,account: account);
     await database.insert(TableName.cashTask, bean.toJson());
   }
 
-  updateCashTask(String cashTask,String cashTaskType)async{
+  updateCashTask(String cashTask)async{
     var database = await initDB();
     var list = await database.query(TableName.cashTask,where: '"cashTask" = ? ',whereArgs: [cashTask]);
     if(list.isEmpty){
@@ -25,26 +25,18 @@ class CashTaskHep extends P1Sql{
 
     for (var value in list) {
       var bean = CashTaskBean.fromJson(value);
-      if(bean.cashTask==CashTask.task1){
-        if(cashTaskType==CashTaskType.pass5Level){
-          bean.currentPro=(bean.currentPro??0)+1;
-        }
-        if(cashTaskType==CashTaskType.pass2Card){
-          bean.currentPro2=(bean.currentPro2??0)+1;
-        }
-        if((bean.currentPro??0)>=(bean.totalPro??0)&&(bean.currentPro2??0)>=(bean.totalPro2??0)){
-          var nextTask = _getNextTask(cashTask);
+      bean.currentPro=(bean.currentPro??0)+1;
+      if((bean.currentPro??0)>=(bean.totalPro??0)){
+        var nextIndex = (bean.cashTaskIndex??0)+1;
+        bean.cashTaskIndex=nextIndex;
+        //全部完成了
+        if(nextIndex>5){
+          bean.cashTask=CashTask.complete;
+        }else{
+          var nextTask = _getNextTask(nextIndex);
           bean.cashTask=nextTask;
           bean.currentPro=0;
-          bean.totalPro=_getTotalProByTask(nextTask);
-        }
-      }else{
-        bean.currentPro=(bean.currentPro??0)+1;
-        if((bean.currentPro??0)>=(bean.totalPro??0)){
-          var nextTask = _getNextTask(cashTask);
-          bean.cashTask=nextTask;
-          bean.currentPro=0;
-          bean.totalPro=_getTotalProByTask(nextTask);
+          bean.totalPro=_getTotalProByTask(nextIndex);
         }
       }
       await database.update(TableName.cashTask, bean.toJson(),where: '"id" = ?',whereArgs: [value["id"]]);
@@ -69,20 +61,35 @@ class CashTaskHep extends P1Sql{
     await database.delete(TableName.cashTask,where: '"id" = ?',whereArgs: [list.first["id"]]);
   }
 
-  int _getTotalProByTask(String cashTask){
-    switch(cashTask){
-      case CashTask.task2: return 5;
-      case CashTask.task3: return 5;
-      default: return 5;
+  int _getTotalProByTask(int cashIndex){
+    switch(cashIndex){
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 5:
+        return 10;
+      case 4:
+        return 20;
+      default:
+        return 20;
     }
   }
 
-  String _getNextTask(String currentTask){
-    switch(currentTask){
-      case CashTask.task1: return CashTask.task2;
-      case CashTask.task2: return CashTask.task3;
-      case CashTask.task3: return CashTask.complete;
-      default: return CashTask.complete;
+  String _getNextTask(int taskIndex){
+    switch(taskIndex){
+      case 0:
+      case 4:
+        return CashTask.level;
+      case 1:
+      case 5:
+        return CashTask.wannengka;
+      case 2:
+        return CashTask.longjuanfeng;
+      case 3:
+        return CashTask.luckyCard;
+      default:
+        return CashTask.complete;
     }
   }
 

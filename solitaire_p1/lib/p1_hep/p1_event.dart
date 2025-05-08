@@ -42,6 +42,7 @@ class P3EventCode{
   static const int updateCashList=117;
   static const int showNewUserGuide8=118;
   static const int showLongjuanfengGuide=119;
+  static const int moveHandCardToBottom=120;
 }
 
 class P1EventBean{
@@ -49,10 +50,12 @@ class P1EventBean{
   int? intValue;
   bool? boolValue;
   dynamic anyValue;
+  dynamic anyValue2;
   P1EventBean({
     required this.code,
     this.intValue,
     this.anyValue,
+    this.anyValue2,
     this.boolValue,
   });
 

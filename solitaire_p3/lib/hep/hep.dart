@@ -32,23 +32,20 @@ String getCardImageIcon(CardBean bean){
 
 String getTaskIcon(CashTaskBean bean){
   switch(bean.cashTask){
-    case CashTask.task1: return "task_level";
-    case CashTask.task2: return "task_wanneng";
-    case CashTask.task3: return "task_longjuanfeng";
+    case CashTask.level: return "task_level";
+    case CashTask.wannengka: return "task_wanneng";
+    case CashTask.longjuanfeng: return "task_longjuanfeng";
+    case CashTask.luckyCard: return "task_card";
     default: return "task_level";
   }
 }
 
 String getTaskStr(CashTaskBean bean){
   switch(bean.cashTask){
-    case CashTask.task1:
-      if((bean.currentPro??0)<(bean.totalPro??0)){
-        return "Complete the game 5 more times";
-      }else{
-        return "Tap 2 cards";
-      }
-    case CashTask.task2: return "Use 5 cards";
-    case CashTask.task3: return "Use 5 shurikens";
+    case CashTask.level: return "Complete the game ${bean.totalPro??0} more times";
+    case CashTask.wannengka: return "Use ${bean.totalPro??0} cards";
+    case CashTask.longjuanfeng: return "Use ${bean.totalPro??0} shurikens";
+    case CashTask.luckyCard: return "Tap ${bean.totalPro??0} cards";
     default: return "Completed";
   }
 }

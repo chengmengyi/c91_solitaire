@@ -126,9 +126,10 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
   _playWidget()=> Row(
     children: [
       SizedBox(width: 18.w,),
-      InkWell(
-        child: P1Image(name: "home6",width: 75.w,height: 75.h,),
-      ),
+      // InkWell(
+      //   child: P1Image(name: "home6",width: 75.w,height: 75.h,),
+      // ),
+      SizedBox(width: 75.w,height: 75.h,),
       Expanded(
         child: InkWell(
           onTap: (){

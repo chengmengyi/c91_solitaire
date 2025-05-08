@@ -5,7 +5,6 @@ import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/amount_bean.dart';
-import 'package:solitaire_p3/bean/cash_task_bean.dart';
 import 'package:solitaire_p3/dialog/p3_cash_task1_dialog/p3_cash_task1_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_cash_task2_dialog/p3_cash_task2_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_cash_task3_dialog/p3_cash_task3_dialog.dart';
@@ -59,7 +58,8 @@ class P3CashCon extends P1BaseCon{
     PointHep.instance.point(pointEvent: PointEvent.cash_page_withdraw,params: {"cash_numbers":bean.money});
     if(null!=bean.cashTaskBean){
       switch(bean.cashTaskBean?.cashTask){
-        case CashTask.task1:
+        case CashTask.level:
+        case CashTask.luckyCard:
           P1RouterFun.showDialog(
             w: P3CashTask1Dialog(
               bean: bean.cashTaskBean!,
@@ -69,7 +69,7 @@ class P3CashCon extends P1BaseCon{
             ),
           );
           break;
-        case CashTask.task2:
+        case CashTask.wannengka:
           P1RouterFun.showDialog(
             w: P3CashTask2Dialog(
               bean: bean.cashTaskBean!,
@@ -79,7 +79,7 @@ class P3CashCon extends P1BaseCon{
             ),
           );
           break;
-        case CashTask.task3:
+        case CashTask.longjuanfeng:
           P1RouterFun.showDialog(
             w: P3CashTask3Dialog(
               bean: bean.cashTaskBean!,
@@ -138,6 +138,9 @@ class P3CashCon extends P1BaseCon{
     switch(bean.code){
       case P3EventCode.updateCashList:
         _initList();
+        break;
+      case P3EventCode.updateCoins:
+        update(["coins"]);
         break;
     }
   }

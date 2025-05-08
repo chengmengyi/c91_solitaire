@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
+import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 
 class CoinsView extends StatefulWidget{
@@ -33,21 +35,33 @@ class _CoinsViewState extends State<CoinsView>{
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-    width: 160.w,
-    height: 46.h,
-    child: Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        P1Image(name: "coins1",width: 160.w,height: 46.h,),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Container(
-            margin: EdgeInsets.only(left: 50.w,bottom: 8.h),
-            child: P1Text(text: "\$$currentCoins", size: 15.sp, color: "#32F449",),
-          ),
-        ),
-      ],
+  Widget build(BuildContext context) => InkWell(
+    onTap: (){
+      P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
+    },
+    child: SizedBox(
+      width: 160.w,
+      height: 46.h,
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          P1Image(name: "coins1",width: 160.w,height: 46.h,),
+          Row(
+            children: [
+              SizedBox(width: 40.w,),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  height: 46.h,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 4.h),
+                  child: P1Text(text: "\$$currentCoins", size: 15.sp, color: "#32F449",),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     ),
   );
 
@@ -55,8 +69,8 @@ class _CoinsViewState extends State<CoinsView>{
     if(null!=_addCoinsTimer){
       return;
     }
-    var total=50,current=0;
-    var d = ((Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$currentCoins"))/Decimal.parse("$total")).toDouble();
+    var total=20,current=0;
+    var d = ((Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$currentCoins"))/Decimal.parse("$total")).toDouble().toStringAsFixed(2).toDou();
     _addCoinsTimer=Timer.periodic(const Duration(milliseconds: 10), (timer) {
       current++;
       setState(() {

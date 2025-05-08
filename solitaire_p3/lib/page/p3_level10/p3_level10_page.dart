@@ -13,6 +13,7 @@ import 'package:solitaire_p3/view/coins_lottie_view.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
 import 'package:solitaire_p3/view/hand_card_remove_view.dart';
 import 'package:solitaire_p3/view/longjuanfeng_lottie_view.dart';
+import 'package:solitaire_p3/view/move_to_hand_card_animator_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
 import 'package:solitaire_p3/view/top_pro_view/top_pro_view.dart';
 import 'package:solitaire_p3/view/wind_animator_view.dart';
@@ -45,6 +46,7 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
       CoinsLottieView(),
       WindAnimatorView(),
       HandCardRemoveView(),
+      MoveToHandCardAnimatorView(),
     ],
   );
 
@@ -135,13 +137,4 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
       p1Con.clickCard(bean);
     },
   );
-  //     SizedBox(
-  //   key: bean.show?bean.globalKey:null,
-  //   child: InkWell(
-  //     onTap: (){
-  //       p1Con.clickCard(bean);
-  //     },
-  //     child: P1Image(name: getCardImageIcon(bean),width: 50.w,height: 78.h,),
-  //   ),
-  // );
 }

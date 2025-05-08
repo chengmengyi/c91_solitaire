@@ -12,7 +12,9 @@ import 'package:solitaire_p3/view/coins_lottie_view.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
 import 'package:solitaire_p3/view/hand_card_remove_view.dart';
 import 'package:solitaire_p3/view/longjuanfeng_lottie_view.dart';
+import 'package:solitaire_p3/view/move_to_hand_card_animator_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
+import 'package:solitaire_p3/view/top_pro_view/top_pro_view.dart';
 import 'package:solitaire_p3/view/wind_animator_view.dart';
 
 class P3Level40Page extends P1BaseStatelessPage<P3Level40Controller>{
@@ -29,7 +31,9 @@ class P3Level40Page extends P1BaseStatelessPage<P3Level40Controller>{
         child: Column(
           children: [
             _topWidget(),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
+            TopProView(),
+            SizedBox(height: 6.h,),
             _levelWidget(),
             _playWidget(),
             P3BottomView(p3play: p1Con.p3play),
@@ -41,6 +45,7 @@ class P3Level40Page extends P1BaseStatelessPage<P3Level40Controller>{
       CoinsLottieView(),
       WindAnimatorView(),
       HandCardRemoveView(),
+      MoveToHandCardAnimatorView(),
     ],
   );
 

@@ -64,7 +64,10 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       margin: EdgeInsets.only(bottom: 38.h),
-                      child: P1Text(text: "\$${p3Coins.getData()}", size: 29.sp, color: "#1E7419",showShadows: false,),
+                      child: GetBuilder<P3CashCon>(
+                        id: "coins",
+                        builder: (_)=>P1Text(text: "\$${p3Coins.getData()}", size: 29.sp, color: "#1E7419",showShadows: false,),
+                      ),
                     ),
                   ),
                 ],
@@ -257,7 +260,10 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
             child: P1Text(text: getTaskStr(bean), size: 12.sp, color: "#000000",showShadows: false,),
           ),
           SizedBox(width: 12.w,),
-          P1Text(text: bean.cashTask==CashTask.complete?"5/5":"${bean.currentPro??0}/${bean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
+          Visibility(
+            visible: bean.cashTask!=CashTask.complete,
+            child: P1Text(text: bean.cashTask==CashTask.complete?"5/5":"${bean.currentPro??0}/${bean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
+          ),
         ],
       ),
     );

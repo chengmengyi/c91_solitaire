@@ -26,6 +26,7 @@ class P3Play{
   List<List<CardBean>> cardList=[];
   final List<RandomCardBean> _topRandomCardList=[];
   RandomCardBean? currentHandCard;
+  Offset? _handCardOffset;
 
   P3Play(){
     P3UserInfoHep.instance.setStartCoins();
@@ -62,7 +63,7 @@ class P3Play{
   clickCard({
     required CardBean bean,
     required Function(List<CardBean>) refresh,
-  }){
+  })async{
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
     }
@@ -93,7 +94,7 @@ class P3Play{
     var cardsAdjacent = false;
     if(currentHandCard?.hasWanNeng==true){
       cardsAdjacent=true;
-      CashTaskHep.instance.updateCashTask(CashTask.task2,CashTaskType.use5Wanneng);
+      CashTaskHep.instance.updateCashTask(CashTask.wannengka);
     }else{
       cardsAdjacent = P2CardHep.instance.isCardsAdjacent(bean.cardNum, currentHandCard?.cardNum??"");
     }
@@ -107,16 +108,17 @@ class P3Play{
       }
     }
     P3UserInfoHep.instance.updateTopPro(1);
-    CashTaskHep.instance.updateCashTask(CashTask.task1,CashTaskType.pass2Card);
+    P1Mp3Hep.instance.playXiaoChu();
+    P1EventBean(code: P3EventCode.moveHandCardToBottom,anyValue: bean,anyValue2: _handCardOffset).send();
+    refresh.call([]);
+    await Future.delayed(const Duration(milliseconds: 400));
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
-    P1Mp3Hep.instance.playXiaoChu();
     _clickCardResult(P3ValueHep.instance.getCardAddNum(),refresh);
   }
 
   _clickCardResult(double addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P3EventCode.updateHandCard).send();
-    refresh.call([]);
     P3UserInfoHep.instance.updateUserCoins(addNum);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
@@ -143,7 +145,7 @@ class P3Play{
           _topRandomCardList.clear();
           currentHandCard=null;
           var routerName = P3UserInfoHep.instance.updateLevel();
-          CashTaskHep.instance.updateCashTask(CashTask.task1,CashTaskType.pass5Level);
+          CashTaskHep.instance.updateCashTask(CashTask.level);
           if(routerName.isEmpty){
             P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
             P1EventBean(code: P3EventCode.resetCardList).send();
@@ -470,5 +472,9 @@ class P3Play{
       return;
     }
     GuideHep.instance.showGuideStep3(context,cardBean);
+  }
+
+  setHandCardOffset(Offset offset){
+    _handCardOffset=offset;
   }
 }

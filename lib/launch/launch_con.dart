@@ -44,9 +44,13 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
   }
 
   clickPlay(){
-    firstLaunch.saveData(false);
     var user = kDebugMode?true:CheckUserHep.instance.checkUser();
     if(user){
+      if(firstLaunch.getData()){
+        firstLaunch.saveData(false);
+        P1RouterFun.toNextPageAndCloseCurrent(str: P3RoutersName.p3Home);
+        return;
+      }
       P1AD.instance.showOpenAd(
         adEvent: AdEvent.vvslt_launch,
         closeAd: (){

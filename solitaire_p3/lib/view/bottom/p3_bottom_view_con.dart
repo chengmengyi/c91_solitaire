@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
+import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
@@ -20,10 +21,31 @@ import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
-class P2BottomViewCon extends P1BaseCon{
+class P2BottomViewCon extends P1BaseCon with GetTickerProviderStateMixin{
+  var showBackHandCard=false,isFront = true;
   late P3Play p3play;
+  Offset? endOffset,startOffset;
   GlobalKey longjuanfengGlobalKey=GlobalKey();
   GlobalKey wannengGlobalKey=GlobalKey();
+  GlobalKey handCardGlobalKey=GlobalKey();
+  GlobalKey backHandCardGlobalKey=GlobalKey();
+  Animation<Offset>? keyAnimation;
+  late AnimationController _animationController;
+
+  late AnimationController _handCardController;
+  late Animation<double> handCardAnimation;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _initAnimator();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _getHandCardOffset();
+  }
 
   clickWanNeng({fromGuide=false}){
     if(!p3play.canClick){
@@ -63,7 +85,7 @@ class P2BottomViewCon extends P1BaseCon{
   }
 
   _useLongJuanFeng({fromGuide=false}){
-    CashTaskHep.instance.updateCashTask(CashTask.task3,CashTaskType.get5Longjuanfeng);
+    CashTaskHep.instance.updateCashTask(CashTask.longjuanfeng);
     List<CardBean> list=[];
     for (var value in p3play.cardList) {
       for (var value1 in value) {
@@ -80,10 +102,30 @@ class P2BottomViewCon extends P1BaseCon{
     }
   }
 
-  changeHandCard(){
+  changeHandCard()async{
     if(!p3play.canClick){
       return;
     }
+    showBackHandCard=true;
+    var dx = startOffset?.dx??0;
+    if(p3play.currentHandsNum>=5){
+      dx+=(50.w);
+    }else{
+      dx+=(10.w)*p3play.currentHandsNum;
+    }
+    var offset=Offset(dx, startOffset?.dy??0);
+    
+    keyAnimation=Tween<Offset>(
+      begin: offset,
+      end: endOffset,
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    update(["back_hand_card"]);
+    _animationController..reset()..forward();
+    await Future.delayed(const Duration(milliseconds: 300));
+    isFront=false;
+    update(["hand_card"]);
+    _handCardController..reset()..forward();
+    await Future.delayed(const Duration(milliseconds: 500));
     p3play.changeHandCard((){
       update(["hand_card_num","hand_card"]);
       p3play.checkShowGuideStep3(context);
@@ -149,6 +191,7 @@ class P2BottomViewCon extends P1BaseCon{
     if(p3play.currentHandsNum<=0){
       return;
     }
+    p3play.canClick=false;
     while(p3play.currentHandsNum>0){
       p3play.removeHandCard();
       update(["hand_card_num"]);
@@ -156,6 +199,52 @@ class P2BottomViewCon extends P1BaseCon{
       P3UserInfoHep.instance.updateUserCoins(P3ValueHep.instance.getCardAddNum(),removeHandCard: true);
       await Future.delayed(const Duration(milliseconds: 400));
     }
+    p3play.canClick=true;
     p3play.showWinnerDialog();
+  }
+
+  _getHandCardOffset(){
+    var startRenderBox = backHandCardGlobalKey.currentContext!.findRenderObject() as RenderBox;
+    startOffset = startRenderBox.localToGlobal(Offset.zero);
+    var renderBox = handCardGlobalKey.currentContext!.findRenderObject() as RenderBox;
+    endOffset = renderBox.localToGlobal(Offset.zero);
+    p3play.setHandCardOffset(endOffset!);
+  }
+
+  _initAnimator(){
+    _handCardController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    handCardAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _handCardController,
+        curve: Curves.easeInOut,
+      ),
+    );
+    _handCardController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        isFront=true;
+        _handCardController.reverse();
+      }
+    });
+
+    _animationController=AnimationController(vsync: this,duration: const Duration(milliseconds: 300))
+      ..addListener(() {
+        update(["back_hand_card"]);
+      })
+      ..addStatusListener((status) {
+        if(status==AnimationStatus.completed){
+          showBackHandCard=false;
+          update(["back_hand_card"]);
+        }
+      });
+  }
+  
+  @override
+  void onClose() {
+    _animationController.dispose();
+    _handCardController.dispose();
+    super.onClose();
   }
 }

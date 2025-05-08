@@ -23,7 +23,6 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
       children: [
         _topWidget(),
         _progressWidget(),
-        // SizedBox(height: 100.h,),
         P1LottieView(name: "home", width: 250.w,height: 250.h,),
         SizedBox(height: 20.h,),
         _levelWidget(),
@@ -67,7 +66,7 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
                   ),
                   InkWell(
                     onTap: (){
-                      p1Con.clickCash();
+                      p1Con.clickStart();
                     },
                     child: P1Image(name: p3Coins.getData()<200?"home10":"home12",width: 70.w,height: 33.h,),
                   ),
@@ -102,7 +101,7 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
                         ),
                       ],
                     ),
-                    P1Text(text: "100%", size: 12.sp, color: "#FFFFFF")
+                    P1Text(text: "${(p1Con.getProgress()*100).toInt()}%", size: 12.sp, color: "#FFFFFF")
                   ],
                 ),
               )

@@ -47,15 +47,27 @@ class P1Mp3Hep{
     }
   }
 
-  playOrPauseBg(){
-    if(p2MusicOpen.getData()){
-      if(_bgAudioPlayer.state==PlayerState.playing){
-        _bgAudioPlayer.pause();
-      }else if(_bgAudioPlayer.state==PlayerState.paused){
-        _bgAudioPlayer.resume();
-      }
+  pauseMusic(){
+    if(p2MusicOpen.getData()&&_bgAudioPlayer.state==PlayerState.playing){
+      _bgAudioPlayer.pause();
     }
   }
+
+  playMusic(){
+    if(p2MusicOpen.getData()&&_bgAudioPlayer.state!=PlayerState.playing){
+      _bgAudioPlayer.resume();
+    }
+  }
+
+  // playOrPauseBg(){
+  //   if(p2MusicOpen.getData()){
+  //     if(_bgAudioPlayer.state==PlayerState.playing){
+  //       _bgAudioPlayer.pause();
+  //     }else if(_bgAudioPlayer.state==PlayerState.paused){
+  //       _bgAudioPlayer.resume();
+  //     }
+  //   }
+  // }
 
   setPlaySound(){
     p2SoundOpen.saveData(!p2SoundOpen.getData());

@@ -52,6 +52,14 @@ class P3HomeCon extends P1BaseCon{
     P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
   }
 
+  clickStart(){
+    if(getProgress()>=1.0){
+      clickCash();
+    }else{
+      clickPlay();
+    }
+  }
+
   String _getRouterNameByLevel(){
     var i = (p3CurrentLevel.getData()-1)%60+1;
     if(i<=10){
@@ -99,9 +107,12 @@ class P3HomeCon extends P1BaseCon{
 
     // _checkShowGuide();
 
-    P1RouterFun.showDialog(w: P3NetDialog());
+    // P1RouterFun.showDialog(w: P3NetDialog());
 
     // CashTaskHep.instance.updateCashTask(CashTask.wannengka);
+
+
+    P1Mp3Hep.instance.playMusic();
   }
 
   double getProgress(){

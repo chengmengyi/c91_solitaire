@@ -68,13 +68,13 @@ class P1AD{
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.pauseMusic();
         },
         showFail: (ad){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
         },
         closeAd: (){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){},
@@ -123,16 +123,16 @@ class P1AD{
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEvent.name);
         },
         showFail: (ad){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
           PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
         },
         closeAd: (){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){},
@@ -153,16 +153,16 @@ class P1AD{
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
         },
         showFail: (ad){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
           PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
           closeAd.call();
         },
         closeAd: (){
-          P1Mp3Hep.instance.playOrPauseBg();
+          P1Mp3Hep.instance.playMusic();
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){},

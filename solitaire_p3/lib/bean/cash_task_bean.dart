@@ -38,4 +38,8 @@ class CashTaskBean {
     return map;
   }
 
+  @override
+  String toString() {
+    return 'CashTaskBean{cashType: $cashType, amount: $amount, account: $account, cashTask: $cashTask, currentPro: $currentPro, totalPro: $totalPro, cashTaskIndex: $cashTaskIndex}';
+  }
 }

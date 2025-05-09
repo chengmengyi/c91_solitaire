@@ -30,6 +30,18 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+              onTap: (){
+                p1Con.clickClose();
+              },
+              child: P1Image(name: "icon_close",width: 30.w,height: 30.w,),
+            )
+          ],
+        ),
+        SizedBox(height: 12.h,),
         P1Image(name: "get1",width: double.infinity,height: 56.h,),
         SizedBox(height: 8.h,),
         SizedBox(

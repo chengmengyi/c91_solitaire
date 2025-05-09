@@ -65,6 +65,8 @@ class P3AccountPage extends P1BaseStatelessPage<P3AccountCon>{
                       enabled: true,
                       textAlign: TextAlign.right,
                       controller: p1Con.editingController,
+                      keyboardType: p1Con.type==0?TextInputType.number:null,
+                      maxLength: p1Con.type==0?11:20,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: "#000000".toColor(),

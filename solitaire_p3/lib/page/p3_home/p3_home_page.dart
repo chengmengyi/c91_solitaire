@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_rich_text.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
+import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/page/p3_home/p3_home_con.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
@@ -35,7 +36,7 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
 
   _progressWidget()=>Container(
     width: double.infinity,
-    height: 91.h,
+    height: 107.h,
     margin: EdgeInsets.only(left: 16.w,right: 16.w),
     child: Stack(
       children: [
@@ -73,6 +74,7 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
                   SizedBox(width: 16.w,),
                 ],
               ),
+              null==p1Con.firstCashTaskBean?
               Container(
                 margin: EdgeInsets.only(left: 16.w,right: 16.w),
                 child: Stack(
@@ -102,6 +104,25 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
                       ],
                     ),
                     P1Text(text: "${(p1Con.getProgress()*100).toInt()}%", size: 12.sp, color: "#FFFFFF")
+                  ],
+                ),
+              ):
+              Container(
+                width: double.infinity,
+                height: 33.h,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(left: 12.w,right: 12.w),
+                margin: EdgeInsets.only(left: 14.w,right: 14.w),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.w),
+                  color: "#F5D9B3".toColor(),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: P1Text(text: getTaskStr(p1Con.firstCashTaskBean!), size: 13.sp, color: "#4C0000",showShadows: false,),
+                    ),
+                    P1Text(text: "${p1Con.firstCashTaskBean?.currentPro??0}/${p1Con.firstCashTaskBean?.totalPro??0}", size: 13.sp, color: "#DA0000",showShadows: false,)
                   ],
                 ),
               )

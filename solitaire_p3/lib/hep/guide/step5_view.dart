@@ -17,6 +17,9 @@ class Step5View extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -35,12 +38,7 @@ class Step5View extends StatelessWidget{
               top: 20.h,
               left: 140.w,
               child: SafeArea(
-                child: InkWell(
-                  onTap: (){
-                    _click();
-                  },
-                  child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-                ),
+                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
               ),
             ),
             Align(

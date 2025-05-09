@@ -40,7 +40,7 @@ class P1Mp3Hep{
   setPlayOrStopBg(){
     if(p2MusicOpen.getData()){
       p2MusicOpen.saveData(false);
-      _bgAudioPlayer.stop();
+      _bgAudioPlayer.pause();
     }else{
       p2MusicOpen.saveData(true);
       playBgMp3();

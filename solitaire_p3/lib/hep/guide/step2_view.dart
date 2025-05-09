@@ -20,6 +20,9 @@ class Step2View extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -31,14 +34,7 @@ class Step2View extends StatelessWidget{
             Positioned(
               left: offset.dx,
               top: offset.dy,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: P1Image(name: "home7",width: width,height: 70.h,),
-              ),
+              child: P1Image(name: "home7",width: width,height: 70.h,),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -61,14 +57,9 @@ class Step2View extends StatelessWidget{
             Positioned(
               left: offset.dx+width-30.w,
               top: offset.dy-50.w,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: Transform.rotate(
-                  angle: -90*pi/180,
-                  child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-                ),
+              child: Transform.rotate(
+                angle: -90*pi/180,
+                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
               ),
             )
           ],

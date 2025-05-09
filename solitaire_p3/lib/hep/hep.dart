@@ -56,7 +56,7 @@ String getTaskStr(CashTaskBean bean){
 showGetCoinsDialog(double addNum, GetCoinsEnum getCoinsEnum)async{
   var connectivityResult = await (Connectivity().checkConnectivity());
   if(connectivityResult.contains(ConnectivityResult.none)){
-    P1RouterFun.showDialog(w: P3NetDialog());
+    P1RouterFun.showDialog(w: P3NetDialog(getCoinsEnum: getCoinsEnum,));
     return;
   }
   P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: addNum,getCoinsEnum: getCoinsEnum,));

@@ -20,6 +20,9 @@ class Step6View extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -31,36 +34,29 @@ class Step6View extends StatelessWidget{
             Positioned(
               left: offset.dx,
               top: offset.dy,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Container(
-                  width: width,
-                  height: 57.h,
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                    color: "#FFFFFF".toColor(),
-                    borderRadius: BorderRadius.circular(4.w),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.w),
-                            gradient: LinearGradient(
-                                colors: ["#B1FFE2".toColor(),"#C3FED9".toColor(),]
-                            )
-                        ),
+              child: Container(
+                width: width,
+                height: 57.h,
+                padding: EdgeInsets.all(2.w),
+                decoration: BoxDecoration(
+                  color: "#FFFFFF".toColor(),
+                  borderRadius: BorderRadius.circular(4.w),
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.w),
+                          gradient: LinearGradient(
+                              colors: ["#B1FFE2".toColor(),"#C3FED9".toColor(),]
+                          )
                       ),
-                      P1Image(name: "cash5",width: 100.w,height: 30.h,)
-                    ],
-                  ),
+                    ),
+                    P1Image(name: "cash5",width: 100.w,height: 30.h,)
+                  ],
                 ),
               ),
             ),
@@ -85,12 +81,7 @@ class Step6View extends StatelessWidget{
             Positioned(
               left: offset.dx+width-30.w,
               top: offset.dy+30.h,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-              ),
+              child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
             )
           ],
         ),

@@ -18,6 +18,9 @@ class Step7View extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -29,32 +32,25 @@ class Step7View extends StatelessWidget{
             Container(
               width: double.infinity,
               margin: EdgeInsets.only(top: offset.dy,left: 15.w,right: 15.w,),
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: Container(
-                  width: double.infinity,
-                  height: 117.h,
-                  margin: EdgeInsets.only(top: 12.h),
-                  decoration: BoxDecoration(
-                    color: "#FFFFFF".toColor(),
-                    borderRadius: BorderRadius.circular(15.w),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 8.h,
-                        left: 12.w,
-                        child: P1Image(name: "cash5",height: 30.h,),
-                      ),
-                      Align(
-                        child: P1Text(text: "\$200", size: 38.sp, color: "#D66400",showShadows: false,),
-                      )
-                    ],
-                  ),
+              child: Container(
+                width: double.infinity,
+                height: 117.h,
+                margin: EdgeInsets.only(top: 12.h),
+                decoration: BoxDecoration(
+                  color: "#FFFFFF".toColor(),
+                  borderRadius: BorderRadius.circular(15.w),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 8.h,
+                      left: 12.w,
+                      child: P1Image(name: "cash5",height: 30.h,),
+                    ),
+                    Align(
+                      child: P1Text(text: "\$200", size: 38.sp, color: "#D66400",showShadows: false,),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -79,12 +75,7 @@ class Step7View extends StatelessWidget{
             Positioned(
               right: 10.w,
               top: offset.dy+80.h,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-              ),
+              child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
             )
           ],
         ),

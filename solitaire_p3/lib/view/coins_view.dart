@@ -71,8 +71,9 @@ class _CoinsViewState extends State<CoinsView>{
     if(null!=_addCoinsTimer){
       return;
     }
-    var total=20,current=0;
-    var d = ((Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$currentCoins"))/Decimal.parse("$total")).toDouble().toStringAsFixed(2).toDou();
+    var total=50,current=0;
+    // var d = ((Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$currentCoins"))/Decimal.parse("$total")).toDouble().toStringAsFixed(3).toDou();
+    var d = ((Decimal.parse("${p3Coins.getData()}")-Decimal.parse("$currentCoins"))/Decimal.parse("$total")).toDouble();
     _addCoinsTimer=Timer.periodic(const Duration(milliseconds: 10), (timer) {
       current++;
       setState(() {

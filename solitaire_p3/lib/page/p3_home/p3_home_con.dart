@@ -8,6 +8,7 @@ import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+import 'package:solitaire_p3/bean/cash_task_bean.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_net_dialog/p3_net_dialog.dart';
@@ -23,6 +24,7 @@ import 'package:solitaire_p3/hep/p3_value_hep.dart';
 class P3HomeCon extends P1BaseCon{
   var currentLevel=p3CurrentLevel.getData();
   GlobalKey playGlobalKey=GlobalKey();
+  CashTaskBean? firstCashTaskBean;
 
   @override
   void onInit() {
@@ -40,7 +42,7 @@ class P3HomeCon extends P1BaseCon{
   }
 
   clickPlay(){
-    PointHep.instance.point(pointEvent: PointEvent.home_page_cash);
+    PointHep.instance.point(pointEvent: PointEvent.home_page_play);
     var routerName = _getRouterNameByLevel();
     if(routerName.isNotEmpty){
       P1RouterFun.toNextPage(str: routerName);
@@ -48,15 +50,20 @@ class P3HomeCon extends P1BaseCon{
   }
 
   clickCash(){
-    PointHep.instance.point(pointEvent: PointEvent.home_page_withdraw);
+    PointHep.instance.point(pointEvent: PointEvent.home_page_cash);
     P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
   }
 
   clickStart(){
     if(getProgress()>=1.0){
-      clickCash();
+      PointHep.instance.point(pointEvent: PointEvent.home_page_withdraw);
+      P1RouterFun.toNextPage(str: P3RoutersName.p3cash);
     }else{
-      clickPlay();
+      PointHep.instance.point(pointEvent: PointEvent.home_page_start);
+      var routerName = _getRouterNameByLevel();
+      if(routerName.isNotEmpty){
+        P1RouterFun.toNextPage(str: routerName);
+      }
     }
   }
 
@@ -101,7 +108,7 @@ class P3HomeCon extends P1BaseCon{
     }
     // p3CurrentLevel.saveData(1);
     // P3UserInfoHep.instance.updateLevel();
-    // P3UserInfoHep.instance.updateUserCoins(200.03);
+    P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);
 
@@ -109,10 +116,10 @@ class P3HomeCon extends P1BaseCon{
 
     // P1RouterFun.showDialog(w: P3NetDialog());
 
-    // CashTaskHep.instance.updateCashTask(CashTask.wannengka);
+    // CashTaskHep.instance.updateCashTask(CashTask.level);
 
 
-    P1Mp3Hep.instance.playMusic();
+    // P1Mp3Hep.instance.playMusic();
   }
 
   double getProgress(){
@@ -151,6 +158,14 @@ class P3HomeCon extends P1BaseCon{
       case P3EventCode.showNewUserGuide8:
         GuideHep.instance.showGuideStep8(context: context, globalKey: playGlobalKey);
         break;
+      case P3EventCode.updateCashList:
+        _checkFirstCashTask();
+        break;
     }
+  }
+
+  _checkFirstCashTask()async{
+    firstCashTaskBean = await CashTaskHep.instance.queryCashTaskNoCompleted();
+    update(["progress"]);
   }
 }

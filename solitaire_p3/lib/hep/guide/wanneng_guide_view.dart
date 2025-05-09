@@ -20,6 +20,9 @@ class WannengGuideView extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -31,14 +34,7 @@ class WannengGuideView extends StatelessWidget{
             Positioned(
               left: offset.dx,
               top: offset.dy,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: WanNengView(),
-              ),
+              child: WanNengView(),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -61,12 +57,7 @@ class WannengGuideView extends StatelessWidget{
             Positioned(
               left: offset.dx+20.w,
               top: offset.dy+20.h,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-              ),
+              child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
             )
           ],
         ),

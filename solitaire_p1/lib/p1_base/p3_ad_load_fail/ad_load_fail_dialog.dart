@@ -7,10 +7,17 @@ import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 
 class AdLoadFailDialog extends P1BaseStatelessDialog<AdLoadFailCon>{
+  String popScene;
   Function() tryAgain;
   AdLoadFailDialog({
+    required this.popScene,
     required this.tryAgain,
 });
+
+  @override
+  initView() {
+    p1Con.popScene=popScene;
+  }
 
   @override
   AdLoadFailCon initCon() => AdLoadFailCon();

@@ -4,11 +4,22 @@ import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
+import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_net_dialog/p3_net_con.dart';
 
 class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
+  GetCoinsEnum getCoinsEnum;
+  P3NetDialog({
+    required this.getCoinsEnum,
+  });
+
   @override
   P3NetCon initCon() => P3NetCon();
+
+  @override
+  initView() {
+    p1Con.getCoinsEnum=getCoinsEnum;
+  }
 
   @override
   Widget contentWidget() =>Container(
@@ -31,7 +42,7 @@ class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
             SizedBox(height: 30.h,),
             InkWell(
               onTap: (){
-                P1RouterFun.closePage();
+                p1Con.clickGot();
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -48,7 +59,7 @@ class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
           right: 26.w,
           child: InkWell(
             onTap: (){
-              P1RouterFun.closePage();
+              p1Con.clickClose();
             },
             child: P1Image(name: "icon_close",width: 30.w,height: 30.h,),
           ),

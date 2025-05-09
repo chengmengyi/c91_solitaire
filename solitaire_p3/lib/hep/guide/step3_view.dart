@@ -21,6 +21,9 @@ class Step3View extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -32,24 +35,12 @@ class Step3View extends StatelessWidget{
             Positioned(
               left: offset.dx,
               top: offset.dy,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: P1Image(name: getCardImageIcon(cardBean),width: 50.w,height: 78.h,),
-              ),
+              child: P1Image(name: getCardImageIcon(cardBean),width: 50.w,height: 78.h,),
             ),
             Positioned(
               top: offset.dy+50.h,
               left: offset.dx+30.w,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-              ),
+              child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
             ),
             Align(
               alignment: Alignment.bottomCenter,

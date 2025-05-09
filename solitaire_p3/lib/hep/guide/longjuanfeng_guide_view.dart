@@ -19,6 +19,9 @@ class LongJuanFengGuideView extends StatelessWidget{
   Widget build(BuildContext context) => Material(
     type: MaterialType.transparency,
     child: InkWell(
+      onTap: (){
+        _click();
+      },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
@@ -30,14 +33,7 @@ class LongJuanFengGuideView extends StatelessWidget{
             Positioned(
               left: offset.dx,
               top: offset.dy,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                child: LongJuanFengView(),
-              ),
+              child: LongJuanFengView(),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -60,12 +56,7 @@ class LongJuanFengGuideView extends StatelessWidget{
             Positioned(
               right: 0,
               bottom: 10.h,
-              child: InkWell(
-                onTap: (){
-                  _click();
-                },
-                child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
-              ),
+              child: P1LottieView(name: "finger",width: 72.w,height: 72.w,),
             )
           ],
         ),

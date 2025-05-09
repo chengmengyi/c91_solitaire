@@ -6,7 +6,6 @@ StorageData<int> p3TopPro=StorageData<int>(key: P3StorageName.p3TopPro, defaultV
 StorageData<int> p3PlayCardNum=StorageData<int>(key: P3StorageName.p3PlayCardNum, defaultValue: 0);
 StorageData<int> p3LastMoneyLevel=StorageData<int>(key: P3StorageName.p3LastMoneyLevel, defaultValue: 0);
 
-
 StorageData<double> p3Coins=StorageData<double>(key: P3StorageName.p3Coins, defaultValue: 0.0);
 
 StorageData<bool> p3LastIsLuckyCard=StorageData<bool>(key: P3StorageName.p3LastIsLuckyCard, defaultValue: false);

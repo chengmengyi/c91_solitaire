@@ -26,8 +26,8 @@ class RequestAf{
 
   init()async{
     _appsflyerSdk=AppsflyerSdk(AppsFlyerOptions(
-      afDevKey: "qxH3wE6Gtt55drYjXkCLDC",
-      appId: "6740134727",
+      afDevKey: "7ASZiavv48zVdYZhcSMKCE",
+      appId: "6744132341",
       timeToWaitForATTUserAuthorization: 8,
       disableAdvertisingIdentifier: false,
       disableCollectASA: false,

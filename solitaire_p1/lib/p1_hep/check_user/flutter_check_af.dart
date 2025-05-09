@@ -6,7 +6,7 @@ import 'package:solitaire_p1/p1_hep/check_user/request_cloak/request_cloak.dart'
 import 'package:solitaire_p1/p1_hep/check_user/request_cloak/request_cloak_callback.dart';
 
 
-StorageData<bool> p2LocalUserB=StorageData<bool>(key: "install", defaultValue: false);
+StorageData<bool> p2LocalUserB=StorageData<bool>(key: "p2LocalUser", defaultValue: false);
 
 class FlutterCheckAf {
   static final FlutterCheckAf _instance = FlutterCheckAf();
@@ -27,6 +27,8 @@ class FlutterCheckAf {
   }){
     _requestAf=RequestAf(afKey: afKey, afAppId: afAppId, distinctId: distinctId, requestAfCallback: requestAfCallback);
     _requestCloak=RequestCloak(url: clockUrl, data: cloakData, whiteKey: cloakWhiteKey, requestCloakCallback: requestCloakCallback);
+    _requestAf?.init();
+    _requestCloak?.init();
   }
 
   bool checkUser(){

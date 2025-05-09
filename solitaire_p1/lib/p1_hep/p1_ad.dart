@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
@@ -14,6 +15,10 @@ import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+
+StorageData<int> p3AdShowNum=StorageData<int>(key: "p3AdShowNum", defaultValue: 0);
+StorageData<int> p3LastAdLevel=StorageData<int>(key: "p3LastAdLevel", defaultValue: 0);
+
 
 class P1AD{
   static final P1AD _instance = P1AD();
@@ -30,7 +35,7 @@ class P1AD{
         twoRewardList: _getAdList(json["vvslt_rv_two"]),
         twoInterList: _getAdList(json["vvslt_int_two"]),
       );
-      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data);
+      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data,showMediationDebugger: kDebugMode);
     }catch(e){
       print("kk===$e");
     }
@@ -87,6 +92,7 @@ class P1AD{
     required AdType adType,
     required bool showAd,
     required AdEvent adEvent,
+    String popScene="other",
     required Function() closeAd,
   }){
     if(!showAd){
@@ -103,6 +109,7 @@ class P1AD{
       }
       P1RouterFun.showDialog(
         w: AdLoadFailDialog(
+          popScene: popScene,
           tryAgain: (){
             if(null!=FlutterIosAdHep.instance.getCacheResultData(AdType.reward)){
               _startShowAd(adEvent: adEvent, closeAd: closeAd);
@@ -123,6 +130,7 @@ class P1AD{
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          _uploadAdLevel();
           P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEvent.name);
@@ -153,6 +161,7 @@ class P1AD{
       adType: AdType.reward,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          _uploadAdLevel();
           P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
         },
@@ -168,5 +177,14 @@ class P1AD{
         onAdRevenuePaidCallback: (ad,info){},
       ),
     );
+  }
+
+  _uploadAdLevel(){
+    p3AdShowNum.saveData(p3AdShowNum.getData());
+    var adLevel = p3LastAdLevel.getData()+5;
+    if(p3AdShowNum.getData()>=adLevel){
+      PointHep.instance.point(pointEvent: PointEvent.pv_dall,params: {"pv_numbers":adLevel});
+      p3LastAdLevel.saveData(adLevel);
+    }
   }
 }

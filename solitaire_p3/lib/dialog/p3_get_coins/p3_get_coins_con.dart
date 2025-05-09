@@ -25,6 +25,7 @@ class P3GetCoinsCon extends P1BaseCon{
       adType: AdType.reward,
       showAd: P3ValueHep.instance.showIntAd(AdType.reward),
       adEvent: AdEvent.vvslt_obtainpop_rv,
+      popScene: getCoinsEnum.name,
       closeAd: (){
         P1RouterFun.closePage();
         P3UserInfoHep.instance.updateUserCoins(addNum*2);
@@ -38,10 +39,16 @@ class P3GetCoinsCon extends P1BaseCon{
       adType: AdType.interstitial,
       showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
       adEvent: AdEvent.vvslt_obtainpopclose_int,
+      popScene: getCoinsEnum.name,
       closeAd: (){
         P1RouterFun.closePage();
         P3UserInfoHep.instance.updateUserCoins(addNum);
       },
     );
+  }
+
+  clickClose(){
+    PointHep.instance.point(pointEvent: PointEvent.claim_pop_close,params: {"pop_scene":getCoinsEnum.name});
+    P1RouterFun.closePage();
   }
 }

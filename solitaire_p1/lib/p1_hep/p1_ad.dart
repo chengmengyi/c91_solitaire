@@ -35,7 +35,7 @@ class P1AD{
         twoRewardList: _getAdList(json["vvslt_rv_two"]),
         twoInterList: _getAdList(json["vvslt_int_two"]),
       );
-      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data,showMediationDebugger: kDebugMode);
+      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data,);
     }catch(e){
       print("kk===$e");
     }

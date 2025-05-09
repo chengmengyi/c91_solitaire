@@ -44,6 +44,7 @@ initP3()async{
   PointHep.instance.install();
   PointHep.instance.session();
   CheckUserHep.instance.init();
+  PointHep.instance.checkHasTbaMap();
 }
 
 class MyApp extends StatelessWidget {

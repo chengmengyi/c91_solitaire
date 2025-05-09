@@ -5,9 +5,12 @@ import 'package:flutter_ad_ios_plugins/hep/hep.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 import 'package:solitaire_p1/p1_hep/check_user/dio/dio_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
+import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/p1_sql.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:applovin_max/applovin_max.dart';
+import 'package:solitaire_p1/p1_hep/point/tba_sql.dart';
 
 
 StorageData<bool> p2Install=StorageData<bool>(key: "install", defaultValue: false);
@@ -84,9 +87,13 @@ class PointHep{
     "tba--->point--->start request-->params:$map".log();
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
     "tba--->point--->request result-->${dioResult.success}--->params:$map".log();
-    if(!dioResult.success&&tryNum>0){
-      await Future.delayed(const Duration(milliseconds: 1000));
-      point(pointEvent: pointEvent,params: params,tryNum: tryNum-1);
+    if(!dioResult.success){
+      if(tryNum>0){
+        await Future.delayed(const Duration(milliseconds: 1000));
+        point(pointEvent: pointEvent,params: params,tryNum: tryNum-1);
+      }else{
+        TbaSql.instance.insertTbaMap(map);
+      }
     }
   }
 
@@ -107,9 +114,13 @@ class PointHep{
     "tba--->ad--->start request-->params:$map".log();
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
     "tba--->ad--->request result-->${dioResult.success}--->params:$map".log();
-    if(!dioResult.success&&tryNum>0){
-      await Future.delayed(const Duration(milliseconds: 1000));
-      adPoint(ad: ad, data: data, adEvent: adEvent,tryNum: tryNum-1);
+    if(!dioResult.success){
+      if(tryNum>0){
+        await Future.delayed(const Duration(milliseconds: 1000));
+        adPoint(ad: ad, data: data, adEvent: adEvent,tryNum: tryNum-1);
+      }else{
+        TbaSql.instance.insertTbaMap(map);
+      }
     }
   }
 
@@ -148,5 +159,27 @@ class PointHep{
       "gustav":DateTime.now().millisecondsSinceEpoch,
     };
     return map;
+  }
+
+  checkHasTbaMap()async{
+    var tbaMap = await TbaSql.instance.queryTbaMap();
+    "tba--->tba map--->params:$tbaMap".log();
+    if(tbaMap.isNotEmpty){
+      var distinctId = await FlutterTbaInfo.instance.getDistinctId();
+      var headerMap = await _headerMap();
+      headerMap["Content-Encoding"]="gzip";
+      var url = await _url(distinctId);
+      "tba--->tba map--->start request-->params:$tbaMap".log();
+      var dioResult = await DioHep.instance.requestPost(
+        path: url,
+        data: headerMap,
+        header: headerMap,
+        contentType: "application/json",
+      );
+      if(dioResult.success){
+        TbaSql.instance.removeTbaMap();
+      }
+      "tba--->tba map--->request result-->${dioResult.success}--->params:$tbaMap".log();
+    }
   }
 }

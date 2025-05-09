@@ -49,6 +49,14 @@ class P3GetCoinsCon extends P1BaseCon{
 
   clickClose(){
     PointHep.instance.point(pointEvent: PointEvent.claim_pop_close,params: {"pop_scene":getCoinsEnum.name});
-    P1RouterFun.closePage();
+    P1AD.instance.showAdByBPackage(
+      adType: AdType.interstitial,
+      showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
+      adEvent: AdEvent.vvslt_obtainpopclose_int,
+      popScene: getCoinsEnum.name,
+      closeAd: (){
+        P1RouterFun.closePage();
+      },
+    );
   }
 }

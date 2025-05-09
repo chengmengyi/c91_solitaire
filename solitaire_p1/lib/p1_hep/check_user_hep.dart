@@ -4,10 +4,13 @@ import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
 import 'package:solitaire_p1/p1_hep/check_user/request_af/request_af_callback.dart';
 import 'package:solitaire_p1/p1_hep/check_user/request_cloak/request_cloak_callback.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 
 class CheckUserHep{
   static final CheckUserHep _instance = CheckUserHep();
   static CheckUserHep get instance => _instance;
+
+  bool aPackageShowing=false;
 
   init()async{
     var distinctId = await FlutterTbaInfo.instance.getDistinctId();
@@ -33,17 +36,28 @@ class CheckUserHep{
       cloakData: cloakData,
       requestAfCallback: RequestAfCallback(
         startRequestAf: (){},
-        requestSuccess: (bool isB){},
+        requestSuccess: (bool isB){
+          _checkUserDelay();
+        },
         firstRequestAfB: (){},
         startAfSuccess: (){},
         startAfFail: (int code,String msg){},
       ),
       requestCloakCallback: RequestCloakCallback(
         startRequestCloak: (){},
-        requestSuccess: (bool isWhite){},
+        requestSuccess: (bool isWhite){
+          _checkUserDelay();
+        },
       ),
     );
   }
 
   bool checkUser()=>FlutterCheckAf.instance.checkUser();
+
+  _checkUserDelay(){
+    if(aPackageShowing&&checkUser()){
+      aPackageShowing=false;
+      P1RouterFun.toNextPageAndCloseCurrent(str: "/p3/home");
+    }
+  }
 }

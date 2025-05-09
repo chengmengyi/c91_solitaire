@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/check_user_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
@@ -15,6 +16,7 @@ class P2HomeCon extends P1BaseCon{
   @override
   void onInit() {
     super.onInit();
+    CheckUserHep.instance.aPackageShowing=true;
     P1Mp3Hep.instance.playBgMp3();
   }
 
@@ -54,5 +56,11 @@ class P2HomeCon extends P1BaseCon{
         update(["level"]);
         break;
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    CheckUserHep.instance.aPackageShowing=false;
   }
 }

@@ -40,9 +40,9 @@ class RequestAf{
       try{
         if(res["status"]=="success"){
           var status = res["payload"]["af_status"].toString();
-          var isB = !status.contains("Organic");
-          requestAfCallback.requestSuccess.call(isB);
-          if(isB){
+          afIsB= !status.contains("Organic");
+          requestAfCallback.requestSuccess.call(afIsB);
+          if(afIsB){
             afIsB=true;
             if(p2AfResult.getData().isEmpty){
               requestAfCallback.firstRequestAfB.call();

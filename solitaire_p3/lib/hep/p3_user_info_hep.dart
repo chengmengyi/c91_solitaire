@@ -58,9 +58,11 @@ class P3UserInfoHep {
   }
 
   updatePlayCardNum(){
-    p3PlayCardNum.saveData(p3PlayCardNum.getData()+1);
-    if(p3PlayCardNum.getData()>=4&&!p3ShowedLongJuanFengGuide.getData()){
-      P1EventBean(code: P3EventCode.showLongjuanfengGuide).send();
+    if(p3CurrentLevel.getData()==12){
+      p3PlayCardNum.saveData(p3PlayCardNum.getData()+1);
+      if(p3PlayCardNum.getData()>=4&&!p3ShowedLongJuanFengGuide.getData()){
+        P1EventBean(code: P3EventCode.showLongjuanfengGuide).send();
+      }
     }
   }
 

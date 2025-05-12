@@ -180,7 +180,7 @@ class P1AD{
   }
 
   _uploadAdLevel(){
-    p3AdShowNum.saveData(p3AdShowNum.getData());
+    p3AdShowNum.saveData(p3AdShowNum.getData()+1);
     var adLevel = p3LastAdLevel.getData()+5;
     if(p3AdShowNum.getData()>=adLevel){
       PointHep.instance.point(pointEvent: PointEvent.pv_dall,params: {"pv_numbers":adLevel});

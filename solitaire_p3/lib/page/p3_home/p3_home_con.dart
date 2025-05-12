@@ -116,7 +116,7 @@ class P3HomeCon extends P1BaseCon{
 
     // P1RouterFun.showDialog(w: P3NetDialog());
 
-    // CashTaskHep.instance.updateCashTask(CashTask.level);
+    CashTaskHep.instance.updateCashTask(CashTask.luckyCard);
 
 
     // P1Mp3Hep.instance.playMusic();

@@ -111,6 +111,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
     _statusListener=(status){
       if(status==AnimationStatus.completed){
         Future.delayed(const Duration(milliseconds: 1000),(){
+          P3UserInfoHep.instance.updateTopPro(-5);
           P1RouterFun.closePage();
           showGetCoinsDialog(wheelAddNum, GetCoinsEnum.wheel);
         });

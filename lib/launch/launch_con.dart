@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/check_user_hep.dart';
@@ -43,7 +44,7 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
   }
 
   clickPlay(){
-    var user = CheckUserHep.instance.checkUser();
+    var user = kDebugMode?true:CheckUserHep.instance.checkUser();
     if(user){
       if(firstLaunch.getData()){
         firstLaunch.saveData(false);

@@ -48,10 +48,12 @@ class P3Play{
       }
     }
     call.call();
-    if(currentHandsNum>0){
-      P1EventBean(code: P3EventCode.removeHandCard).send();
-    }else{
-      showWinnerDialog();
+    if(!_checkCardNotEmpty()){
+      if(currentHandsNum>0){
+        P1EventBean(code: P3EventCode.removeHandCard).send();
+      }else{
+        showWinnerDialog();
+      }
     }
   }
 

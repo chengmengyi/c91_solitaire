@@ -29,6 +29,7 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
     if(!firstLaunch.getData()){
       animationController.forward();
     }
+    AppTrackingTransparency.requestTrackingAuthorization();
   }
 
   _initAnimator()async{

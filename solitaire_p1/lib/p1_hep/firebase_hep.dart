@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class FirebaseHep{
@@ -11,7 +10,6 @@ class FirebaseHep{
 
   initFirebase()async{
     try{
-      await Firebase.initializeApp();
       _config=FirebaseRemoteConfig.instance;
       await _config?.setConfigSettings(
         RemoteConfigSettings(

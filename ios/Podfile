@@ -28,20 +28,20 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
-  use_frameworks!
+#   use_frameworks!
   use_modular_headers!
 
    pod 'AppLovinMediationBidMachineAdapter'
       pod 'AppLovinMediationBigoAdsAdapter'
       pod 'AppLovinMediationChartboostAdapter'
-      pod 'AppLovinMediationFyberAdapter', '8.3.2.1'
-      pod 'AppLovinMediationGoogleAdManagerAdapter', '11.9.0.1'
-       pod 'AppLovinMediationGoogleAdapter', '11.9.0.1'
+      pod 'AppLovinMediationFyberAdapter'
+      pod 'AppLovinMediationGoogleAdManagerAdapter'
+       pod 'AppLovinMediationGoogleAdapter'
       pod 'AppLovinMediationInMobiAdapter'
       pod 'AppLovinMediationIronSourceAdapter'
       pod 'AppLovinMediationVungleAdapter'
       pod 'AppLovinMediationFacebookAdapter'
-       pod 'AppLovinMediationMintegralAdapter', '7.7.2.0.1'
+       pod 'AppLovinMediationMintegralAdapter'
       pod 'AppLovinMediationMolocoAdapter'
       pod 'AppLovinMediationByteDanceAdapter'
       pod 'AppLovinMediationUnityAdsAdapter'
@@ -55,5 +55,8 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+    end
   end
 end

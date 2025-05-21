@@ -14,6 +14,7 @@ export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:app_tracking_transparency/app_tracking_transparency.dart';
+export 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 
 extension String2Color on String{

@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: applovin_max
-      sha256: "3dc1aea840c7bbe1f91d876bd3e08437af898285f1a8b542faa007f27d821a2b"
+      sha256: c1f52747f4f8d36a4476786b1fa05ee1e281ee91f7714a640b2a707345900c46
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.1"
+    version: "4.4.0"
   appsflyer_sdk:
     dependency: transitive
     description:
@@ -296,6 +296,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.17.5"
+  firebase_crashlytics:
+    dependency: transitive
+    description:
+      name: firebase_crashlytics
+      sha256: "4c9872020c0d97a161362ee6af7000cfdb8666234ddc290a15252ad379bb235a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
+  firebase_crashlytics_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_crashlytics_platform_interface
+      sha256: ede8a199ff03378857d3c8cbb7fa58d37c27bb5a6b75faf8415ff6925dcaae2a
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.41"
   firebase_remote_config:
     dependency: transitive
     description:
@@ -337,10 +353,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_ad_ios_plugins
-      sha256: "372795fe0ecd509bb557e8a742bccd6aa4a2f9da13d08a7ce5fdcd7e74e4b718"
+      sha256: ff53923dd4fb8a126fd4a859f86595e6ae671a2e9f32cd2bd22abcbea482e3eb
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.8"
+    version: "0.0.9"
   flutter_lints:
     dependency: "direct dev"
     description:

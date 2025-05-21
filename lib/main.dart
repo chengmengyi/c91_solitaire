@@ -10,6 +10,8 @@ import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p2/hep/p2_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async{
   await init();
@@ -20,6 +22,8 @@ void main() async{
 
 init()async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FlutterError.onError=FirebaseCrashlytics.instance.recordFlutterFatalError;
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(

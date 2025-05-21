@@ -18,6 +18,7 @@ import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 
 StorageData<int> p3AdShowNum=StorageData<int>(key: "p3AdShowNum", defaultValue: 0);
 StorageData<int> p3LastAdLevel=StorageData<int>(key: "p3LastAdLevel", defaultValue: 0);
+StorageData<String> p3AdConfig=StorageData<String>(key: "p3AdConfig", defaultValue: "");
 
 
 class P1AD{
@@ -26,19 +27,34 @@ class P1AD{
 
   initAdInfo(){
     try{
-      var json = jsonDecode(adStr.base64());
-      var data = ConfigAdData(
-        maxShowNum: json["wbpryjrf"],
-        maxClickNum: json["gelxuwdg"],
-        oneRewardList: _getAdList(json["vvslt_rv_one"]),
-        oneInterList: _getAdList(json["vvslt_int_one"]),
-        twoRewardList: _getAdList(json["vvslt_rv_two"]),
-        twoInterList: _getAdList(json["vvslt_int_two"]),
-      );
-      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: data,);
+      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: _getAdData(),);
     }catch(e){
-      print("kk===$e");
+
     }
+  }
+
+  setAdInfo(){
+    try{
+      FlutterIosAdHep.instance.updateAdData(_getAdData());
+    }catch(e){
+
+    }
+  }
+
+  ConfigAdData _getAdData(){
+    var ad = adStr.base64();
+    if(p3AdConfig.getData().isNotEmpty){
+      ad=p3AdConfig.getData();
+    }
+    var json = jsonDecode(ad);
+    return ConfigAdData(
+      maxShowNum: json["wbpryjrf"],
+      maxClickNum: json["gelxuwdg"],
+      oneRewardList: _getAdList(json["vvslt_rv_one"]),
+      oneInterList: _getAdList(json["vvslt_int_one"]),
+      twoRewardList: _getAdList(json["vvslt_rv_two"]),
+      twoInterList: _getAdList(json["vvslt_int_two"]),
+    );
   }
 
   List<AdInfoData> _getAdList(List? list){
@@ -112,22 +128,23 @@ class P1AD{
           popScene: popScene,
           tryAgain: (){
             if(null!=FlutterIosAdHep.instance.getCacheResultData(AdType.reward)){
-              _startShowAd(adEvent: adEvent, closeAd: closeAd);
+              _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
             }
           },
         )
       );
       return;
     }
-    _startShowAd(adEvent: adEvent, closeAd: closeAd);
+    _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
   }
 
   _startShowAd({
+    required AdType adType,
     required AdEvent adEvent,
     required Function() closeAd,
 }){
     FlutterIosAdHep.instance.showAd(
-      adType: AdType.reward,
+      adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
           _uploadAdLevel();
@@ -152,6 +169,7 @@ class P1AD{
     required AdEvent adEvent,
     required Function() closeAd,
   }){
+    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name});
     var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
     if(null==hasCache){
       closeAd.call();

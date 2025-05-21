@@ -14,6 +14,7 @@ import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 class P3LuckyCardCon extends P1BaseCon{
+  var canClick=true;
   var addNum=P3ValueHep.instance.getLuckyCardAddNum();
 
   @override
@@ -22,7 +23,10 @@ class P3LuckyCardCon extends P1BaseCon{
     PointHep.instance.point(pointEvent: PointEvent.card_view,params: {"level":p3CurrentLevel.getData()});
   }
 
-  clickClose(){
+  clickClose(Function()? dismiss){
+    if(!canClick){
+      return;
+    }
     P1AD.instance.showAdByBPackage(
       adType: AdType.interstitial,
       showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
@@ -30,17 +34,18 @@ class P3LuckyCardCon extends P1BaseCon{
       closeAd: (){
         P3UserInfoHep.instance.updateTopPro(-5);
         P1RouterFun.closePage();
+        dismiss?.call();
       },
     );
   }
 
-  clickCard(){
+  clickCard(Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.card_click,params: {"level":p3CurrentLevel.getData()});
     Future.delayed(const Duration(milliseconds: 2500),(){
       CashTaskHep.instance.updateCashTask(CashTask.luckyCard);
       P3UserInfoHep.instance.updateTopPro(-5);
       P1RouterFun.closePage();
-      showGetCoinsDialog(addNum, GetCoinsEnum.card);
+      showGetCoinsDialog(addNum, GetCoinsEnum.card,dismiss: dismiss);
     });
   }
 }

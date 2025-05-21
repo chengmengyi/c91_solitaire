@@ -46,6 +46,9 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
 
   clickPlay(){
     var user = CheckUserHep.instance.checkUser();
+    if(kDebugMode){
+      user=true;
+    }
     if(user){
       if(firstLaunch.getData()){
         firstLaunch.saveData(false);

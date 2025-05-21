@@ -33,6 +33,7 @@ dependencies:
   firebase_crashlytics: 4.1.0
   connectivity_plus: 6.1.4
   app_tracking_transparency: 2.0.6+1
+  flutter_app_lifecycle: 0.0.1
   appsflyer_sdk:
     path: plugins/appsflyer_sdk-6.15.2
 

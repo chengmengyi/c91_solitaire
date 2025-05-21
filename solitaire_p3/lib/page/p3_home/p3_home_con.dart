@@ -4,6 +4,7 @@ import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_notification_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
+import 'package:solitaire_p1/p1_hep/p1_app_lifecycle.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
@@ -34,6 +35,7 @@ class P3HomeCon extends P1BaseCon{
     PointHep.instance.point(pointEvent: PointEvent.home_page);
     LocalNotificationHep.instance.setLocalNotifications();
     LocalNotificationHep.instance.checkFromIcon();
+    P1AppLifecycleUtils.instance.add();
   }
 
   @override
@@ -121,6 +123,8 @@ class P3HomeCon extends P1BaseCon{
 
 
     // P1Mp3Hep.instance.playMusic();
+
+    // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100, getCoinsEnum: GetCoinsEnum.card));
   }
 
   double getProgress(){

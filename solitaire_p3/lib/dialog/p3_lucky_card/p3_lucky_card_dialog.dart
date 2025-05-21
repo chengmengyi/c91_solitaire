@@ -7,6 +7,8 @@ import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_con.dart';
 import 'package:solitaire_p3/view/lucky_card_item_view.dart';
 
 class P3LuckyCardDialog extends P1BaseStatelessDialog<P3LuckyCardCon>{
+  Function()? dismiss;
+  P3LuckyCardDialog({this.dismiss});
   @override
   P3LuckyCardCon initCon() => P3LuckyCardCon();
 
@@ -21,7 +23,7 @@ class P3LuckyCardDialog extends P1BaseStatelessDialog<P3LuckyCardCon>{
           children: [
             InkWell(
               onTap: (){
-                p1Con.clickClose();
+                p1Con.clickClose(dismiss);
               },
               child: P1Image(name: "icon_close",width: 30.w,height: 30.h,),
             )
@@ -44,7 +46,10 @@ class P3LuckyCardDialog extends P1BaseStatelessDialog<P3LuckyCardCon>{
               index: index,
               addNum: p1Con.addNum,
               clickCall: (){
-                p1Con.clickCard();
+                p1Con.canClick=false;
+              },
+              animatorEndCall: (){
+                p1Con.clickCard(dismiss);
               },
             );
           },

@@ -53,11 +53,11 @@ String getTaskStr(CashTaskBean bean){
   }
 }
 
-showGetCoinsDialog(double addNum, GetCoinsEnum getCoinsEnum)async{
+showGetCoinsDialog(double addNum, GetCoinsEnum getCoinsEnum,{Function()? dismiss})async{
   var connectivityResult = await (Connectivity().checkConnectivity());
   if(connectivityResult.contains(ConnectivityResult.none)){
-    P1RouterFun.showDialog(w: P3NetDialog(getCoinsEnum: getCoinsEnum,));
+    P1RouterFun.showDialog(w: P3NetDialog(getCoinsEnum: getCoinsEnum,dismiss: dismiss,));
     return;
   }
-  P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: addNum,getCoinsEnum: getCoinsEnum,));
+  P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: addNum,getCoinsEnum: getCoinsEnum,dismiss: dismiss,));
 }

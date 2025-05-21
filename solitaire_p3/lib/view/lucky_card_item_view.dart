@@ -13,10 +13,12 @@ class LuckyCardItemView extends StatefulWidget{
   int index;
   double addNum;
   Function() clickCall;
+  Function() animatorEndCall;
   LuckyCardItemView({
     required this.index,
     required this.addNum,
     required this.clickCall,
+    required this.animatorEndCall,
   });
 
   @override
@@ -61,7 +63,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
         _controller.reverse();
         if(_sendEndMsg){
           P1EventBean(code: P3EventCode.flipLuckyCardEnd,intValue: widget.index).send();
-          widget.clickCall.call();
+          widget.animatorEndCall.call();
         }
       }
     });
@@ -73,6 +75,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
       if (_controller.isAnimating||!_canClick){
         return;
       }
+      widget.clickCall.call();
       _sendEndMsg=true;
       _controller.forward();
     },

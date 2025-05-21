@@ -19,7 +19,7 @@ class P3GetCoinsCon extends P1BaseCon{
     PointHep.instance.point(pointEvent: PointEvent.claim_pop,);
   }
 
-  clickDou(double addNum){
+  clickDou(double addNum, Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_pop_claim,params: {"pop_scene":getCoinsEnum.name});
     P1AD.instance.showAdByBPackage(
       adType: AdType.reward,
@@ -29,11 +29,12 @@ class P3GetCoinsCon extends P1BaseCon{
       closeAd: (){
         P1RouterFun.closePage();
         P3UserInfoHep.instance.updateUserCoins(addNum*2);
+        dismiss?.call();
       },
     );
   }
 
-  clickSingle(double addNum){
+  clickSingle(double addNum, Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_pop_claim_single,params: {"pop_scene":getCoinsEnum.name});
     P1AD.instance.showAdByBPackage(
       adType: AdType.interstitial,
@@ -43,11 +44,12 @@ class P3GetCoinsCon extends P1BaseCon{
       closeAd: (){
         P1RouterFun.closePage();
         P3UserInfoHep.instance.updateUserCoins(addNum);
+        dismiss?.call();
       },
     );
   }
 
-  clickClose(){
+  clickClose(Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_pop_close,params: {"pop_scene":getCoinsEnum.name});
     P1AD.instance.showAdByBPackage(
       adType: AdType.interstitial,
@@ -56,6 +58,7 @@ class P3GetCoinsCon extends P1BaseCon{
       popScene: getCoinsEnum.name,
       closeAd: (){
         P1RouterFun.closePage();
+        dismiss?.call();
       },
     );
   }

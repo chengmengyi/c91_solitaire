@@ -124,6 +124,21 @@ class P2CardHep{
     return false;
   }
 
+  String getCardLastAndNext(String card){
+    // ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    var indexWhere = _cardNumList.indexWhere((element) => element==card);
+    if(indexWhere<0){
+      return "";
+    }
+    if(indexWhere==0){
+      return "2 or K";
+    }
+    if(indexWhere==_cardNumList.length-1){
+      return "Q or A";
+    }
+    return "${_cardNumList[indexWhere-1]} or ${_cardNumList[indexWhere+1]}";
+  }
+
   List<String> _removeAdjacentRanks(List<String> targetRanks) {
     List<String> newAllRanks = List.from(_cardNumList);
     List<String> allRanks = List.from(_cardNumList);

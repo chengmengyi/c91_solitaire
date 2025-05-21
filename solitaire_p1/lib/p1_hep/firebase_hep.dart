@@ -1,4 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 
 class FirebaseHep{
   static final FirebaseHep _instance = FirebaseHep();
@@ -29,6 +30,11 @@ class FirebaseHep{
     var s = _config?.getString("us_numbers")??"";
     if(s.isNotEmpty){
       valueCallback?.call(s);
+    }
+    var ad = _config?.getString("vvslt_ad_config")??"";
+    if(ad.isNotEmpty){
+      p3AdConfig.saveData(ad);
+      P1AD.instance.setAdInfo();
     }
   }
 }

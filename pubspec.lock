@@ -357,6 +357,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.9"
+  flutter_app_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_app_lifecycle
+      sha256: ce24c31a9ec83f2baffbc391ec4c179585ba72ef8562faa42d2d250a914a271d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:

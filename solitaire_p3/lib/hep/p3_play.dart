@@ -61,7 +61,6 @@ class P3Play{
     currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P3ValueHep.instance.getHandsProbability());
     currentHandsNum--;
     call.call();
-    _checkShowFailDialog();
   }
 
   removeHandCard(){
@@ -75,6 +74,9 @@ class P3Play{
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
     }
+    if(_checkShowFailDialog()){
+      return;
+    }
     if(bean.isMoneyCard){
       for (var value in cardList) {
         var indexWhere = value.indexWhere((element) => element.index==bean.index);
@@ -84,16 +86,35 @@ class P3Play{
       }
       refresh.call([]);
       var moneyCardAddNum = P3ValueHep.instance.getMoneyCardAddNum();
+      var showLuckyDialog = P3UserInfoHep.instance.updateTopPro(1);
       if(_checkCardNotEmpty()){
         _checkOverlays(refresh);
-        showGetCoinsDialog(moneyCardAddNum, GetCoinsEnum.card);
+        showGetCoinsDialog(
+          moneyCardAddNum,
+          GetCoinsEnum.card,
+          dismiss: (){
+            if(showLuckyDialog){
+              P3UserInfoHep.instance.showLuckyDialog();
+            }
+          }
+        );
       }else{
-        P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
-        if(currentHandsNum>0){
-          P1EventBean(code: P3EventCode.removeHandCard).send();
-        }else{
-          showWinnerDialog();
-        }
+        showGetCoinsDialog(
+          moneyCardAddNum,
+          GetCoinsEnum.card,
+          dismiss: (){
+            P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
+            if(showLuckyDialog){
+              P3UserInfoHep.instance.showLuckyDialog(
+                dismiss: (){
+                  _removeHandCardOrShowWinDialog();
+                }
+              );
+            }else{
+              _removeHandCardOrShowWinDialog();
+            }
+          }
+        );
       }
       return;
     }
@@ -105,6 +126,7 @@ class P3Play{
       cardsAdjacent = P2CardHep.instance.isCardsAdjacent(bean.cardNum, currentHandCard?.cardNum??"");
     }
     if(!cardsAdjacent){
+      showToast("Your current hand is ${currentHandCard?.cardNum}, you can only eliminate ${P2CardHep.instance.getCardLastAndNext(currentHandCard?.cardNum??"")}");
       return;
     }
     for (var value in cardList) {
@@ -113,7 +135,6 @@ class P3Play{
         value[indexWhere].show=false;
       }
     }
-    P3UserInfoHep.instance.updateTopPro(1);
     P1Mp3Hep.instance.playXiaoChu();
     P1EventBean(code: P3EventCode.moveHandCardToBottom,anyValue: bean,anyValue2: _handCardOffset).send();
     refresh.call([]);
@@ -126,15 +147,31 @@ class P3Play{
   _clickCardResult(double addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P3EventCode.updateHandCard).send();
     P3UserInfoHep.instance.updateUserCoins(addNum);
+    var showLuckyDialog = P3UserInfoHep.instance.updateTopPro(1);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
       P3UserInfoHep.instance.updatePlayCardNum();
-    }else{
-      if(currentHandsNum>0){
-        P1EventBean(code: P3EventCode.removeHandCard).send();
-      }else{
-        showWinnerDialog();
+      if(showLuckyDialog){
+        P3UserInfoHep.instance.showLuckyDialog();
       }
+    }else{
+      if(showLuckyDialog){
+        P3UserInfoHep.instance.showLuckyDialog(
+          dismiss: (){
+            _removeHandCardOrShowWinDialog();
+          }
+        );
+      }else{
+        _removeHandCardOrShowWinDialog();
+      }
+    }
+  }
+
+  _removeHandCardOrShowWinDialog(){
+    if(currentHandsNum>0){
+      P1EventBean(code: P3EventCode.removeHandCard).send();
+    }else{
+      showWinnerDialog();
     }
   }
 
@@ -356,14 +393,15 @@ class P3Play{
     }
     canClick=true;
     call.call(noCoverList);
-    _checkShowFailDialog();
   }
 
-  _checkShowFailDialog(){
+  bool _checkShowFailDialog(){
     if(_checkFail()){
       P1Mp3Hep.instance.playShiBai();
       P1RouterFun.showDialog(w: P2FailDialog(),);
+      return true;
     }
+    return false;
   }
 
   bool _checkFail(){
@@ -380,6 +418,9 @@ class P3Play{
     }
 
     for (var value2 in list) {
+      if(value2.isMoneyCard){
+        return false;
+      }
       var cardsAdjacent = P2CardHep.instance.isCardsAdjacent(value2.cardNum, currentHandCard?.cardNum??"");
       if(cardsAdjacent){
         return false;

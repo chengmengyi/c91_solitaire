@@ -8,8 +8,15 @@ import 'package:solitaire_p3/dialog/p3_wheel_dialog/p3_wheel_con.dart';
 import 'package:solitaire_p3/view/WheelPainter.dart';
 
 class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
+  Function()? dismiss;
+  P3WheelDialog({this.dismiss});
   @override
   P3WheelCon initCon() => P3WheelCon();
+
+  @override
+  initView() {
+    p1Con.dismiss=dismiss;
+  }
 
   @override
   Widget contentWidget() => Container(
@@ -35,7 +42,7 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
         SizedBox(width: 10.w,),
         InkWell(
           onTap: (){
-            p1Con.clickClose();
+            p1Con.clickClose(dismiss);
           },
           child: P1Image(name: "icon_close",width: 30.w,height: 30.h,),
         ),
@@ -106,7 +113,7 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
         ),
         InkWell(
           onTap: (){
-            p1Con.startAnimator();
+            p1Con.startAnimator(dismiss);
           },
           child: P1Image(name: "wheel2",width: double.infinity,height: 370.h,),
         ),

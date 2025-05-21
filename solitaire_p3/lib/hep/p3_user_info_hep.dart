@@ -66,23 +66,28 @@ class P3UserInfoHep {
     }
   }
 
-  updateTopPro(int addNum){
+  bool updateTopPro(int addNum){
     p3TopPro.saveData(p3TopPro.getData()+addNum);
     P1EventBean(code: P3EventCode.updateTopPro).send();
+    return p3TopPro.getData()>=5;
+  }
 
-    if(p3TopPro.getData()>=5){
-      var isLucky = p3LastIsLuckyCard.getData();
-      if(isLucky){
-        P1RouterFun.showDialog(w: P3LuckyCardDialog());
-      }else{
-        P1RouterFun.showDialog(w: P3WheelDialog());
-      }
-      p3LastIsLuckyCard.saveData(!isLucky);
+  showLuckyDialog({Function()? dismiss}){
+    var isLucky = p3LastIsLuckyCard.getData();
+    if(isLucky){
+      P1RouterFun.showDialog(w: P3LuckyCardDialog(dismiss: dismiss,),);
+    }else{
+      P1RouterFun.showDialog(w: P3WheelDialog(dismiss: dismiss,),);
     }
+    p3LastIsLuckyCard.saveData(!isLucky);
   }
 
   setStartCoins(){
     _startCoinsNum=p3Coins.getData();
+  }
+
+  test(){
+    p3TopPro.saveData(4);
   }
 
   double getOneLevelAddAllCoins(){

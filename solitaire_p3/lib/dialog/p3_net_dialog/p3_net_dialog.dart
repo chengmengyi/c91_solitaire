@@ -9,8 +9,10 @@ import 'package:solitaire_p3/dialog/p3_net_dialog/p3_net_con.dart';
 
 class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
   GetCoinsEnum getCoinsEnum;
+  Function()? dismiss;
   P3NetDialog({
     required this.getCoinsEnum,
+    this.dismiss,
   });
 
   @override
@@ -42,7 +44,7 @@ class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
             SizedBox(height: 30.h,),
             InkWell(
               onTap: (){
-                p1Con.clickGot();
+                p1Con.clickGot(dismiss);
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -59,7 +61,7 @@ class P3NetDialog extends P1BaseStatelessDialog<P3NetCon>{
           right: 26.w,
           child: InkWell(
             onTap: (){
-              p1Con.clickClose();
+              p1Con.clickClose(dismiss);
             },
             child: P1Image(name: "icon_close",width: 30.w,height: 30.h,),
           ),

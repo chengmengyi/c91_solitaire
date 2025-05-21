@@ -13,13 +13,15 @@ class P3NetCon extends P1BaseCon{
     PointHep.instance.point(pointEvent: PointEvent.claim_nointernet_pop,params: {"pop_scene":getCoinsEnum.name});
   }
 
-  clickGot(){
+  clickGot(Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_nointernet_pop_got,params: {"pop_scene":getCoinsEnum.name});
     P1RouterFun.closePage();
+    dismiss?.call();
   }
 
-  clickClose(){
+  clickClose(Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_nointernet_pop_close,params: {"pop_scene":getCoinsEnum.name});
     P1RouterFun.closePage();
+    dismiss?.call();
   }
 }

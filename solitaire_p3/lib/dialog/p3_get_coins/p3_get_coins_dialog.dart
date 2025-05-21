@@ -14,7 +14,12 @@ enum GetCoinsEnum{
 class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
   double addNum;
   GetCoinsEnum getCoinsEnum;
-  P3GetCoinsDialog({required this.addNum,required this.getCoinsEnum});
+  Function()? dismiss;
+  P3GetCoinsDialog({
+    required this.addNum,
+    required this.getCoinsEnum,
+    this.dismiss,
+  });
 
   @override
   P3GetCoinsCon initCon() => P3GetCoinsCon();
@@ -35,7 +40,7 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
           children: [
             InkWell(
               onTap: (){
-                p1Con.clickClose();
+                p1Con.clickClose(dismiss);
               },
               child: P1Image(name: "icon_close",width: 30.w,height: 30.w,),
             )
@@ -67,13 +72,13 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
         VideoBtnView(
           text: "Double",
           clickCall: (){
-            p1Con.clickDou(addNum);
+            p1Con.clickDou(addNum,dismiss);
           },
         ),
         SizedBox(height: 8.h,),
         InkWell(
           onTap: (){
-            p1Con.clickSingle(addNum);
+            p1Con.clickSingle(addNum,dismiss);
           },
           child: P1Text(
             text: "Collect",

@@ -22,6 +22,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
   late AnimationController _animationController;
   late Animation<double> animation;
   late AnimationStatusListener _statusListener;
+  Function()? dismiss;
 
   @override
   void onInit() {
@@ -30,7 +31,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
     PointHep.instance.point(pointEvent: PointEvent.wheel_page,);
   }
 
-  startAnimator(){
+  startAnimator(Function()? dismiss){
     if(!canClick){
       return;
     }
@@ -69,7 +70,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
 
   }
 
-  clickClose(){
+  clickClose(Function()? dismiss){
     if(!canClick){
       return;
     }
@@ -80,6 +81,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
       closeAd: (){
         P3UserInfoHep.instance.updateTopPro(-5);
         P1RouterFun.closePage();
+        dismiss?.call();
       },
     );
   }
@@ -113,7 +115,7 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
         Future.delayed(const Duration(milliseconds: 1000),(){
           P3UserInfoHep.instance.updateTopPro(-5);
           P1RouterFun.closePage();
-          showGetCoinsDialog(wheelAddNum, GetCoinsEnum.wheel);
+          showGetCoinsDialog(wheelAddNum, GetCoinsEnum.wheel,dismiss: dismiss);
         });
       }
     };

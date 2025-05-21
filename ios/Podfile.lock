@@ -160,6 +160,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
     - Flutter
+  - flutter_app_lifecycle (0.0.1):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_tba_info (0.0.1):
@@ -330,6 +332,7 @@ DEPENDENCIES:
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - flutter_app_lifecycle (from `.symlinks/plugins/flutter_app_lifecycle/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_tba_info (from `.symlinks/plugins/flutter_tba_info/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -418,6 +421,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  flutter_app_lifecycle:
+    :path: ".symlinks/plugins/flutter_app_lifecycle/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_tba_info:
@@ -484,6 +489,7 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: d2475748a2d2a36242ed13baa34b2acda846c925
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
+  flutter_app_lifecycle: 96f63b433a79e643add0fd0a58eabf1a0877e176
   flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   flutter_tba_info: fce89f2ce0bf3af177f0c88e99b153260bc6a7df
   fluttertoast: 61c4d04b244937570e728fcd5f541ddc8b58d01c

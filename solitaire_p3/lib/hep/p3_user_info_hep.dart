@@ -68,6 +68,9 @@ class P3UserInfoHep {
 
   bool updateTopPro(int addNum){
     p3TopPro.saveData(p3TopPro.getData()+addNum);
+    if(p3TopPro.getData()<0){
+      p3TopPro.saveData(0);
+    }
     P1EventBean(code: P3EventCode.updateTopPro).send();
     return p3TopPro.getData()>=5;
   }

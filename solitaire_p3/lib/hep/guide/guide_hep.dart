@@ -106,7 +106,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=5){
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop7"});
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop5"});
     showOverlay(
       context: context,
       widget: Step5View(
@@ -122,7 +122,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=6){
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop8"});
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop6"});
     var renderBox = cashTypeGlobalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -142,7 +142,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=7){
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop9"});
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop7"});
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(
@@ -164,7 +164,7 @@ class GuideHep{
     if(p3NewUserGuideCompleted.getData()||_currentNewUserStep!=8){
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop11"});
+    PointHep.instance.point(pointEvent: PointEvent.newuser_guide,params: {"pop_step":"pop9"});
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     showOverlay(

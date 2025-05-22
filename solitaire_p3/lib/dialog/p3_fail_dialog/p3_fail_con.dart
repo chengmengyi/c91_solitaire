@@ -1,4 +1,5 @@
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
@@ -12,7 +13,6 @@ import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 class P3FailCon extends P1BaseCon{
-  bool hasMoney=p3Coins.getData()>=2000;
 
   @override
   void onInit() {
@@ -22,32 +22,32 @@ class P3FailCon extends P1BaseCon{
 
   clickLeft(){
     PointHep.instance.point(pointEvent: PointEvent.fail_replay_c,params: {"level":p3CurrentLevel.getData()});
-    if(hasMoney){
-      P1RouterFun.closePage();
-      P1EventBean(code: P3EventCode.replayGame).send();
-    }else{
-      clickHome();
-    }
+    P1RouterFun.closePage();
+    P1EventBean(code: P3EventCode.replayGame).send();
   }
 
   clickRight(){
     PointHep.instance.point(pointEvent: PointEvent.fail_getcards_c,params: {"level":p3CurrentLevel.getData()});
-    P1RouterFun.closePage();
-    if(hasMoney){
-      P3UserInfoHep.instance.updateUserCoins(-2000);
-      P1EventBean(code: P3EventCode.getFiveCards).send();
-    }else{
-      P1EventBean(code: P3EventCode.replayGame).send();
-    }
+    var showAdType = FirebaseHep.instance.getShowAdType(AdType.reward);
+    P1AD.instance.showAdByBPackage(
+      adType: showAdType,
+      showAd: P3ValueHep.instance.showIntAd(showAdType),
+      adEvent: AdEvent.vvslt_failpop_int,
+      closeAd: (){
+        P1EventBean(code: P3EventCode.getFiveCards).send();
+        P1RouterFun.closePage();
+      },
+    );
   }
 
   clickHome(){
+    PointHep.instance.point(pointEvent: PointEvent.fail_home_c,params: {"level":p3CurrentLevel.getData()});
+    var showAdType = FirebaseHep.instance.getShowAdType(AdType.interstitial);
     P1AD.instance.showAdByBPackage(
-      adType: AdType.interstitial,
-      showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
+      adType: showAdType,
+      showAd: P3ValueHep.instance.showIntAd(showAdType),
       adEvent: AdEvent.vvslt_failpop_int,
       closeAd: (){
-        PointHep.instance.point(pointEvent: PointEvent.fail_home_c,params: {"level":p3CurrentLevel.getData()});
         P1RouterFun.toHome(str: P3RoutersName.p3Home);
       },
     );

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
@@ -74,9 +75,10 @@ class P3WheelCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
     if(!canClick){
       return;
     }
+    var showAdType = FirebaseHep.instance.getShowAdType(AdType.interstitial);
     P1AD.instance.showAdByBPackage(
-      adType: AdType.interstitial,
-      showAd: P3ValueHep.instance.showIntAd(AdType.interstitial),
+      adType: showAdType,
+      showAd: P3ValueHep.instance.showIntAd(showAdType),
       adEvent: AdEvent.vvslt_turntablepopclose_int,
       closeAd: (){
         P3UserInfoHep.instance.updateTopPro(-5);

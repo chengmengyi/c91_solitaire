@@ -9,3 +9,4 @@ const String tbaUrl="https://sully.venturevaultsolitaire.com/pundit/dour/apiary"
 const String cloakUrl="https://schism.venturevaultsolitaire.com/astride/wick/lift";
 const String afKey="7ASZiavv48zVdYZhcSMKCE";
 const String afAppid="6744132341";
+const String adTypeLocal="ewogICAgICAgICJzZW5jZV9vcGVuIjogImludCIsCiAgICAgICAgInNlbmNlX2ludCI6ICJpbnQiLAogICAgICAgICJzZW5jZV9ydiI6ICJydiIKfQ==";

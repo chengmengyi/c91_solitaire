@@ -31,21 +31,18 @@ class P2FailDialog extends P1BaseStatelessDialog<P3FailCon>{
             )
           ],
         ),
-        Visibility(
-          visible: p1Con.hasMoney,
-          child: InkWell(
-            onTap: (){
-              p1Con.clickHome();
-            },
-            child: P1Text(
-              text: "Home",
-              size: 14.sp,
-              color: "#FFFFFF",
-              decoration: TextDecoration.underline,
-              decorationColor: "#FFFFFF".toColor(),
-            ),
+        InkWell(
+          onTap: (){
+            p1Con.clickHome();
+          },
+          child: P1Text(
+            text: "Home",
+            size: 14.sp,
+            color: "#FFFFFF",
+            decoration: TextDecoration.underline,
+            decorationColor: "#FFFFFF".toColor(),
           ),
-        )
+        ),
       ],
     ),
   );
@@ -56,24 +53,13 @@ class P2FailDialog extends P1BaseStatelessDialog<P3FailCon>{
       P1Image(name: "fail3",width: 100.w,height: 100.h,),
       RichText(
         text: TextSpan(
+          //Watch a short video to get extra 5 cards!
           children: [
             richText(
-              text: "Spend",
+              text: "Watch a short video to",
               color: "#FFFFFF",
               size: 24.sp,
               shadowsColor: "#000000"
-            ),
-            richText(
-                text: " 2000 ",
-                color: "#FFF82F",
-                size: 24.sp,
-                shadowsColor: "#000000"
-            ),
-            richText(
-                text: "Gold To Get",
-                color: "#FFFFFF",
-                size: 24.sp,
-                shadowsColor: "#000000"
             ),
           ]
         ),
@@ -82,7 +68,7 @@ class P2FailDialog extends P1BaseStatelessDialog<P3FailCon>{
         text: TextSpan(
             children: [
               richText(
-                  text: "Extra",
+                  text: "get extra ",
                   color: "#FFFFFF",
                   size: 24.sp,
                   shadowsColor: "#000000"
@@ -117,7 +103,7 @@ class P2FailDialog extends P1BaseStatelessDialog<P3FailCon>{
           alignment: Alignment.center,
           children: [
             P1Image(name: "btn_bg1",width: 140.w,height: 60.h,),
-            P1Text(text: p1Con.hasMoney?"Replay":"Home", size: 24.sp, color: "#FFFFFF",shadowsColor: "#650000",)
+            P1Text(text: "Replay", size: 24.sp, color: "#FFFFFF",shadowsColor: "#650000",)
           ],
         ),
       ),
@@ -126,12 +112,20 @@ class P2FailDialog extends P1BaseStatelessDialog<P3FailCon>{
         onTap: (){
           p1Con.clickRight();
         },
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            P1Image(name: "btn_bg2",width: 140.w,height: 60.h,),
-            P1Text(text: p1Con.hasMoney?"Get Cards":"Replay", size: 24.sp, color: "#FFFFFF",shadowsColor: "#650000",)
-          ],
+        child: SizedBox(
+          width: 140.w,
+          height: 60.h,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              P1Image(name: "btn_bg2",width: 140.w,height: 60.h,),
+              P1Text(text: "Get Cards", size: 24.sp, color: "#FFFFFF",shadowsColor: "#650000",),
+              Align(
+                alignment: Alignment.topRight,
+                child: P1Image(name: "buy4",width: 30.w,height: 25.h,),
+              ),
+            ],
+          ),
         ),
       ),
     ],

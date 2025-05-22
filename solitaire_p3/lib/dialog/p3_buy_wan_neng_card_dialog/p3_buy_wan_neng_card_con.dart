@@ -1,4 +1,5 @@
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
@@ -34,9 +35,10 @@ class P3BuyWanNengCardCon extends P1BaseCon{
 
   clickVideo(Function() hasWanNengCall){
     PointHep.instance.point(pointEvent: PointEvent.wild_collect_c,);
+    var adType = FirebaseHep.instance.getShowAdType(AdType.reward);
     P1AD.instance.showAdByBPackage(
-      adType: AdType.reward,
-      showAd: P3ValueHep.instance.showIntAd(AdType.reward),
+      adType: adType,
+      showAd: P3ValueHep.instance.showIntAd(adType),
       adEvent: AdEvent.vvslt_wildcar_rv,
       closeAd: (){
         hasWanNengCall.call();

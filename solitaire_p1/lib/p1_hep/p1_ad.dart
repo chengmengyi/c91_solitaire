@@ -8,6 +8,7 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:solitaire_p1/p1_base/p3_ad_load_fail/ad_load_fail_dialog.dart';
 import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
+import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
@@ -115,24 +116,27 @@ class P1AD{
       closeAd.call();
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name});
-    var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
+    var hasCache = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==hasCache){
       FlutterIosAdHep.instance.loadAd(adType);
-      if(adType==AdType.interstitial){
-        closeAd.call();
-        return;
-      }
-      P1RouterFun.showDialog(
-        w: AdLoadFailDialog(
-          popScene: popScene,
-          tryAgain: (){
-            if(null!=FlutterIosAdHep.instance.getCacheResultData(AdType.reward)){
-              _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
-            }
-          },
-        )
-      );
+      // if(adType==AdType.interstitial){
+      //   closeAd.call();
+      //   return;
+      // }
+      // P1RouterFun.showDialog(
+      //   w: AdLoadFailDialog(
+      //     popScene: popScene,
+      //     tryAgain: (){
+      //       if(null!=FlutterIosAdHep.instance.getCacheResultData(AdType.reward)){
+      //         _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
+      //       }
+      //     },
+      //   )
+      // );
+      // return;
+      showToast("Ad loading failed, please try again later");
+      closeAd.call();
       return;
     }
     _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
@@ -154,7 +158,7 @@ class P1AD{
         },
         showFail: (ad){
           P1Mp3Hep.instance.playMusic();
-          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
+          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
         },
         closeAd: (){
           P1Mp3Hep.instance.playMusic();
@@ -169,14 +173,15 @@ class P1AD{
     required AdEvent adEvent,
     required Function() closeAd,
   }){
-    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name});
+    var adType = FirebaseHep.instance.getOpenAdType();
+    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
     var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
     if(null==hasCache){
       closeAd.call();
       return;
     }
     FlutterIosAdHep.instance.showAd(
-      adType: AdType.interstitial,
+      adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
           _uploadAdLevel();
@@ -185,7 +190,7 @@ class P1AD{
         },
         showFail: (ad){
           P1Mp3Hep.instance.playMusic();
-          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name});
+          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
           closeAd.call();
         },
         closeAd: (){

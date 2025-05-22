@@ -32,7 +32,7 @@ class P3BottomView extends StatefulWidget{
   State<StatefulWidget> createState() => P3BottomViewState();
 }
 class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixin{
-  var showBackHandCard=false,isFront = true;
+  var showBackHandCard=false,isFront = true,canClickLeftCard=true;
   Offset? endOffset,startOffset;
   GlobalKey longjuanfengGlobalKey=GlobalKey();
   GlobalKey wannengGlobalKey=GlobalKey();
@@ -250,9 +250,10 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
   }
 
   changeHandCard()async{
-    if(!widget.p3play.canClick){
+    if(!widget.p3play.canClick||!canClickLeftCard){
       return;
     }
+    canClickLeftCard=false;
     showBackHandCard=true;
     var dx = startOffset?.dx??0;
     if(widget.p3play.currentHandsNum>=5){
@@ -274,6 +275,7 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
     _handCardController..reset()..forward();
     await Future.delayed(const Duration(milliseconds: 500));
     widget.p3play.changeHandCard((){
+      canClickLeftCard=true;
       setState(() {});
       widget.p3play.checkShowGuideStep3(context);
     });

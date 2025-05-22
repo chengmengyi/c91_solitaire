@@ -45,7 +45,8 @@ class P3ValueHep{
     print("kk===${_generateRandomNumber(0.01,0.06)}");
   }
 
-  bool showIntAd(AdType adType){  // if(kDebugMode){
+  bool showIntAd(AdType adType){
+    // if(kDebugMode){
     //   return false;
     // }
 

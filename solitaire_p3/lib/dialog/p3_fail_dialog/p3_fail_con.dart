@@ -32,7 +32,7 @@ class P3FailCon extends P1BaseCon{
     P1AD.instance.showAdByBPackage(
       adType: showAdType,
       showAd: P3ValueHep.instance.showIntAd(showAdType),
-      adEvent: AdEvent.vvslt_failpop_int,
+      adEvent: AdEvent.vvslt_failpop_rv,
       closeAd: (){
         P1EventBean(code: P3EventCode.getFiveCards).send();
         P1RouterFun.closePage();

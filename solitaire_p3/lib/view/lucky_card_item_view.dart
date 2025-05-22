@@ -30,7 +30,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
   late AnimationController _controller;
   late Animation<double> _animation;
   late StreamSubscription<P1EventBean>? _streamSubscription;
-  bool _isFront = false,_canClick=true,_sendEndMsg=false;
+  bool _isFront = false,_canClick=true,_sendEndMsg=false,showMissIcon=false;
 
   @override
   void initState() {
@@ -45,6 +45,9 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
           break;
         case P3EventCode.clickLuckyItem:
           _canClick=false;
+          setState(() {
+            showMissIcon=widget.index!=bean.intValue;
+          });
           break;
       }
     });
@@ -78,7 +81,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
       if (_controller.isAnimating||!_canClick){
         return;
       }
-      P1EventBean(code: P3EventCode.clickLuckyItem).send();
+      P1EventBean(code: P3EventCode.clickLuckyItem,intValue: widget.index).send();
       widget.clickCall.call();
       _sendEndMsg=true;
       _controller.forward();
@@ -122,7 +125,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
             children: [
               P1Image(name: "home9",width: 66.w,height: 66.h,),
               Visibility(
-                visible: !_canClick,
+                visible: showMissIcon,
                 child: P1Image(name: "card4",width: 59.w,height: 23.h,),
               ),
             ],

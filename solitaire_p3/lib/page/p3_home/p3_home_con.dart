@@ -111,7 +111,7 @@ class P3HomeCon extends P1BaseCon{
     }
     // p3CurrentLevel.saveData(1);
     // P3UserInfoHep.instance.updateLevel();
-    // P3UserInfoHep.instance.updateUserCoins(200.03);
+    P3UserInfoHep.instance.updateUserCoins(200.03);
     // P1Mp3Hep.instance.test();
     // P3UserInfoHep.instance.updateTopPro(2);
 
@@ -125,8 +125,8 @@ class P3HomeCon extends P1BaseCon{
     // P1Mp3Hep.instance.playMusic();
 
     // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100, getCoinsEnum: GetCoinsEnum.card));
-    // P1RouterFun.showDialog(w: P3LuckyCardDialog());
-    FirebaseHep.instance.test();
+    P1RouterFun.showDialog(w: P3LuckyCardDialog());
+    // FirebaseHep.instance.test();
   }
 
   double getProgress(){

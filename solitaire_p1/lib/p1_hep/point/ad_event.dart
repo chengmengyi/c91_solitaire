@@ -8,4 +8,5 @@ enum AdEvent{
   vvslt_turntablepopclose_int,
   vvslt_victorypop_int,
   vvslt_failpop_int,
+  vvslt_failpop_rv,
 }

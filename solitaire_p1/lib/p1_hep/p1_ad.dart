@@ -176,7 +176,7 @@ class P1AD{
       return;
     }
     FlutterIosAdHep.instance.showAd(
-      adType: AdType.reward,
+      adType: AdType.interstitial,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
           _uploadAdLevel();

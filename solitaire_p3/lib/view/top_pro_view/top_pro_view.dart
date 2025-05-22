@@ -1,10 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_stateless_widget.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
-import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
-import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/view/top_pro_view/top_pro_con.dart';
 

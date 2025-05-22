@@ -45,10 +45,10 @@ class P3ValueHep{
     print("kk===${_generateRandomNumber(0.01,0.06)}");
   }
 
-  bool showIntAd(AdType adType){
-    if(kDebugMode){
-      return false;
-    }
+  bool showIntAd(AdType adType){  // if(kDebugMode){
+    //   return false;
+    // }
+
     if(adType==AdType.reward){
       return true;
     }

@@ -43,6 +43,9 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
             flipLuckyCardEnd();
           }
           break;
+        case P3EventCode.clickLuckyItem:
+          _canClick=false;
+          break;
       }
     });
     _controller = AnimationController(
@@ -75,6 +78,7 @@ class _CardItemViewState extends State<LuckyCardItemView> with SingleTickerProvi
       if (_controller.isAnimating||!_canClick){
         return;
       }
+      P1EventBean(code: P3EventCode.clickLuckyItem).send();
       widget.clickCall.call();
       _sendEndMsg=true;
       _controller.forward();

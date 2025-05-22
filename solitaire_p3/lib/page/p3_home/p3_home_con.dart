@@ -125,6 +125,7 @@ class P3HomeCon extends P1BaseCon{
     // P1Mp3Hep.instance.playMusic();
 
     // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100, getCoinsEnum: GetCoinsEnum.card));
+    P1RouterFun.showDialog(w: P3LuckyCardDialog());
   }
 
   double getProgress(){

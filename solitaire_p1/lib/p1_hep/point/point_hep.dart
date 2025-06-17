@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
@@ -84,6 +85,7 @@ class PointHep{
         map["$value|chimney"]=params[value];
       }
     }
+
     "tba--->point--->start request-->params:$map".log();
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
     "tba--->point--->request result-->${dioResult.success}--->params:$map".log();

@@ -4,6 +4,7 @@ import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_app_lifecycle/app_state_observer.dart';
 import 'package:flutter_app_lifecycle/flutter_app_lifecycle.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
+import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 
@@ -18,8 +19,10 @@ class P1AppLifecycleUtils{
       AppStateObserver(
         call: (back){
           if(back){
+            P1Mp3Hep.instance.pauseMusic();
             _startPausedTimer();
           }else{
+            P1Mp3Hep.instance.playMusic();
             _checkToLaunchPage();
           }
         },

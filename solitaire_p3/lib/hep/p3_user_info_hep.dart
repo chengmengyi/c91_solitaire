@@ -21,10 +21,10 @@ class P3UserInfoHep {
     int nextStage = (nextLevel - 1) ~/ 10;
     p3CurrentLevel.saveData(nextLevel);
     var isNextLevel=currentStage != nextStage;
+    P1EventBean(code: P3EventCode.updateLevel).send();
     if(isNextLevel){
       return _getRouterNameByLevel(nextLevel);
     }else{
-      P1EventBean(code: P3EventCode.updateLevel).send();
       return "";
     }
 

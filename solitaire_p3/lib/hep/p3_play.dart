@@ -91,7 +91,7 @@ class P3Play{
         _checkOverlays(refresh);
         showGetCoinsDialog(
           moneyCardAddNum,
-          GetCoinsEnum.card,
+          GetCoinsEnum.cash_card,
           dismiss: (){
             if(showLuckyDialog){
               P3UserInfoHep.instance.showLuckyDialog();
@@ -101,7 +101,7 @@ class P3Play{
       }else{
         showGetCoinsDialog(
           moneyCardAddNum,
-          GetCoinsEnum.card,
+          GetCoinsEnum.cash_card,
           dismiss: (){
             P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
             if(showLuckyDialog){
@@ -180,6 +180,8 @@ class P3Play{
     P1RouterFun.showDialog(
       w: P3WinnerDialog(
         close: (){
+          P3UserInfoHep.instance.updateLevel();
+          CashTaskHep.instance.updateCashTask(CashTask.level);
           P1RouterFun.closePage();
         },
         next: (){

@@ -46,7 +46,7 @@ class LaunchCon extends P1BaseCon with GetSingleTickerProviderStateMixin{
 
   clickPlay(){
     var user = CheckUserHep.instance.checkUser();
-    if(user){
+    if(true){
       if(firstLaunch.getData()){
         firstLaunch.saveData(false);
         P1RouterFun.toNextPageAndCloseCurrent(str: P3RoutersName.p3Home);

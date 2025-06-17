@@ -52,12 +52,12 @@ class CheckUserHep{
     );
   }
 
-  bool checkUser()=>true;
+  bool checkUser()=>FlutterCheckAf.instance.checkUser();
 
   _checkUserDelay(){
-    if(aPackageShowing&&checkUser()){
-      aPackageShowing=false;
-      P1RouterFun.toNextPageAndCloseCurrent(str: "/p3/home");
-    }
+    // if(aPackageShowing&&checkUser()){
+    //   aPackageShowing=false;
+    //   P1RouterFun.toNextPageAndCloseCurrent(str: "/p3/home");
+    // }
   }
 }

@@ -29,7 +29,7 @@ class CheckUserHep{
     };
     FlutterCheckAf.instance.init(
       afKey: afKey,
-      afAppId: afAppid,
+      afAppId: "",
       distinctId: distinctId,
       clockUrl: cloakUrl,
       cloakWhiteKey: "cyrus",
@@ -52,7 +52,7 @@ class CheckUserHep{
     );
   }
 
-  bool checkUser()=>FlutterCheckAf.instance.checkUser();
+  bool checkUser()=>true;
 
   _checkUserDelay(){
     if(aPackageShowing&&checkUser()){

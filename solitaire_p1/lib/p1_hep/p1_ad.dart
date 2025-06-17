@@ -1,13 +1,11 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
-import 'package:solitaire_p1/p1_base/p3_ad_load_fail/ad_load_fail_dialog.dart';
 import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
+import 'package:solitaire_p1/p1_hep/facebook_utils.dart';
 import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
@@ -15,7 +13,6 @@ import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
-import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 
 StorageData<int> p3AdShowNum=StorageData<int>(key: "p3AdShowNum", defaultValue: 0);
 StorageData<int> p3LastAdLevel=StorageData<int>(key: "p3LastAdLevel", defaultValue: 0);
@@ -155,6 +152,7 @@ class P1AD{
           P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEvent.name);
+          FacebookUtils.instance.logPurchase(ad);
         },
         showFail: (ad){
           P1Mp3Hep.instance.playMusic();
@@ -187,6 +185,7 @@ class P1AD{
           _uploadAdLevel();
           P1Mp3Hep.instance.pauseMusic();
           PointHep.instance.adPoint(ad: ad, data: info, adEvent: adEvent);
+          FacebookUtils.instance.logPurchase(ad);
         },
         showFail: (ad){
           P1Mp3Hep.instance.playMusic();

@@ -35,7 +35,7 @@ class P3WebPage extends P1BaseStatelessPage<P3WebCon>{
               ),
               Align(
                 alignment: Alignment.center,
-                child: P1Text(text: "Privacy Policy", size: 26.sp, color: "#FFFFFF",shadowsColor: "#0A016B",),
+                child: P1Text(text: P1RouterFun.getArguments()["title"], size: 26.sp, color: "#FFFFFF",shadowsColor: "#0A016B",),
               ),
             ],
           ),

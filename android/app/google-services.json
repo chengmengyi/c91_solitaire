@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "558693695892",
+    "project_id": "adventure-win",
+    "storage_bucket": "adventure-win.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558693695892:android:19d4622fa3f749ac10cf81",
+        "android_client_info": {
+          "package_name": "com.adventurewin.solitaire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYyyr0tKLpQ613FIKmcX_ghBRW2Mwx0dM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

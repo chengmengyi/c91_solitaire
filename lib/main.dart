@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
 
   designSize()=>const Size(375, 812);
 
-  title()=>'VentureVault Solitaire';
+  title()=>'Adventure Win';
 
   initialRoute()=>"/p1/launch";
 

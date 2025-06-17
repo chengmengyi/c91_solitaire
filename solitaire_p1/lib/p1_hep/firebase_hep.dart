@@ -5,11 +5,13 @@ import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/hep.dart';
 import 'package:solitaire_p1/p1_hep/ad_type_ben.dart';
+import 'package:solitaire_p1/p1_hep/facebook_utils.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 
 StorageData<String> p3AdTypeConfig=StorageData<String>(key: "p3AdTypeConfig", defaultValue: "");
+StorageData<String> p3FacebookConfig=StorageData<String>(key: "p3FacebookConfig", defaultValue: "");
 
 
 class FirebaseHep{
@@ -57,6 +59,11 @@ class FirebaseHep{
       p3AdTypeConfig.saveData(ad_type);
       _initAdTypeBean();
     }
+    var facebookStr = _config?.getString("adventurewin_fb_inform")??"";
+    if(facebookStr.isNotEmpty){
+      p3FacebookConfig.saveData(facebookStr);
+    }
+    FacebookUtils.instance.initFacebook();
   }
 
   AdType getShowAdType(AdType adType){

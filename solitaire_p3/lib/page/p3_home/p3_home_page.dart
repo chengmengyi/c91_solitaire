@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_stateless_page.dart';
+import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_lottie_view.dart';
 import 'package:solitaire_p1/p1_view/p1_rich_text.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/hep/hep.dart';
+import 'package:solitaire_p3/hep/p3_routers_name.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
 import 'package:solitaire_p3/page/p3_home/p3_home_con.dart';
 import 'package:solitaire_p3/view/coins_view.dart';
@@ -146,10 +149,12 @@ class P3HomePage extends P1BaseStatelessPage<P3HomeCon>{
   _playWidget()=> Row(
     children: [
       SizedBox(width: 18.w,),
-      // InkWell(
-      //   child: P1Image(name: "home6",width: 75.w,height: 75.h,),
-      // ),
-      SizedBox(width: 75.w,height: 75.h,),
+      InkWell(
+        onTap: (){
+          P1RouterFun.toNextPage(str: P3RoutersName.p3web,p: {"url":moreGameUrl,"title":"More Game"});
+        },
+        child: P1Image(name: "home6",width: 75.w,height: 75.h,),
+      ),
       Expanded(
         child: InkWell(
           onTap: (){

@@ -22,7 +22,9 @@ dependencies:
   url_launcher: 6.3.1
   decimal: 3.1.0
   fluttertoast: 8.0.9
-  flutter_ad_ios_plugins: 0.0.9
+#  flutter_ad_ios_plugins: 0.0.9
+  flutter_ad_ios_plugins:
+    path: /Users/c91/StudioProjects/flutter_ad_ios_plugins
   audioplayers: 6.1.0
   shake_animation_widget: 3.0.4
   flutter_tba_info: 0.0.9

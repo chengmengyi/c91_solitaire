@@ -105,30 +105,6 @@ class P3HomeCon extends P1BaseCon{
     return "";
   }
 
-  clickTest(){
-    if(!kDebugMode){
-      return;
-    }
-    // p3CurrentLevel.saveData(1);
-    // P3UserInfoHep.instance.updateLevel();
-    P3UserInfoHep.instance.updateUserCoins(200.03);
-    // P1Mp3Hep.instance.test();
-    // P3UserInfoHep.instance.updateTopPro(2);
-
-    // _checkShowGuide();
-
-    // P1RouterFun.showDialog(w: P3NetDialog());
-
-    // CashTaskHep.instance.updateCashTask(CashTask.luckyCard);
-
-
-    // P1Mp3Hep.instance.playMusic();
-
-    // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100, getCoinsEnum: GetCoinsEnum.card));
-    P1RouterFun.showDialog(w: P3LuckyCardDialog());
-    // FirebaseHep.instance.test();
-  }
-
   double getProgress(){
     var d = p3Coins.getData()/200;
     if(d<=0){
@@ -174,5 +150,31 @@ class P3HomeCon extends P1BaseCon{
   _checkFirstCashTask()async{
     firstCashTaskBean = await CashTaskHep.instance.queryCashTaskNoCompleted();
     update(["progress"]);
+  }
+
+  clickTest(){
+    if(!kDebugMode){
+      return;
+    }
+    // p3CurrentLevel.saveData(1);
+    // P3UserInfoHep.instance.updateLevel();
+    // P3UserInfoHep.instance.updateUserCoins(200.03);
+    // P1Mp3Hep.instance.test();
+    // P3UserInfoHep.instance.updateTopPro(2);
+
+    // _checkShowGuide();
+
+    // P1RouterFun.showDialog(w: P3NetDialog());
+
+    // CashTaskHep.instance.updateCashTask(CashTask.luckyCard);
+
+
+    // P1Mp3Hep.instance.playMusic();
+
+    // P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: 100, getCoinsEnum: GetCoinsEnum.card));
+    // P1RouterFun.showDialog(w: P3LuckyCardDialog());
+    // FirebaseHep.instance.test();
+
+    // P1AD.instance.test();
   }
 }

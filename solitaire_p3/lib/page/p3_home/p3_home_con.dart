@@ -10,6 +10,7 @@ import 'package:solitaire_p1/p1_hep/p1_mp3_hep.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
+import 'package:solitaire_p1/solitaire_p1.dart';
 import 'package:solitaire_p3/bean/cash_task_bean.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_lucky_card/p3_lucky_card_dialog.dart';
@@ -36,6 +37,7 @@ class P3HomeCon extends P1BaseCon{
     LocalNotificationHep.instance.setLocalNotifications();
     LocalNotificationHep.instance.checkFromIcon();
     P1AppLifecycleUtils.instance.add();
+    SolitaireP1.instance.openC91();
   }
 
   @override

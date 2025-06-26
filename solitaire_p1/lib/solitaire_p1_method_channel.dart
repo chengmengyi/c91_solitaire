@@ -10,8 +10,7 @@ class MethodChannelSolitaireP1 extends SolitaireP1Platform {
   final methodChannel = const MethodChannel('solitaire_p1');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> openC91() async {
+    await methodChannel.invokeMethod<String>('openC91');
   }
 }

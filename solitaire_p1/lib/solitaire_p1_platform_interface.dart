@@ -23,7 +23,7 @@ abstract class SolitaireP1Platform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<void> openC91() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

@@ -175,6 +175,13 @@ class P3HomeCon extends P1BaseCon{
     // P1RouterFun.showDialog(w: P3LuckyCardDialog());
     // FirebaseHep.instance.test();
 
-    // P1AD.instance.test();
+    P1AD.instance.initAdInfo();
+
+
+    // f5287ccc277478f5 load ad success--->         revenue:0.0043175120353698745
+    // rv ad--->852668ac725cd908 load ad success--->revenue:0.004638360500335693
+    // rv ad--->4ce1d34b674d2ff7 load ad success--->revenue:0.004649357795715332
+    // rv ad--->b7154e978d88d53d load ad success--->revenue:0.004814244747161865
+
   }
 }

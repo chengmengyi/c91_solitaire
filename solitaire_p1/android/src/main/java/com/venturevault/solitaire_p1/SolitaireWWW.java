@@ -13,6 +13,7 @@ public class SolitaireWWW extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
+        Log.e("qwer","kk======"+url);
     }
 
     @Keep

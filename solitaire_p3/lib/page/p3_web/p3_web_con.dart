@@ -10,6 +10,7 @@ class P3WebCon extends P1BaseCon{
   void onInit() {
     super.onInit();
     controller=WebViewController();
+    controller.setJavaScriptMode(JavaScriptMode.unrestricted);
   }
 
   @override

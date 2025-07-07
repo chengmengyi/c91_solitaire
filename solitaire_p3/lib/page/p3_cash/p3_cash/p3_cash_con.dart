@@ -10,6 +10,7 @@ import 'package:solitaire_p3/dialog/p3_cash_task2_dialog/p3_cash_task2_dialog.da
 import 'package:solitaire_p3/dialog/p3_cash_task3_dialog/p3_cash_task3_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_cash_task_completed/p3_cash_task_completed_dialog.dart';
 import 'package:solitaire_p3/dialog/p3_no_money/p3_nomoney_dialog.dart';
+import 'package:solitaire_p3/dialog/p3_rank_dialog/p3_rank_dialog.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/cash/cash_task_hep.dart';
 import 'package:solitaire_p3/hep/guide/guide_hep.dart';
@@ -56,6 +57,14 @@ class P3CashCon extends P1BaseCon{
   clickAmount(index,{bool fromGuide=false}){
     var bean = amountList[index];
     PointHep.instance.point(pointEvent: PointEvent.cash_page_withdraw,params: {"cash_numbers":bean.money});
+    if(null!=bean.rankTaskBean&&(bean.rankTaskBean?.currentPro??0)>1){
+      P1RouterFun.showDialog(
+        w: P3RankDialog(
+          rankTaskBean: bean.rankTaskBean,
+        ),
+      );
+      return;
+    }
     if(null!=bean.cashTaskBean){
       switch(bean.cashTaskBean?.cashTask){
         case CashTask.level:
@@ -114,7 +123,17 @@ class P3CashCon extends P1BaseCon{
       );
       return;
     }
-    P1RouterFun.toNextPage(str: P3RoutersName.p3account,p: {"type":cashType,"amount":bean.money});
+    P1RouterFun.toNextPage(
+      str: P3RoutersName.p3account,
+      p: {"type":cashType,"amount":bean.money},
+      resultCallback: (map){
+        P1RouterFun.showDialog(
+          w: P3RankDialog(
+            rankTaskBean: map["bean"],
+          ),
+        );
+      }
+    );
   }
 
   clickClose(){
@@ -125,7 +144,14 @@ class P3CashCon extends P1BaseCon{
     amountList.clear();
     for (var value in P3ValueHep.instance.getCashAmountList()) {
       var taskBean = await CashTaskHep.instance.queryCashTaskByCashTypeAmount(cashType: cashType,amount: value);
-      amountList.add(AmountBean(money: value, cashTaskBean: taskBean));
+      var rankTaskBean = await CashTaskHep.instance.queryRankTaskNotComplete(cashType, value);
+      amountList.add(
+        AmountBean(
+          money: value,
+          cashTaskBean: taskBean,
+          rankTaskBean: rankTaskBean,
+        ),
+      );
     }
     update(["list"]);
   }

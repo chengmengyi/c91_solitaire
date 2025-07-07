@@ -5,6 +5,7 @@ import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/bean/cash_task_bean.dart';
+import 'package:solitaire_p3/bean/rank_task_bean.dart';
 import 'package:solitaire_p3/hep/cash/cash_enums.dart';
 import 'package:solitaire_p3/hep/hep.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
@@ -225,7 +226,7 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: _taskProWidget(bean.cashTaskBean),
+                          child: _taskProWidget(bean.cashTaskBean,bean.rankTaskBean),
                         )
                       ],
                     ),
@@ -239,7 +240,30 @@ class P3CashPage extends P1BaseStatelessPage<P3CashCon>{
     ),
   );
 
-  _taskProWidget(CashTaskBean? bean){
+  _taskProWidget(CashTaskBean? bean, RankTaskBean? rankTaskBean){
+    if(null!=rankTaskBean&&(rankTaskBean.currentPro??0)>1){
+      return Container(
+        width: double.infinity,
+        height: 45.h,
+        padding: EdgeInsets.only(left: 10.w,right: 10.w),
+        margin: EdgeInsets.only(left: 6.w,right: 6.w,bottom: 6.h),
+        decoration: BoxDecoration(
+          color: "#F5F5F5".toColor(),
+          borderRadius: BorderRadius.circular(14.w),
+        ),
+        child: Row(
+          children: [
+            P1Image(name: "cash7",width: 36.w,height: 36.w,),
+            SizedBox(width: 12.w,),
+            Expanded(
+              child: P1Text(text: "Withdrawal is queuing up", size: 12.sp, color: "#000000",showShadows: false,),
+            ),
+            SizedBox(width: 12.w,),
+            P1Text(text: "${rankTaskBean.currentPro??0}/${rankTaskBean.totalPro??0}", size: 12.sp, color: "#F54A0C",showShadows: false,),
+          ],
+        ),
+      );
+    }
     if(null==bean){
       return Container();
     }

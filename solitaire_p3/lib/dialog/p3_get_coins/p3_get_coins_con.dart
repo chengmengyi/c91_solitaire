@@ -14,12 +14,6 @@ import 'package:solitaire_p3/hep/p3_value_hep.dart';
 class P3GetCoinsCon extends P1BaseCon{
   GetCoinsEnum getCoinsEnum=GetCoinsEnum.other;
 
-  @override
-  void onInit() {
-    super.onInit();
-    PointHep.instance.point(pointEvent: PointEvent.claim_pop,);
-  }
-
   clickDou(double addNum, Function()? dismiss){
     PointHep.instance.point(pointEvent: PointEvent.claim_pop_claim,params: {"pop_scene":getCoinsEnum.name});
     var showAdType = FirebaseHep.instance.getShowAdType(AdType.reward);

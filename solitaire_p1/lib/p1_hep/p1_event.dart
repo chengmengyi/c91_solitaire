@@ -44,6 +44,8 @@ class P3EventCode{
   static const int showLongjuanfengGuide=119;
   static const int moveHandCardToBottom=120;
   static const int clickLuckyItem=121;
+  static const int timer3sFinger=122;
+  static const int clickHandCardFromTimer3sFinger=123;
 }
 
 class P1EventBean{

@@ -29,6 +29,10 @@ class P3ValueHep{
   }
 
   _initBean(){
+    if(kDebugMode){
+      _valueBean=ValueBean.fromJson(jsonDecode(valueStr.base64()));
+      return;
+    }
     try{
       var s = p3ValueConfig.getData();
       if(s.isEmpty){
@@ -41,8 +45,36 @@ class P3ValueHep{
     }
   }
 
+  AllQueueNumber? getAllQueueNumber()=>_valueBean?.allQueueNumber;
+
+  AllQueueNumber? getCurrentQueueNumber()=>_valueBean?.currentQueueNumber;
+
+  int getAllReduce(){
+    var list = getAllQueueNumber()?.intAllDelete??[1,3];
+    if(list.isEmpty){
+      return 1;
+    }
+    if(list.length<2){
+      return list.first;
+    }
+    final random = Random();
+    return list.first + random.nextInt(list.last - list.first + 1);
+  }
+
+  int getCurrentReduce(){
+    var list = getCurrentQueueNumber()?.intAllDelete??[5,8];
+    if(list.isEmpty){
+      return 1;
+    }
+    if(list.length<2){
+      return list.first;
+    }
+    final random = Random();
+    return list.first + random.nextInt(list.last - list.first + 1);
+  }
+
   test(){
-    print("kk===${_generateRandomNumber(0.01,0.06)}");
+    print("kk===${_valueBean?.allQueueNumber?.intAll}");
   }
 
   bool showIntAd(AdType adType){

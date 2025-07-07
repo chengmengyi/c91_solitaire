@@ -72,7 +72,7 @@ class Step6View extends StatelessWidget{
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
                       margin: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 10.h),
-                      child: P1Text(text: "Sophia here! I always cash out to PayPal – instant & safe. Pick your favorite way to get paid!", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Official with PayPal & Pix.\nWithdraw now — fast, safe, and fee-free!", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
                 ),

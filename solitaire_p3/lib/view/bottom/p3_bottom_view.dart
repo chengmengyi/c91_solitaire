@@ -19,8 +19,6 @@ import 'package:solitaire_p3/hep/guide/longjuanfeng_guide_view.dart';
 import 'package:solitaire_p3/hep/guide/wanneng_guide_view.dart';
 import 'package:solitaire_p3/hep/p3_play.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
-import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
-import 'package:solitaire_p3/hep/p3_value_hep.dart';
 import 'package:solitaire_p3/view/longjuanfeng_view.dart';
 import 'package:solitaire_p3/view/wan_neng_view.dart';
 
@@ -65,6 +63,9 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
           break;
         case P3EventCode.showLongjuanfengGuide:
           _showLongjuanfengGuide();
+          break;
+        case P3EventCode.clickHandCardFromTimer3sFinger:
+          changeHandCard();
           break;
       }
     });
@@ -241,6 +242,7 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
         }
       }
     }
+    widget.p3play.endCountTimer();
     P1EventBean(code: P3EventCode.showLongJuanFengLottie,anyValue: list).send();
     if(fromGuide){
       Future.delayed(const Duration(milliseconds: 1000),(){
@@ -253,6 +255,7 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
     if(!widget.p3play.canClick||!canClickLeftCard){
       return;
     }
+    widget.p3play.endCountTimer();
     canClickLeftCard=false;
     showBackHandCard=true;
     var dx = startOffset?.dx??0;
@@ -320,8 +323,8 @@ class P3BottomViewState extends State<P3BottomView> with TickerProviderStateMixi
       widget.p3play.removeHandCard();
       setState(() {});
       P1Mp3Hep.instance.playXiaoChu();
-      P3UserInfoHep.instance.updateUserCoins(P3ValueHep.instance.getCardAddNum(),removeHandCard: true);
-      await Future.delayed(const Duration(milliseconds: 400));
+      // P3UserInfoHep.instance.updateUserCoins(P3ValueHep.instance.getCardAddNum(),removeHandCard: true);
+      await Future.delayed(const Duration(milliseconds: 100));
     }
     widget.p3play.canClick=true;
     widget.p3play.showWinnerDialog();

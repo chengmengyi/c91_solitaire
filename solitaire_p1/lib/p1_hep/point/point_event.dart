@@ -52,4 +52,5 @@ enum PointEvent{
   pv_dall,
   vvslt_ad_chance,
   vvslt_ad_impression_fail,
+  ad_request,
 }

@@ -22,10 +22,8 @@ class FirebaseHep{
 
   Function(String s)? valueCallback;
 
-  AdTypeBen? _adTypeBen;
-
   initFirebase()async{
-    _initAdTypeBean();
+    // _initAdTypeBean();
     try{
       _config=FirebaseRemoteConfig.instance;
       await _config?.setConfigSettings(
@@ -47,18 +45,18 @@ class FirebaseHep{
     if(s.isNotEmpty){
       valueCallback?.call(s);
     }
-    var ad = _config?.getString("vvslt_ad_config")??"";
+    var ad = _config?.getString("vvslt_ad_newset")??"";
     if(ad.isNotEmpty){
       p3AdConfig.saveData(ad);
       P1AD.instance.setAdInfo();
     }
 
-    var ad_type = _config?.getString("ad_type")??"";
-    if(ad_type.isNotEmpty){
-      "adtype config-->${ad_type}".log();
-      p3AdTypeConfig.saveData(ad_type);
-      _initAdTypeBean();
-    }
+    // var ad_type = _config?.getString("ad_type")??"";
+    // if(ad_type.isNotEmpty){
+    //   "adtype config-->${ad_type}".log();
+    //   p3AdTypeConfig.saveData(ad_type);
+    //   _initAdTypeBean();
+    // }
     var facebookStr = _config?.getString("adventurewin_fb_inform")??"";
     if(facebookStr.isNotEmpty){
       p3FacebookConfig.saveData(facebookStr);
@@ -67,35 +65,36 @@ class FirebaseHep{
   }
 
   AdType getShowAdType(AdType adType){
-    if(adType==AdType.interstitial){
-      var senceInt = _adTypeBen?.senceInt??"int";
-      return senceInt=="int"?AdType.interstitial:AdType.reward;
-    }
-    if(adType==AdType.reward){
-      var senceRv = _adTypeBen?.senceRv??"rv";
-      return senceRv=="rv"?AdType.reward:AdType.interstitial;
-    }
+    // if(adType==AdType.interstitial){
+    //   var senceInt = _adTypeBen?.senceInt??"int";
+    //   return senceInt=="int"?AdType.interstitial:AdType.reward;
+    // }
+    // if(adType==AdType.reward){
+    //   var senceRv = _adTypeBen?.senceRv??"rv";
+    //   return senceRv=="rv"?AdType.reward:AdType.interstitial;
+    // }
     return adType;
   }
 
   AdType getOpenAdType(){
-    var senceOpen = _adTypeBen?.senceOpen??"int";
-    return senceOpen=="int"?AdType.interstitial:AdType.reward;
+    return AdType.interstitial;
+    // var senceOpen = _adTypeBen?.senceOpen??"int";
+    // return senceOpen=="int"?AdType.interstitial:AdType.reward;
   }
 
   test(){
-    print("kkkk====${_adTypeBen?.toString()}");
+    // print("kkkk====${_adTypeBen?.toString()}");
   }
 
-  _initAdTypeBean(){
-    try{
-      var data = p3AdTypeConfig.getData();
-      if(data.isEmpty){
-        data=adTypeLocal.base64();
-      }
-      _adTypeBen=AdTypeBen.fromJson(jsonDecode(data));
-    }catch(e){
-      _adTypeBen=AdTypeBen.fromJson(jsonDecode(adTypeLocal.base64()));
-    }
-  }
+  // _initAdTypeBean(){
+  //   try{
+  //     var data = p3AdTypeConfig.getData();
+  //     if(data.isEmpty){
+  //       data=adTypeLocal.base64();
+  //     }
+  //     _adTypeBen=AdTypeBen.fromJson(jsonDecode(data));
+  //   }catch(e){
+  //     _adTypeBen=AdTypeBen.fromJson(jsonDecode(adTypeLocal.base64()));
+  //   }
+  // }
 }

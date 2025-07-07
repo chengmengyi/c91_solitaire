@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
 import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
 import 'package:solitaire_p1/p1_hep/facebook_utils.dart';
 import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
@@ -25,7 +27,24 @@ class P1AD{
 
   initAdInfo(){
     try{
-      FlutterIosAdHep.instance.initMax(maxKey: maxKey.base64(), data: _getAdData(),);
+      FlutterIosAdHep.instance.initMax(
+        maxKey: maxKey.base64(),
+        data: _getAdData(),
+        iosLoadAdResultCallback: IosLoadAdResultCallback(
+          startLoadAdCallback: (adInfo){
+            PointHep.instance.point(
+              pointEvent: PointEvent.ad_request,
+              params: {
+                "ad_code_id":adInfo?.adId,
+                "ad_format":adInfo?.adType.name,
+                "ad_platform":adInfo?.adPlat,
+              },
+            );
+          },
+          loadAdSuccessCallback: (ad,adInfo){},
+          loadAdFailCallback: (adInfo){},
+        ),
+      );
     }catch(e){
 
     }
@@ -44,14 +63,20 @@ class P1AD{
     if(p3AdConfig.getData().isNotEmpty){
       ad=p3AdConfig.getData();
     }
+    if(kDebugMode){
+      ad = adStr.base64();
+    }
     var json = jsonDecode(ad);
     return ConfigAdData(
       maxShowNum: json["wbpryjrf"],
       maxClickNum: json["gelxuwdg"],
-      oneRewardList: _getAdList(json["vvslt_rv_one"]),
-      oneInterList: _getAdList(json["vvslt_int_one"]),
-      twoRewardList: _getAdList(json["vvslt_rv_two"]),
-      twoInterList: _getAdList(json["vvslt_int_two"]),
+      isNewPlan: json["hdubfjab"]=="B",
+      oneRewardList: _getAdList(json["xalgqzsn"]["vvslt_rv_one"]),
+      oneInterList: _getAdList(json["wonfkogt"]["vvslt_int_one"]),
+      twoRewardList: _getAdList(json["xalgqzsn"]["vvslt_rv_two"]),
+      twoInterList: _getAdList(json["wonfkogt"]["vvslt_int_two"]),
+      newInterList: _getNewList(json["wonfkogt"]),
+      newRewardList: _getNewList(json["xalgqzsn"]),
     );
   }
 
@@ -72,6 +97,17 @@ class P1AD{
       );
     }
     return resultList;
+  }
+
+  List<AdInfoData> _getNewList(Map? map){
+    if(null==map){
+      return [];
+    }
+    var intOne=_getAdList(map["vvslt_int_one"]);
+    var intTwo=_getAdList(map["vvslt_int_two"]);
+    var rvOne=_getAdList(map["vvslt_rv_one"]);
+    var rvTwo=_getAdList(map["vvslt_rv_two"]);
+    return intOne+intTwo+rvOne+rvTwo;
   }
 
   //a 包显示广告
@@ -113,10 +149,10 @@ class P1AD{
       closeAd.call();
       return;
     }
-    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
+    PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name,"ad_format":adType.name});
     var hasCache = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==hasCache){
-      FlutterIosAdHep.instance.loadAd(adType);
+      FlutterIosAdHep.instance.loadAdWhenNoCache(adType);
       // if(adType==AdType.interstitial){
       //   closeAd.call();
       //   return;
@@ -156,7 +192,7 @@ class P1AD{
         },
         showFail: (ad){
           P1Mp3Hep.instance.playMusic();
-          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
+          PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_impression_fail,params: {"ad_pos_id":adEvent.name,"ad_format":adType.name});
         },
         closeAd: (){
           P1Mp3Hep.instance.playMusic();

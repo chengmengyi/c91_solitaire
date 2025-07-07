@@ -36,24 +36,24 @@ class Step8View extends StatelessWidget{
               top: offset.dy,
               child: P1Image(name: "home7",width: width,height: 70.h,),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 138.h,
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 300.h,left: 45.w,right: 45.w),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
-                    Container(
-                      margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Ready to Make It Rain? Start Stacking Cash Instantly!", size: 14.sp, color: "#000000",showShadows: false,),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Container(
+            //     height: 138.h,
+            //     width: double.infinity,
+            //     margin: EdgeInsets.only(bottom: 300.h,left: 45.w,right: 45.w),
+            //     child: Stack(
+            //       alignment: Alignment.bottomCenter,
+            //       children: [
+            //         P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
+            //         Container(
+            //           margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
+            //           child: P1Text(text: "Ready to Make It Rain? Start Stacking Cash Instantly!", size: 14.sp, color: "#000000",showShadows: false,),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Positioned(
               left: offset.dx+width-30.w,
               top: offset.dy-50.w,

@@ -66,7 +66,7 @@ class Step7View extends StatelessWidget{
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
                       margin: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 10.h),
-                      child: P1Text(text: "Sophia’s rule: Always cash out at \$200! Perfect for a weekend dinner out. How much will you grab?", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Earn & withdraw \$200 every day — easier than you think", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
                 ),

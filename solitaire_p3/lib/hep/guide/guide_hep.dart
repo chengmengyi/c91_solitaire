@@ -4,6 +4,7 @@ import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/bean/card_bean.dart';
+import 'package:solitaire_p3/hep/guide/first_not_match_guide_view.dart';
 import 'package:solitaire_p3/hep/guide/step1_view.dart';
 import 'package:solitaire_p3/hep/guide/step2_view.dart';
 import 'package:solitaire_p3/hep/guide/step3_view.dart';
@@ -81,6 +82,17 @@ class GuideHep{
           _currentNewUserStep=4;
           P1EventBean(code: P3EventCode.newUserStep3ClickCard,anyValue: cardBean).send();
           showGuideStep4(context);
+        },
+      ),
+    );
+  }
+
+  showFirstNotMatchGuide({required BuildContext context,required Function() click}){
+    showOverlay(
+      context: context,
+      widget: FirstNotMatchGuideView(
+        clickCall: (){
+          click.call();
         },
       ),
     );

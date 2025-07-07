@@ -42,11 +42,15 @@ class P3AccountCon extends P1BaseCon{
       }
     }
     hideKeyboard();
-    await CashTaskHep.instance.createCashTask(type, amount, content);
+    var rankTaskBean = await CashTaskHep.instance.createRankTask(type, amount, content);
     P3UserInfoHep.instance.updateUserCoins((-amount).toDouble());
     PointHep.instance.point(pointEvent: PointEvent.cash_form_page_confirm,params: {"form_type":_getCashTypeStr(),"account":content});
     P1EventBean(code: P3EventCode.updateCashList).send();
-    P1RouterFun.closePage();
+    P1RouterFun.closePage(
+      result: {
+        "bean": rankTaskBean
+      },
+    );
   }
 
   bool isValidEmail(String email) {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
@@ -60,4 +62,31 @@ showGetCoinsDialog(double addNum, GetCoinsEnum getCoinsEnum,{Function()? dismiss
     return;
   }
   P1RouterFun.showDialog(w: P3GetCoinsDialog(addNum: addNum,getCoinsEnum: getCoinsEnum,dismiss: dismiss,));
+}
+
+String generatePhoneNumber() {
+  final prefixList = ['130', '131', '132', '133', '134', '135', '136', '137', '138', '139',
+    '150', '151', '152', '153', '155', '156', '157', '158', '159',
+    '170', '171', '172', '173', '175', '176', '177', '178', '179',
+    '180', '181', '182', '183', '184', '185', '186', '187', '188', '189'];
+  final random = Random();
+  final prefix = prefixList[random.nextInt(prefixList.length)];
+  final suffix = List.generate(8, (_) => random.nextInt(10)).join(); // 8 digits
+  return prefix + suffix;
+}
+
+String generateEmail() {
+  final random = Random();
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  String username = List.generate(6 + random.nextInt(5), (index) => chars[random.nextInt(chars.length)]).join();
+  const domains = ['gmail.com', 'yahoo.com', 'outlook.com'];
+  String domain = domains[random.nextInt(domains.length)];
+  return '$username@$domain';
+}
+
+bool isEmail(String input) {
+  final emailRegex = RegExp(
+    r'^[\w\.-]+@[\w\.-]+\.\w+$',
+  );
+  return emailRegex.hasMatch(input);
 }

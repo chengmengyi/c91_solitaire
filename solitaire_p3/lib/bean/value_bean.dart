@@ -39,12 +39,16 @@ class ValueBean {
         cardReward?.add(CardReward.fromJson(v));
       });
     }
+    allQueueNumber = json['all_queue_number'] != null ? AllQueueNumber.fromJson(json['all_queue_number']) : null;
+    currentQueueNumber = json['current_queue_number'] != null ? AllQueueNumber.fromJson(json['current_queue_number']) : null;
   }
   List<IntAd>? intAd;
   List<CardReward>? cardEliminationReward;
   List<CardReward>? cashCardReward;
   List<CardReward>? wheelReward;
   List<CardReward>? cardReward;
+  AllQueueNumber? allQueueNumber;
+  AllQueueNumber? currentQueueNumber;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -62,6 +66,12 @@ class ValueBean {
     }
     if (cardReward != null) {
       map['card_reward'] = cardReward?.map((v) => v.toJson()).toList();
+    }
+    if (allQueueNumber != null) {
+      map['all_queue_number'] = allQueueNumber?.toJson();
+    }
+    if (currentQueueNumber != null) {
+      map['current_queue_number'] = currentQueueNumber?.toJson();
     }
     return map;
   }
@@ -123,3 +133,25 @@ class IntAd {
   }
 
 }
+
+class AllQueueNumber {
+  AllQueueNumber({
+    this.intAll,
+    this.intAllDelete,});
+
+  AllQueueNumber.fromJson(dynamic json) {
+    intAll = json['int_all'];
+    intAllDelete = json['int_all_delete'] != null ? json['int_all_delete'].cast<int>() : [];
+  }
+  int? intAll;
+  List<int>? intAllDelete;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['int_all'] = intAll;
+    map['int_all_delete'] = intAllDelete;
+    return map;
+  }
+
+}
+

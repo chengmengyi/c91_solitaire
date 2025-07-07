@@ -130,8 +130,9 @@ class P3HomeCon extends P1BaseCon{
     // P1RouterFun.showDialog(w: P3LuckyCardDialog());
     // FirebaseHep.instance.test();
 
-    PointHep.instance.point(pointEvent: PointEvent.wild_collect_c,);
+    // PointHep.instance.point(pointEvent: PointEvent.wild_collect_c,);
 
+    // P3ValueHep.instance.test();
   }
 
   double getProgress(){

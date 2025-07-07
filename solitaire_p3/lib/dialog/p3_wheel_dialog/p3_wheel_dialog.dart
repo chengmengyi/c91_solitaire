@@ -66,8 +66,8 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
           text: TextSpan(
             children: [
               richText(text: "Just ", color: "#FFFFFF", size: 16.sp,),
-              richText(text: "\$0.05", color: "#0EFF47", size: 16.sp,),
-              richText(text: " to Pagbank withdrawal.", color: "#FFFFFF", size: 16.sp,),
+              richText(text: "\$${p1Con.getCashMoney()}", color: "#0EFF47", size: 16.sp,),
+              richText(text: " to CashApp withdrawal.", color: "#FFFFFF", size: 16.sp,),
             ]
           ),
         ),

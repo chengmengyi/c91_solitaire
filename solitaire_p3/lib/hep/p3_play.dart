@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -28,10 +29,12 @@ class P3Play{
   final List<RandomCardBean> _topRandomCardList=[];
   RandomCardBean? currentHandCard;
   Offset? _handCardOffset;
+  Timer? _countTimer;
 
   P3Play(){
     P3UserInfoHep.instance.setStartCoins();
     PointHep.instance.point(pointEvent: PointEvent.game_page,params: {"level":p3CurrentLevel.getData()});
+    startCountTimer();
   }
 
   hasWanNengCard(){
@@ -61,6 +64,7 @@ class P3Play{
     currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P3ValueHep.instance.getHandsProbability());
     currentHandsNum--;
     call.call();
+    startCountTimer();
   }
 
   removeHandCard(){
@@ -74,6 +78,7 @@ class P3Play{
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
     }
+    endCountTimer();
     if(_checkShowFailDialog()){
       return;
     }
@@ -89,6 +94,7 @@ class P3Play{
       var showLuckyDialog = P3UserInfoHep.instance.updateTopPro(1);
       if(_checkCardNotEmpty()){
         _checkOverlays(refresh);
+        startCountTimer();
         showGetCoinsDialog(
           moneyCardAddNum,
           GetCoinsEnum.cash_card,
@@ -143,6 +149,39 @@ class P3Play{
     currentHandCard?.hasWanNeng=false;
     _clickCardResult(P3ValueHep.instance.getCardAddNum(),refresh);
   }
+  
+  startCountTimer(){
+    if(null!=_countTimer){
+      return;
+    }
+    _countTimer=Timer(const Duration(milliseconds: 3000), (){
+      List<CardBean> list = cardList.expand((list) => list).toList();
+      CardBean? cardBean;
+      if(currentHandCard?.hasWanNeng==true){
+        var indexWhere = list.indexWhere((value)=>!value.covered&&value.show&&value.cardNum!="-1");
+        if(indexWhere>=0){
+          cardBean=list[indexWhere];
+        }
+      }else{
+        for (var value in list) {
+          if(!value.covered&&value.show){
+            if(value.isMoneyCard||P2CardHep.instance.isCardsAdjacent(value.cardNum, currentHandCard?.cardNum??"")){
+              cardBean=value;
+              break;
+            }
+          }
+        }
+      }
+      if(null!=cardBean||currentHandsNum>0){
+        P1EventBean(code: P3EventCode.timer3sFinger,anyValue: cardBean,boolValue: true).send();
+      }
+    });
+  }
+  
+  endCountTimer(){
+    _countTimer?.cancel();
+    _countTimer=null;
+  }
 
   _clickCardResult(double addNum,Function(List<CardBean>) refresh)async{
     P1EventBean(code: P3EventCode.updateHandCard).send();
@@ -150,6 +189,7 @@ class P3Play{
     var showLuckyDialog = P3UserInfoHep.instance.updateTopPro(1);
     if(_checkCardNotEmpty()){
       _checkOverlays(refresh);
+      startCountTimer();
       P3UserInfoHep.instance.updatePlayCardNum();
       if(showLuckyDialog){
         P3UserInfoHep.instance.showLuckyDialog();
@@ -517,7 +557,14 @@ class P3Play{
         break;
       }
     }
+
     if(null==cardBean){
+      GuideHep.instance.showFirstNotMatchGuide(
+        context: context,
+        click: (){
+          P1EventBean(code: P3EventCode.clickHandCardFromTimer3sFinger).send();
+        }
+      );
       return;
     }
     GuideHep.instance.showGuideStep3(context,cardBean);

@@ -11,6 +11,7 @@ StorageData<double> p3Coins=StorageData<double>(key: P3StorageName.p3Coins, defa
 StorageData<bool> p3LastIsLuckyCard=StorageData<bool>(key: P3StorageName.p3LastIsLuckyCard, defaultValue: false);
 StorageData<bool> p3NewUserGuideCompleted=StorageData<bool>(key: P3StorageName.p3NewUserGuideCompleted, defaultValue: false);
 StorageData<bool> p3ShowedLongJuanFengGuide=StorageData<bool>(key: P3StorageName.p3ShowedLongJuanFengGuide, defaultValue: false);
+StorageData<bool> p3FirstShowRankGuide=StorageData<bool>(key: P3StorageName.p3FirstShowRankGuide, defaultValue: true);
 
 class P3StorageName{
   static const String p3CurrentLevel="p3CurrentLevel";
@@ -23,4 +24,5 @@ class P3StorageName{
   static const String p3ShowedLongJuanFengGuide="p3ShowedLongJuanFengGuide";
   static const String p3PlayCardNum="p3PlayCardNum";
   static const String p3LastMoneyLevel="p3LastMoneyLevel";
+  static const String p3FirstShowRankGuide="p3FirstShowRankGuide";
 }

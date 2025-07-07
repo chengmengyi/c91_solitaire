@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_stateless_dialog.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
+import 'package:solitaire_p1/p1_hep/point/point_event.dart';
+import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_view/p1_image.dart';
 import 'package:solitaire_p1/p1_view/p1_text.dart';
 import 'package:solitaire_p3/dialog/p3_get_coins/p3_get_coins_con.dart';
@@ -27,6 +29,7 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
   @override
   initView() {
     p1Con.getCoinsEnum=getCoinsEnum;
+    PointHep.instance.point(pointEvent: PointEvent.claim_pop,params: {"pop_scene":getCoinsEnum.name});
   }
 
   @override
@@ -70,24 +73,24 @@ class P3GetCoinsDialog extends P1BaseStatelessDialog<P3GetCoinsCon>{
           ),
         ),
         VideoBtnView(
-          text: "Double",
+          text: "Collect",
           clickCall: (){
             p1Con.clickDou(addNum,dismiss);
           },
         ),
-        SizedBox(height: 8.h,),
-        InkWell(
-          onTap: (){
-            p1Con.clickSingle(addNum,dismiss);
-          },
-          child: P1Text(
-            text: "Collect",
-            size: 14.sp,
-            color: "#FFFFFF",
-            decoration: TextDecoration.underline,
-            decorationColor: Colors.white,
-          ),
-        )
+        // SizedBox(height: 8.h,),
+        // InkWell(
+        //   onTap: (){
+        //     p1Con.clickSingle(addNum,dismiss);
+        //   },
+        //   child: P1Text(
+        //     text: "Collect",
+        //     size: 14.sp,
+        //     color: "#FFFFFF",
+        //     decoration: TextDecoration.underline,
+        //     decorationColor: Colors.white,
+        //   ),
+        // )
       ],
     ),
   );

@@ -385,10 +385,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_ad_ios_plugins
-      sha256: ff53923dd4fb8a126fd4a859f86595e6ae671a2e9f32cd2bd22abcbea482e3eb
+      sha256: "96e5855c968cb39bbd2870bdb775a741e33f1b65be689e5778337c3d0a973050"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.9"
+    version: "0.1.0"
   flutter_android_local_notification:
     dependency: transitive
     description:

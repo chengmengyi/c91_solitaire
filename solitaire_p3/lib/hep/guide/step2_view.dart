@@ -48,7 +48,7 @@ class Step2View extends StatelessWidget{
                     P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                     Container(
                       margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Slide Cards NOW → Cha-Ching in Ears!", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "New user? Tap to claim \$200 now.", size: 14.sp, color: "#000000",showShadows: false,),
                     )
                   ],
                 ),

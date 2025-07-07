@@ -43,6 +43,7 @@ initP1P2()async{
 }
 
 initP3()async{
+  await Firebase.initializeApp();
   P3ValueHep.instance.initValue();
   FirebaseHep.instance.initFirebase();
   PointHep.instance.install();

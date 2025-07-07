@@ -15,6 +15,7 @@ import 'package:solitaire_p3/view/hand_card_remove_view.dart';
 import 'package:solitaire_p3/view/longjuanfeng_lottie_view.dart';
 import 'package:solitaire_p3/view/move_to_hand_card_animator_view.dart';
 import 'package:solitaire_p3/view/set_view.dart';
+import 'package:solitaire_p3/view/timer_3s_finger_widget.dart';
 import 'package:solitaire_p3/view/top_pro_view/top_pro_view.dart';
 import 'package:solitaire_p3/view/wind_animator_view.dart';
 
@@ -47,6 +48,11 @@ class P3Level10Page extends P1BaseStatelessPage<P3Level10Con>{
       WindAnimatorView(),
       HandCardRemoveView(),
       MoveToHandCardAnimatorView(),
+      Timer3sFingerWidget(
+        clickCard: (bean){
+          p1Con.clickCard(bean);
+        },
+      ),
     ],
   );
 

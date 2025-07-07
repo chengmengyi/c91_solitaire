@@ -19,12 +19,16 @@ class P1RouterFun{
     Get.until((route) => route.settings.name==routers);
   }
 
-  static closePage(){
-    Get.back();
+  static closePage({Map<String,dynamic>? result}){
+    Get.back(result: result);
   }
 
-  static toNextPage({required String str,Map<String, dynamic>? p})async{
-    Get.toNamed(str,arguments: p);
+  static toNextPage({required String str,Map<String, dynamic>? p,Function(Map<String, dynamic>)? resultCallback})async{
+    Get.toNamed(str,arguments: p)?.then((value){
+      if(null!=value){
+        resultCallback?.call(value);
+      }
+    });
   }
 
   static toHome({required String str}){

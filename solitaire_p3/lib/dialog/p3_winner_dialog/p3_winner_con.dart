@@ -7,6 +7,7 @@ import 'package:solitaire_p1/p1_hep/point/point_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
 import 'package:solitaire_p1/p1_routers/p1_routers_fun.dart';
 import 'package:solitaire_p3/hep/p3_storage.dart';
+import 'package:solitaire_p3/hep/p3_user_info_hep.dart';
 import 'package:solitaire_p3/hep/p3_value_hep.dart';
 
 class P3WinnerCon extends P1BaseCon{
@@ -24,6 +25,7 @@ class P3WinnerCon extends P1BaseCon{
       adEvent: AdEvent.vvslt_victorypop_int,
       closeAd: (){
         PointHep.instance.point(pointEvent: PointEvent.game_next_c,params: {"level":p3CurrentLevel.getData()});
+        P3UserInfoHep.instance.updateUserCoins(P3UserInfoHep.instance.getOneLevelAddAllCoins());
         P1RouterFun.closePage();
         next.call();
       },
@@ -38,6 +40,7 @@ class P3WinnerCon extends P1BaseCon{
       adEvent: AdEvent.vvslt_victorypop_int,
       closeAd: (){
         PointHep.instance.point(pointEvent: PointEvent.game_home_c,params: {"level":p3CurrentLevel.getData()});
+        P3UserInfoHep.instance.updateUserCoins(P3UserInfoHep.instance.getOneLevelAddAllCoins());
         P1RouterFun.closePage();
         close.call();
       },

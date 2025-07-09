@@ -97,11 +97,11 @@ class P3Play{
       var showLuckyDialog = P3UserInfoHep.instance.updateTopPro(1);
       if(_checkCardNotEmpty()){
         _checkOverlays(refresh);
-        startCountTimer();
         showGetCoinsDialog(
           moneyCardAddNum,
           GetCoinsEnum.cash_card,
           dismiss: (){
+            startCountTimer();
             if(showLuckyDialog){
               P3UserInfoHep.instance.showLuckyDialog();
             }
@@ -112,6 +112,7 @@ class P3Play{
           moneyCardAddNum,
           GetCoinsEnum.cash_card,
           dismiss: (){
+            startCountTimer();
             P3UserInfoHep.instance.updateUserCoins(moneyCardAddNum);
             if(showLuckyDialog){
               P3UserInfoHep.instance.showLuckyDialog(

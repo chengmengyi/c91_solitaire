@@ -52,6 +52,7 @@ class P1AD{
 
   setAdInfo(){
     try{
+      print("flutter ios ad --->setAdInfo");
       FlutterIosAdHep.instance.updateAdData(_getAdData());
     }catch(e){
 
@@ -209,7 +210,7 @@ class P1AD{
   }){
     var adType = FirebaseHep.instance.getOpenAdType();
     PointHep.instance.point(pointEvent: PointEvent.vvslt_ad_chance,params: {"ad_pos_id":adEvent.name,"ad_type":adType.name});
-    var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.reward);
+    var hasCache = FlutterIosAdHep.instance.getCacheResultData(AdType.interstitial);
     if(null==hasCache){
       closeAd.call();
       return;

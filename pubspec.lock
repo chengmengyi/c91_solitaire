@@ -376,10 +376,9 @@ packages:
   flutter_ad_ios_plugins:
     dependency: transitive
     description:
-      name: flutter_ad_ios_plugins
-      sha256: "96e5855c968cb39bbd2870bdb775a741e33f1b65be689e5778337c3d0a973050"
-      url: "https://pub.dev"
-    source: hosted
+      path: "/Users/c91/StudioProjects/flutter_ad_ios_plugins"
+      relative: false
+    source: path
     version: "0.1.0"
   flutter_app_lifecycle:
     dependency: transitive

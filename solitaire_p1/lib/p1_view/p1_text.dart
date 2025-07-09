@@ -12,6 +12,7 @@ class P1Text extends StatelessWidget{
   bool useFontFamily;
   FontWeight? fontWeight;
   TextAlign? textAlign;
+  double? height;
 
   P1Text({
     required this.text,
@@ -24,6 +25,7 @@ class P1Text extends StatelessWidget{
     this.useFontFamily=true,
     this.fontWeight,
     this.textAlign,
+    this.height,
 });
   @override
   Widget build(BuildContext context) => Text(
@@ -36,6 +38,7 @@ class P1Text extends StatelessWidget{
       decoration: decoration,
       decorationColor: decorationColor,
       fontWeight: fontWeight,
+      height: height,
       shadows: showShadows==true?[
         Shadow(
             color: (shadowsColor??"#000000").toColor(),

@@ -45,16 +45,16 @@ class Step3View extends StatelessWidget{
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 138.h,
+                height: 170.h,
                 width: double.infinity,
                 margin: EdgeInsets.only(bottom: 30.h,left: 45.w,right: 45.w),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
+                    P1Image(name: "new_guide_bg",width: double.infinity,height: 170.h,),
                     Container(
                       margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                      child: P1Text(text: "Tap a card one higher or lower than the bottom card — every move gets you closer to your \$200 today.", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Tap a card one higher or lower than the bottom card — every move gets you closer to your \$200 today.", size: 14.sp, color: "#000000",showShadows: false,height: 1.2,),
                     )
                   ],
                 ),

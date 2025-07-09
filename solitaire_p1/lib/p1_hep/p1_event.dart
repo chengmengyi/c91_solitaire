@@ -46,6 +46,7 @@ class P3EventCode{
   static const int clickLuckyItem=121;
   static const int timer3sFinger=122;
   static const int clickHandCardFromTimer3sFinger=123;
+  static const int hideTimer3sFinger=124;
 }
 
 class P1EventBean{

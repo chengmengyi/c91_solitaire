@@ -43,6 +43,7 @@ class P3Play{
   }
 
   hasLongJuanCard({required Function() call}){
+    hideTimer3sFinger();
     for (var value in cardList) {
       for (var value1 in value) {
         if(!value1.covered&&value1.show&&value1.cardNum!="-1"){
@@ -78,6 +79,7 @@ class P3Play{
     if(!canClick||bean.covered||!bean.show||null==currentHandCard){
       return;
     }
+    hideTimer3sFinger();
     endCountTimer();
     if(_checkShowFailDialog()){
       return;
@@ -148,6 +150,10 @@ class P3Play{
     currentHandCard=RandomCardBean(cardNum: bean.cardNum, cardType: bean.cardType);
     currentHandCard?.hasWanNeng=false;
     _clickCardResult(P3ValueHep.instance.getCardAddNum(),refresh);
+  }
+
+  hideTimer3sFinger(){
+    P1EventBean(code: P3EventCode.hideTimer3sFinger,).send();
   }
   
   startCountTimer(){
@@ -234,6 +240,7 @@ class P3Play{
           if(routerName.isEmpty){
             P1EventBean(code: P3EventCode.resetCardFrontStatus).send();
             P1EventBean(code: P3EventCode.resetCardList).send();
+            startCountTimer();
           }else{
             P1RouterFun.toNextPageAndCloseCurrent(str: routerName);
           }

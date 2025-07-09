@@ -63,16 +63,16 @@ class Step6View extends StatelessWidget{
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 138.h,
+                height: 150.h,
                 width: double.infinity,
                 margin: EdgeInsets.only(bottom: 100.h,left: 45.w,right: 45.w),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
+                    P1Image(name: "new_guide_bg",width: double.infinity,height: 150.h,),
                     Container(
                       margin: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 10.h),
-                      child: P1Text(text: "Official with PayPal & Pix.\nWithdraw now — fast, safe, and fee-free!", size: 14.sp, color: "#000000",showShadows: false,),
+                      child: P1Text(text: "Official with PayPal & Pix.\nWithdraw now — fast, safe, and fee-free!", size: 14.sp, color: "#000000",showShadows: false,height: 1.2,),
                     )
                   ],
                 ),

@@ -42,7 +42,7 @@ class FirstNotMatchGuideView extends StatelessWidget{
                       P1Image(name: "new_guide_bg",width: double.infinity,height: 138.h,),
                       Container(
                         margin: EdgeInsets.only(left: 40.w,right: 40.w,bottom: 10.h),
-                        child: P1Text(text: "No playable cards! Tap here to deal a new card!", size: 14.sp, color: "#000000",showShadows: false,),
+                        child: P1Text(text: "No playable cards! Tap here to deal a new card!", size: 14.sp, color: "#000000",showShadows: false,height: 1.2,),
                       )
                     ],
                   ),

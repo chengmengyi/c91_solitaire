@@ -62,6 +62,8 @@ class P3WheelDialog extends P1BaseStatelessDialog<P3WheelCon>{
       children: [
         SizedBox(height: 40.h,),
         P1Text(text: "\$200", size: 30.sp, color: "#0EFF47"),
+        p1Con.getCashMoney()<=0?
+        P1Text(text: "A huge bonus awaits in this spin—claim it !", size: 16.sp, color: "#FFFFFF"):
         RichText(
           text: TextSpan(
             children: [

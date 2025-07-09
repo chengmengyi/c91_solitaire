@@ -28,6 +28,11 @@ class _Timer3sFingerWidgetState extends State<Timer3sFingerWidget>{
         case P3EventCode.timer3sFinger:
           _checkShowFinger(bean);
           break;
+        case P3EventCode.hideTimer3sFinger:
+          setState(() {
+            showFinger=false;
+          });
+          break;
       }
     });
 

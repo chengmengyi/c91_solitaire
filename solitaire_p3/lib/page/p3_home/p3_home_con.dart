@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:solitaire_p1/p1_base/p1_base_con.dart';
 import 'package:solitaire_p1/p1_hep/firebase_hep.dart';
-import 'package:solitaire_p1/p1_hep/local_notification_hep.dart';
+import 'package:solitaire_p1/p1_hep/notification/local_notification_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_app_lifecycle.dart';
 import 'package:solitaire_p1/p1_hep/p1_event.dart';
@@ -35,7 +35,6 @@ class P3HomeCon extends P1BaseCon{
     P1Mp3Hep.instance.playBgMp3();
     PointHep.instance.point(pointEvent: PointEvent.home_page);
     LocalNotificationHep.instance.setLocalNotifications();
-    LocalNotificationHep.instance.checkFromIcon();
     P1AppLifecycleUtils.instance.add();
     SolitaireP1.instance.openC91();
   }

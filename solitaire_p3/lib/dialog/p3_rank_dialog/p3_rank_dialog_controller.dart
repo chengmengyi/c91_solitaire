@@ -74,7 +74,7 @@ class P3RankDialogController extends P1BaseCon{
   clickSkip(){
     P1AD.instance.showAdByBPackage(
       adType: AdType.reward,
-      showAd: kDebugMode?false:true,
+      showAd: true,
       adEvent: AdEvent.vvslt_launch,
       closeAd: ()async{
         var result = await CashTaskHep.instance.updateRankTask(rankTaskBean);
@@ -82,6 +82,7 @@ class P3RankDialogController extends P1BaseCon{
           P1RouterFun.closePage();
         }else{
           rankTaskBean=result;
+          showToast("Your Current rank：${rankTaskBean?.currentPro??1}");
           _initRankList();
         }
       },

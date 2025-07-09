@@ -65,6 +65,7 @@ class P3Play{
     currentHandCard = P2CardHep.instance.getRandomCardByListAndProbability(_getNoCoveredCardNumList(), P3ValueHep.instance.getHandsProbability());
     currentHandsNum--;
     call.call();
+    hideTimer3sFinger();
     startCountTimer();
   }
 

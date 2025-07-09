@@ -64,9 +64,6 @@ class P1AD{
     if(p3AdConfig.getData().isNotEmpty){
       ad=p3AdConfig.getData();
     }
-    if(kDebugMode){
-      ad = adStr.base64();
-    }
     var json = jsonDecode(ad);
     return ConfigAdData(
       maxShowNum: json["wbpryjrf"],

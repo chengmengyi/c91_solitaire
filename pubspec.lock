@@ -17,6 +17,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
+  anythink_sdk:
+    dependency: transitive
+    description:
+      path: "../flutter_topon_ad_plugins/plugins/anythink_sdk-1.0.5"
+      relative: true
+    source: path
+    version: "1.0.5"
   app_tracking_transparency:
     dependency: transitive
     description:
@@ -25,14 +32,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.6+1"
-  applovin_max:
-    dependency: transitive
-    description:
-      name: applovin_max
-      sha256: c1f52747f4f8d36a4476786b1fa05ee1e281ee91f7714a640b2a707345900c46
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.0"
   appsflyer_sdk:
     dependency: transitive
     description:
@@ -349,13 +348,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_ad_ios_plugins:
-    dependency: transitive
-    description:
-      path: "/Users/c91/StudioProjects/flutter_ad_ios_plugins"
-      relative: false
-    source: path
-    version: "0.1.0"
   flutter_app_lifecycle:
     dependency: transitive
     description:
@@ -425,6 +417,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_topon_ad_plugins:
+    dependency: transitive
+    description:
+      path: "/Users/c91/StudioProjects/flutter_topon_ad_plugins"
+      relative: false
+    source: path
+    version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -913,5 +912,5 @@ packages:
     source: hosted
     version: "6.5.0"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.6.0 <4.0.0"
   flutter: ">=3.19.0"

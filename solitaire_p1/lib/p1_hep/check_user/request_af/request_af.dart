@@ -1,7 +1,7 @@
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:solitaire_p1/p1_hep/check_user/flutter_check_af.dart';
 import 'package:solitaire_p1/p1_hep/check_user/request_af/request_af_callback.dart';
+import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 
 StorageData<String> p2AfResult=StorageData<String>(key: "check_af_result_key", defaultValue: "");
 

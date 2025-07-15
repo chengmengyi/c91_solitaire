@@ -1,15 +1,14 @@
 import 'dart:io';
-import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
-import 'package:flutter_ad_ios_plugins/hep/hep.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
+import 'package:flutter_topon_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_topon_ad_plugins/data/ad_revenue_bean.dart';
+import 'package:flutter_topon_ad_plugins/hep/hep.dart';
 import 'package:solitaire_p1/p1_hep/check_user/dio/dio_hep.dart';
 import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 import 'package:solitaire_p1/p1_hep/p1_sql.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_event.dart';
-import 'package:applovin_max/applovin_max.dart';
 import 'package:solitaire_p1/p1_hep/point/tba_sql.dart';
 
 
@@ -97,7 +96,7 @@ class PointHep{
     }
   }
 
-  adPoint({required MaxAd? ad,required AdInfoData? data,required AdEvent adEvent,tryNum=5})async{
+  adPoint({required AdRevenueBean? ad,required AdInfoData? data,required AdEvent adEvent,tryNum=5})async{
     var distinctId = await FlutterTbaInfo.instance.getDistinctId();
     var headerMap = await _headerMap();
     var url = await _url(distinctId);

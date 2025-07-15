@@ -1,8 +1,7 @@
 import 'dart:async';
-
-import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 import 'package:flutter_app_lifecycle/app_state_observer.dart';
 import 'package:flutter_app_lifecycle/flutter_app_lifecycle.dart';
+import 'package:flutter_topon_ad_plugins/flutter_topon_ad_plugins.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/point/ad_event.dart';
 import 'package:solitaire_p1/p1_hep/point/point_hep.dart';
@@ -37,7 +36,7 @@ class P1AppLifecycleUtils{
     PointHep.instance.session();
     _pausedTimer?.cancel();
     Future.delayed(const Duration(milliseconds: 100),(){
-      if(_isBack&&!FlutterIosAdHep.instance.adShowing()){
+      if(_isBack&&!FlutterToponAdPlugins.instance.adShowing()){
         P1AD.instance.showOpenAd(
           adEvent: AdEvent.vvslt_launch,
           closeAd: (){

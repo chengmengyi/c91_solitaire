@@ -1,11 +1,4 @@
-import 'dart:convert';
-
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
-import 'package:flutter_ad_ios_plugins/hep/hep.dart';
-import 'package:solitaire_p1/p1_hep/ad_type_ben.dart';
-import 'package:solitaire_p1/p1_hep/local_info.dart';
 import 'package:solitaire_p1/p1_hep/p1_ad.dart';
 import 'package:solitaire_p1/p1_hep/p1_hep.dart';
 
@@ -42,7 +35,7 @@ class FirebaseHep{
     if(s.isNotEmpty){
       valueCallback?.call(s);
     }
-    var ad = _config?.getString("ad_newset")??"";
+    var ad = _config?.getString("ad_topon")??"";
     if(ad.isNotEmpty){
       p3AdConfig.saveData(ad);
       P1AD.instance.setAdInfo();

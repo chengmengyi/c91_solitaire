@@ -139,8 +139,11 @@ class P1AD{
     var hasCache = FlutterToponAdPlugins.instance.getCacheResultData(adType);
     if(null==hasCache){
       FlutterToponAdPlugins.instance.loadAdWhenNoCache(adType);
-      showToast("Ad loading failed, please try again later");
-      closeAd.call();
+      if(adType==AdType.interstitial){
+        closeAd.call();
+      }else{
+        showToast("Ad loading failed, please try again later");
+      }
       return;
     }
     _startShowAd(adType: adType,adEvent: adEvent, closeAd: closeAd);
